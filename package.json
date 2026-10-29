@@ -1,0 +1,29 @@
+{
+  "name": "mappop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Artful mind mapping with a tiny Markdown sharing API",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22 <25"
+  },
+  "scripts": {
+    "setup": "npm ci --prefix web --no-audit --no-fund && npm ci --prefix simple-mind-map --no-audit --no-fund",
+    "build": "node scripts/build.cjs",
+    "dev": "wrangler dev --port 8787",
+    "test": "npm run test:api",
+    "test:api": "node --test tests/api*.test.mjs",
+    "test:e2e": "playwright test",
+    "db:local": "wrangler d1 migrations apply mappop-maps --local",
+    "db:remote": "wrangler d1 migrations apply mappop-maps --remote",
+    "deploy": "npm run build && wrangler deploy",
+    "types": "wrangler types"
+  },
+  "dependencies": {
+    "mdast-util-from-markdown": "1.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "wrangler": "4.155.0"
+  }
+}

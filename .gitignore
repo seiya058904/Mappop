@@ -4,3 +4,14 @@ dist_electron
 simple-mind-map/dist
 simple-mind-map/types
 utools/dist
+.output/
+.wrangler/
+.dev.vars
+.dev.vars.*
+.env
+.env.*
+!.env.example
+test-results/
+playwright-report/
+worker-configuration.d.ts
+*.log
