@@ -1,0 +1,45 @@
+Mappop
+======
+
+Mappop is an independent derivative of Simple mind map, maintained upstream at:
+https://github.com/wanglin2/mind-map
+
+Upstream baseline: e8e5ef9c41bc13ca7b13084e078123adff002242
+Upstream copyright: Copyright (c) 2021-2023 The MindMap Team
+Upstream license: MIT. The original full license is retained in LICENSE.
+
+The Git history preserves upstream authorship. Mappop adds its own branding,
+English first-run experience, original visual themes and textures, map API,
+deployment configuration, tests, and documentation. Mappop is not an official
+release of the upstream project and does not imply upstream endorsement.
+
+Theme extension dependency
+--------------------------
+simple-mind-map-plugin-themes 1.0.0 is a separately distributed npm package.
+Its distributed package.json declares license "ISC". The inspected 1.0.0
+package includes no separate LICENSE file and has an empty author field.
+This notice records that metadata without inventing a copyright holder.
+Source package: https://www.npmjs.com/package/simple-mind-map-plugin-themes
+
+Fonts and other dependencies
+----------------------------
+Locally bundled theme fonts retain their accompanying license notices under
+web/public/mappop/fonts/:
+- Silkscreen, Zen Maru Gothic, Bangers, Zen Old Mincho, Caveat, Rajdhani,
+  and Noto Sans SC:
+  SIL Open Font License 1.1, each with its original *-OFL.txt notice.
+- Permanent Marker: Apache License 2.0, permanentmarker-LICENSE.txt.
+See web/public/mappop/ASSETS.md for official source links and font usage.
+SHA256SUMS.txt records hashes of the redistributed files.
+Third-party libraries retain their respective licenses; the repository MIT
+license does not replace dependency licenses.
+
+Artwork and closed products
+---------------------------
+The Mappop wordmark, favicon, README banner, and Mappop theme textures are
+original assets created for this project and are distributed under the
+repository MIT license. They do not reproduce upstream desktop-client art.
+Upstream separately distributes closed-source desktop clients and plugins.
+Those products are not part of Mappop and are not granted an MIT license by
+this repository. Commercial product screenshots and promotional materials
+are not used as Mappop theme or interface assets.

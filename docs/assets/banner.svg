@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-labelledby="title desc">
+  <title id="title">Mappop</title>
+  <desc id="desc">Make room for ideas. A colorful branching mind map on a warm paper background.</desc>
+  <rect width="1280" height="360" rx="18" fill="#fcf7ef"/>
+  <g fill="none" stroke="#382735" stroke-width="4" stroke-linecap="round">
+    <path d="M805 180h65q40 0 40-40V88h72"/>
+    <path d="M805 180h102q30 0 30 30v65h55"/>
+    <path d="M805 180h240"/>
+  </g>
+  <rect x="710" y="146" width="135" height="68" rx="16" fill="#f4a7c5" stroke="#382735" stroke-width="3"/>
+  <rect x="980" y="56" width="178" height="64" rx="14" fill="#f7df8a" stroke="#382735" stroke-width="3"/>
+  <rect x="1042" y="151" width="146" height="58" rx="14" fill="#a7d4c8" stroke="#382735" stroke-width="3"/>
+  <rect x="990" y="245" width="154" height="60" rx="14" fill="#c4b6e1" stroke="#382735" stroke-width="3"/>
+  <g fill="#382735" font-family="Trebuchet MS, sans-serif" font-weight="700">
+    <text x="76" y="171" font-size="80" letter-spacing="-3">Mappop</text>
+    <text x="78" y="224" font-size="27" font-weight="400">Make room for ideas.</text>
+    <text x="777" y="189" font-size="22" text-anchor="middle">An idea</text>
+    <text x="1069" y="96" font-size="20" text-anchor="middle">A possibility</text>
+    <text x="1115" y="188" font-size="20" text-anchor="middle">A connection</text>
+    <text x="1067" y="283" font-size="20" text-anchor="middle">A next step</text>
+  </g>
+</svg>

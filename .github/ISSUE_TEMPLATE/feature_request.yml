@@ -1,0 +1,16 @@
+name: Feature request
+description: Suggest a focused improvement to Mappop.
+title: "[Feature] "
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What are you trying to do?
+      description: Describe the task and what currently gets in the way.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Suggested improvement
+      description: Include alternatives or a small example when useful.

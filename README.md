@@ -1,86 +1,99 @@
-<h1 align="center">Simple mind map</h1>
+<p align="center"><img src="docs/assets/banner.svg" alt="Mappop — Make room for ideas" width="100%" /></p>
 
-[![npm-version](https://img.shields.io/npm/v/simple-mind-map)](https://www.npmjs.com/package/simple-mind-map)
-![npm download](https://img.shields.io/npm/dm/simple-mind-map)
-[![GitHub issues](https://img.shields.io/github/issues/wanglin2/mind-map)](https://github.com/wanglin2/mind-map/issues)
-![license](https://img.shields.io/npm/l/express.svg)
-[![GitHub stars](https://img.shields.io/github/stars/wanglin2/mind-map)](https://github.com/wanglin2/mind-map/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/wanglin2/mind-map)](https://github.com/wanglin2/mind-map/network/members)
+<p align="center">An open-source canvas for ideas, with expressive visual themes and a practical map API.</p>
 
-[English](./README_EN.md) | 中文
+<p align="center"><strong><a href="https://mappop.seiya-api.workers.dev">Open Mappop →</a></strong> · <a href="#run-locally">Run locally</a> · <a href="docs/API.md">API guide</a> · <a href="docs/UPSTREAM.md">Upstream & licenses</a> · <a href="https://github.com/seiya058904/Mappop/issues">Feedback</a></p>
 
-> 中文名：思绪思维导图。一个简单&强大的 Web 思维导图库和思维导图软件。
+Mappop brings a fresh visual identity to the open-source [Simple mind map](https://github.com/wanglin2/mind-map) editor. Start with an idea, grow it into branches, and give it a visual world of its own. The familiar editing engine stays at the center: rich text, notes, links, images, outlines, layout choices, undo/redo, and import/export.
 
-本项目包含两部分：开源的JavaScript库和闭源的客户端软件。
+## A canvas with character
 
-# 库、Web
+Eight original theme families change more than a color swatch. Typography, node shapes, line treatment, spacing, and lightweight backgrounds work together.
 
-> 即本仓库中的代码，目前已进入低维护状态。
+<p align="center"><a href="docs/assets/styles/theme-selector.png"><img src="docs/assets/styles/theme-selector.png" alt="The Mappop Styles selector beside a real mind map" width="720" /></a></p>
 
-- 一个 `js` 思维导图库，不依赖任何框架，可以用来快速完成 Web 思维导图产品的开发。
+| Theme | Character |
+| --- | --- |
+| [Pixel Arcade](docs/assets/styles/pixel-arcade.png) | Stepped panels and 8-bit Silkscreen lettering |
+| [Anime Pop](docs/assets/styles/anime-pop.png) | Sakura badges, manga halftone, and rounded Zen Maru type |
+| [Toon Motion](docs/assets/styles/toon-motion.png) | Speech balloons and bold Bangers lettering |
+| [Zen Japan](docs/assets/styles/zen-japan.png) | Washi paper, vermilion seals, and Zen Old Mincho |
+| [Ink Wash](docs/assets/styles/ink-wash.png) | Ink contours and a light rice-paper surface |
+| [Sketchbook](docs/assets/styles/sketchbook.png) | Pencil contours, notebook rules, and Caveat handwriting |
+| [Marker Notes](docs/assets/styles/marker-notes.png) | Taped notes and Permanent Marker lettering |
+| [Cyber Neon](docs/assets/styles/cyber-neon.png) | Circuit corners, luminous connections, and Rajdhani type |
 
->  开发文档：[https://wanglin2.github.io/mind-map-docs/](https://wanglin2.github.io/mind-map-docs/)
+The editor also retains the upstream open-source theme collection. Mappop includes no in-app LLM, API-key setup, or commercial desktop-client promotion. Use an external script or agent with the map API when you need automation.
 
-- 一个 Web 思维导图，基于思维导图库、`Vue2.x`、`ElementUI` 开发，支持操作电脑本地文件，可以当做一个在线版思维导图应用使用，也可以自部署和二次开发。
+![Mappop editor on desktop](docs/assets/editor-desktop.png)
 
-> 在线地址：[https://web.sxmind.cn/](https://web.sxmind.cn/)
+<details>
+<summary>Mobile view</summary>
 
-了解更多信息：[README](./README_MORE_ZH.md)。
+<img src="docs/assets/editor-mobile.png" alt="Mappop on a narrow mobile screen" width="320" />
 
-# 客户端、插件
+</details>
 
-> 客户端和插件代码不开源，正在积极开发维护中。
+## Start making a map
 
-产品官网：[https://sxmind.cn/](https://sxmind.cn/)
+- Double-click a node to edit. Press **Tab** for a child or **Enter** for a sibling.
+- On a phone, the starter map opens as a compact vertical map. Tap a branch's numbered control to expand its ideas.
+- Open **Themes** to change the visual style, or **Structure** to change the layout.
+- Import a supported document, or export an editable `.smm` / JSON copy. The editor also exports PNG, SVG, PDF, XMind, Markdown, and TXT.
+- The editor keeps its current draft in browser storage. Export copies for backup; browser storage is not a durable archive. Direct folder/file editing depends on browser support and HTTPS.
 
-## 思绪思维导图客户端
+## Map API
 
-本地化存储，隐私优先，数据安全，软件无需联网即可使用！
+Create a map from structured Markdown, then open the returned URL in the editor. The API has no model-provider dependency.
 
-- [x] 1.支持创建无限数量的文件、节点（自由节点）；支持创建使用模板；
-- [x] 2.提供丰富的设置：基础设置、自定义字体/快捷键/右键菜单/图标、图床配置、AI配置、webdav云同步配置等等，可玩性很高；
-- [x] 3.支持思维导图、逻辑结构图、目录组织图、组织结构图、时间轴、鱼骨图、表格等多种结构类型；
-- [x] 4.内置上百个丰富好看的主题，也支持自定义主题及AI生成主题；
-- [x] 5.节点支持添加文本、图片、链接、图标、备注、附件、标签、概要节点、关联线、外框、标记、待办、描述、编号、数学公式等丰富内容；
-- [x] 6.支持导入XMind、FreeMind、Markdown、Txt、Xlsx等格式文件；支持导出为PNG、XMind、SVG、PDF、Markdown、Txt、Xlsx、FreeMind、Mermaid、Html等格式；
-- [x] 7.丰富的样式设置：文字、边框、背景、形状、线条、内外边距、图片标签布局等等；
-- [x] 8.支持历史版本管理、演示模式、AI生成、手绘风格、大纲编辑、水印、滚动条、同级节点对齐、小地图、进入指定节点、彩虹线条、节点双向链接、搜索替换等等实用有趣的功能；
+```sh
+curl -X POST https://mappop.seiya-api.workers.dev/api/maps \
+  -H "Authorization: Bearer $MAPPOP_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  --data '{"markdown":"# A weekend idea\n## Explore\n- Visit the market\n- Take the scenic route\n## Make\n- Cook something new"}'
+```
 
-支持Windows、Mac及Linux系统；支持中文简体、繁體中文、English、Tiếng Việt、Русский、日本語、한국어、Deutsch、Français、Português语言。
+A successful request returns `201` with `id`, `title`, `nodeCount`, `createdAt`, `url` (the editor link), and `markdownUrl`. Creation requires the deployment owner's write token; self-host to use your own. Keep it in your external script or server environment. **Anyone with a generated link can read the map.** Links do not expire; editor changes stay in the browser and do not overwrite the stored original.
 
-下载地址：[Github](https://github.com/wanglin2/mind-map/releases)、[百度网盘](https://pan.baidu.com/s/1C8phEJ5pagAAa-o1tU42Uw?pwd=jqfb)、[夸克网盘](https://pan.quark.cn/s/2733982f1976)、[微软应用商店](https://apps.microsoft.com/detail/9p58vg94khcq?hl=zh-CN&gl=CN)
+The API accepts one top-level heading and structured child headings/lists, with up to 500 nodes and 12 levels. See the [API guide](docs/API.md) for the exact grammar, body limits, rate limits, and storage behavior.
 
-> 如果在macOS上安装后无法打开，报错**不受信任**或者**移到垃圾箱**，执行下面命令后再启动即可：
-> ``` shell
-> sudo xattr -d com.apple.quarantine /Applications/思绪思维导图.app
-> ```
+## Run locally
 
-![](./assets/client/client1.png)
+Use Node.js 22 or 24 and npm. From the repository root:
 
-![](./assets/client/client2.png)
+```sh
+npm ci
+npm run setup
+npm run build
+npm run db:local
+npm run dev
+```
 
-![](./assets/client/client3.png)
+Open [localhost:8787](http://localhost:8787). The build writes the static editor to `.output/public`; the development Worker serves the editor and API together. See the [API guide](docs/API.md) for local token setup. The inherited Vue 2 / webpack 4 toolchain uses an OpenSSL compatibility option scoped to the build process.
 
-![](./assets/client/client4.png)
+```sh
+npm test            # API checks
+npx playwright install chromium
+npm run test:e2e    # browser checks
+```
 
-![](./assets/client/client5.png)
+See [release verification](docs/QA.md) for the tested workflows and practical limits.
 
-![](./assets/client/client6.png)
+## Deploy
 
-## Obsidian插件
+Mappop targets Cloudflare Workers with static assets and D1 map storage. Build first, configure the bindings and write token, then deploy through the project workflow. See [deployment instructions](docs/DEPLOYMENT.md). Deployment requires your own Cloudflare account; the editor itself needs no model-provider credentials.
 
-下载地址：[Github](https://github.com/wanglin2/obsidian-simplemindmap/releases)
+## Project layout
 
-![](./assets/ob/ob1.png)
+```text
+web/                  Vue editor and Mappop theme assets
+simple-mind-map/       Upstream JavaScript editing engine
+docs/                 API, deployment, provenance, and screenshots
+.github/              CI and contribution templates
+```
 
-![](./assets/ob/ob2.png)
+## Built on open source
 
-![](./assets/ob/ob3.png)
+Mappop is an independent derivative of [wanglin2/mind-map](https://github.com/wanglin2/mind-map), based on commit [`e8e5ef9`](https://github.com/wanglin2/mind-map/commit/e8e5ef9c41bc13ca7b13084e078123adff002242), with upstream Git history retained. The original [MIT license](LICENSE) and copyright notice are preserved. The separately installed `simple-mind-map-plugin-themes@1.0.0` declares ISC; bundled fonts retain their own license files.
 
-![](./assets/ob/ob4.png)
-
-![](./assets/ob/ob5.png)
-
-## UTools插件
-
-已上架[uTools](https://www.u.tools/)插件应用市场，可直接在`uTools`插件应用市场中搜索`思绪`进行安装，也可以直接访问该地址：[主页](https://www.u-tools.cn/plugins/detail/%E6%80%9D%E7%BB%AA%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/)，点击右侧的【启动】按钮进行安装。
+See [NOTICE](NOTICE), [UPSTREAM](docs/UPSTREAM.md), and [asset provenance](web/public/mappop/ASSETS.md) for attribution and the boundary between the open-source editor and upstream's separately distributed closed-source products. Mappop's brand graphics and theme textures are original work for this project. Some SVG viewers substitute fonts or omit filters; use PNG or PDF when you need a fixed appearance.
