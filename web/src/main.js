@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
+import elementEn from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/icon-font/iconfont.css'
 import 'viewerjs/dist/viewer.css'
@@ -15,7 +16,7 @@ import { getLang } from '@/api'
 Vue.config.productionTip = false
 const bus = new Vue()
 Vue.prototype.$bus = bus
-Vue.use(ElementUI)
+Vue.use(ElementUI, { locale: elementEn })
 Vue.use(VueViewer)
 
 const initApp = () => {

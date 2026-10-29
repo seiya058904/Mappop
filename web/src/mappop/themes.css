@@ -1,0 +1,29 @@
+/* Canvas effects are authored in SVG so they survive image exports.
+   UI animation is deliberately limited to a focus/hover transition. */
+[data-mappop-art] ::selection {
+  background: #b7d8ca;
+  color: #213b32;
+}
+[data-mappop-art="pixel-arcade"] .smm-node-shape {
+  shape-rendering: crispEdges;
+}
+[data-mappop-art="cyber-neon"] {
+  caret-color: #aaf6df;
+}
+/* A small elastic reply from the comic ink, never from the editable node.
+   Exports keep its resting pose; coordinates and hit targets do not move. */
+[data-mappop-art="toon-motion"] [data-mappop-decoration] {
+  transition: transform 240ms cubic-bezier(0.2, 1.6, 0.4, 1);
+}
+[data-mappop-art="toon-motion"] .smm-node:hover [data-mappop-decoration] {
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .themeGroupList .themeItem {
+    transition: none !important;
+  }
+  [data-mappop-art="toon-motion"] [data-mappop-decoration] {
+    transition: none;
+    transform: none !important;
+  }
+}

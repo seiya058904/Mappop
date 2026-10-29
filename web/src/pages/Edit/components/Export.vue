@@ -61,7 +61,7 @@
             </div>
             <div class="contentRow">
               <div class="contentName">{{ $t('export.options') }}</div>
-              <div class="contentValue info" v-if="noOptions">无</div>
+              <div class="contentValue info" v-if="noOptions">{{ $t('style.none') }}</div>
               <div class="contentValue" v-else>
                 <div
                   class="valueItem"
@@ -148,10 +148,8 @@
 import { mapState, mapMutations } from 'vuex'
 import { downTypeList } from '@/config'
 import { isMobile } from 'simple-mind-map/src/utils/index'
-import MarkdownIt from 'markdown-it'
 
 // 导出
-let md = null
 export default {
   data() {
     return {

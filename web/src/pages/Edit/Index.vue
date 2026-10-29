@@ -5,6 +5,7 @@
   >
     <template v-if="show">
       <Toolbar v-if="!isZenMode"></Toolbar>
+      <Import></Import>
       <Edit></Edit>
     </template>
   </div>
@@ -13,12 +14,14 @@
 <script>
 import Toolbar from './components/Toolbar.vue'
 import Edit from './components/Edit.vue'
+import Import from './components/Import.vue'
 import { mapState, mapMutations } from 'vuex'
 import { getLocalConfig } from '@/api'
 
 export default {
   components: {
     Toolbar,
+    Import,
     Edit
   },
   data() {

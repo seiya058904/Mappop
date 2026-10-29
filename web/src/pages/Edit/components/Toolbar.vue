@@ -1,6 +1,15 @@
 <template>
   <div class="toolbarContainer" :class="{ isDark: isDark }">
     <div class="toolbar" ref="toolbarRef">
+      <div class="brand" aria-label="Mappop">
+        <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+          <path d="M8 16h8m0 0V8h8m-8 8v8h8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+          <rect x="2" y="11" width="10" height="10" rx="3" fill="currentColor" />
+          <circle cx="25" cy="8" r="4" fill="currentColor" />
+          <circle cx="25" cy="24" r="4" fill="currentColor" />
+        </svg>
+        <span>Mappop</span>
+      </div>
       <!-- 节点操作 -->
       <div class="toolbarBlock">
         <ToolbarNodeBtnList :list="horizontalList"></ToolbarNodeBtnList>
@@ -8,8 +17,8 @@
         <el-popover
           v-model="popoverShow"
           placement="bottom-end"
-          width="120"
-          trigger="hover"
+          width="180"
+          trigger="click"
           v-if="showMoreBtn"
           :style="{ marginLeft: horizontalList.length > 0 ? '20px' : 0 }"
         >
@@ -18,15 +27,15 @@
             :list="verticalList"
             @click.native="popoverShow = false"
           ></ToolbarNodeBtnList>
-          <div slot="reference" class="toolbarBtn">
-            <span class="icon iconfont icongongshi"></span>
+          <button slot="reference" class="toolbarBtn" type="button" :aria-label="$t('toolbar.more')" :aria-expanded="String(popoverShow)">
+            <span class="icon el-icon-more" aria-hidden="true"></span>
             <span class="text">{{ $t('toolbar.more') }}</span>
-          </div>
+          </button>
         </el-popover>
       </div>
       <!-- 导出 -->
       <div class="toolbarBlock">
-        <div class="toolbarBtn" @click="openDirectory" v-if="!isMobile">
+        <div class="toolbarBtn" @click="openDirectory" v-if="!isMobile && !isNarrow">
           <span class="icon iconfont icondakai"></span>
           <span class="text">{{ $t('toolbar.directory') }}</span>
         </div>
@@ -34,7 +43,7 @@
           effect="dark"
           :content="$t('toolbar.newFileTip')"
           placement="bottom"
-          v-if="!isMobile"
+          v-if="!isMobile && !isNarrow"
         >
           <div class="toolbarBtn" @click="createNewLocalFile">
             <span class="icon iconfont iconxinjian"></span>
@@ -45,14 +54,14 @@
           effect="dark"
           :content="$t('toolbar.openFileTip')"
           placement="bottom"
-          v-if="!isMobile"
+          v-if="!isMobile && !isNarrow"
         >
           <div class="toolbarBtn" @click="openLocalFile">
             <span class="icon iconfont iconwenjian1"></span>
             <span class="text">{{ $t('toolbar.openFile') }}</span>
           </div>
         </el-tooltip>
-        <div class="toolbarBtn" @click="saveLocalFile" v-if="!isMobile">
+        <div class="toolbarBtn" @click="saveLocalFile" v-if="!isMobile && !isNarrow">
           <span class="icon iconfont iconlingcunwei"></span>
           <span class="text">{{ $t('toolbar.saveAs') }}</span>
         </div>
@@ -116,14 +125,14 @@
                     size="mini"
                     v-if="data.enableEdit"
                     @click="editLocalFile(data)"
-                    >编辑</el-button
+                    >{{ $t('navigatorToolbar.edit') }}</el-button
                   >
                   <el-button
                     type="text"
                     size="mini"
                     v-else
                     @click="importLocalFile(data)"
-                    >导入</el-button
+                    >{{ $t('toolbar.import') }}</el-button
                   >
                 </div>
               </span>
@@ -138,7 +147,6 @@
     <NodeNote></NodeNote>
     <NodeTag></NodeTag>
     <Export></Export>
-    <Import ref="ImportRef"></Import>
   </div>
 </template>
 
@@ -149,10 +157,9 @@ import NodeIcon from './NodeIcon.vue'
 import NodeNote from './NodeNote.vue'
 import NodeTag from './NodeTag.vue'
 import Export from './Export.vue'
-import Import from './Import.vue'
 import { mapState } from 'vuex'
 import { Notification } from 'element-ui'
-import exampleData from 'simple-mind-map/example/exampleData'
+import exampleData from '@/config/welcome'
 import { getData } from '../../../api'
 import ToolbarNodeBtnList from './ToolbarNodeBtnList.vue'
 import { throttle, isMobile } from 'simple-mind-map/src/utils/index'
@@ -176,8 +183,7 @@ const defaultBtnList = [
   'formula',
   // 'attachment',
   'outerFrame',
-  'annotation',
-  'ai'
+  'annotation'
 ]
 
 export default {
@@ -188,12 +194,12 @@ export default {
     NodeNote,
     NodeTag,
     Export,
-    Import,
     ToolbarNodeBtnList
   },
   data() {
     return {
       isMobile: isMobile(),
+      isNarrow: window.innerWidth <= 700,
       horizontalList: [],
       verticalList: [],
       showMoreBtn: true,
@@ -213,8 +219,7 @@ export default {
     ...mapState({
       isDark: state => state.localConfig.isDark,
       isHandleLocalFile: state => state.isHandleLocalFile,
-      openNodeRichText: state => state.localConfig.openNodeRichText,
-      enableAi: state => state.localConfig.enableAi
+      openNodeRichText: state => state.localConfig.openNodeRichText
     }),
 
     btnLit() {
@@ -222,11 +227,6 @@ export default {
       if (!this.openNodeRichText) {
         res = res.filter(item => {
           return item !== 'formula'
-        })
-      }
-      if (!this.enableAi) {
-        res = res.filter(item => {
-          return item !== 'ai'
         })
       }
       return res
@@ -267,6 +267,7 @@ export default {
     // 计算工具按钮如何显示
     computeToolbarShow() {
       if (!this.$refs.toolbarRef) return
+      this.isNarrow = window.innerWidth <= 700
       const windowWidth = window.innerWidth - 40
       const all = [...this.btnLit]
       let index = 1
@@ -275,7 +276,7 @@ export default {
         this.horizontalList = all.slice(0, index)
         this.$nextTick(() => {
           const width = this.$refs.toolbarRef.getBoundingClientRect().width
-          if (width < windowWidth) {
+          if (width <= windowWidth) {
             index++
             loopCheck()
           } else if (index > 0 && width > windowWidth) {
@@ -305,7 +306,7 @@ export default {
 
     onUnload(e) {
       if (this.waitingWriteToLocalFile) {
-        const msg = '存在未保存的数据'
+        const msg = 'You have unsaved changes.'
         e.returnValue = msg
         return msg
       }
@@ -377,11 +378,7 @@ export default {
     async importLocalFile(data) {
       try {
         const file = await data.handle.getFile()
-        this.$refs.ImportRef.onChange({
-          raw: file,
-          name: file.name
-        })
-        this.$refs.ImportRef.confirm()
+        this.$bus.$emit('importFile', file)
       } catch (error) {
         console.log(error)
       }
@@ -608,19 +605,34 @@ export default {
     width: max-content;
     display: flex;
     font-size: 12px;
-    font-family: PingFangSC-Regular, PingFang SC;
+    font-family: inherit;
     font-weight: 400;
     color: rgba(26, 26, 26, 0.8);
     z-index: 2;
 
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 15px;
+      margin-right: 12px;
+      color: #382735;
+      background: #fff;
+      border-radius: 6px;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+
     .toolbarBlock {
       display: flex;
       background-color: #fff;
-      padding: 10px 20px;
+      padding: 10px 14px;
       border-radius: 6px;
       box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
       border: 1px solid rgba(0, 0, 0, 0.06);
-      margin-right: 20px;
+      margin-right: 12px;
       flex-shrink: 0;
       position: relative;
 
@@ -716,11 +728,22 @@ export default {
     }
 
     .toolbarBtn {
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      align-items: center;
+      min-width: 28px;
       display: flex;
       justify-content: center;
       flex-direction: column;
       cursor: pointer;
-      margin-right: 20px;
+      margin-right: 14px;
+
+      &:focus-visible {
+        outline: 2px solid #805270;
+        outline-offset: 4px;
+      }
 
       &:last-of-type {
         margin-right: 0;
@@ -763,5 +786,34 @@ export default {
       }
     }
   }
+}
+
+@media (max-width: 700px) {
+  .toolbarContainer .toolbar {
+    top: 12px;
+
+    .brand {
+      padding: 0 8px;
+      margin-right: 8px;
+      font-size: 15px;
+      svg { display: none; }
+    }
+
+    .toolbarBlock {
+      padding: 8px;
+      margin-right: 8px;
+    }
+
+    .toolbarBtn {
+      min-width: 36px;
+      min-height: 44px;
+      margin-right: 8px;
+    }
+  }
+}
+
+.toolbarContainer.isDark .toolbar .brand {
+  background: #262a2e;
+  color: #f4edf2;
 }
 </style>

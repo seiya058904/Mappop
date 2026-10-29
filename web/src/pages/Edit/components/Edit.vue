@@ -50,8 +50,6 @@
       :mindMap="mindMap"
     ></NodeImgPlacementToolbar>
     <NodeNoteSidebar v-if="mindMap" :mindMap="mindMap"></NodeNoteSidebar>
-    <AiCreate v-if="mindMap && enableAi" :mindMap="mindMap"></AiCreate>
-    <AiChat v-if="enableAi"></AiChat>
     <div
       class="dragMask"
       v-if="showDragMask"
@@ -114,9 +112,7 @@ import NodeIconToolbar from './NodeIconToolbar.vue'
 import OutlineEdit from './OutlineEdit.vue'
 import { showLoading, hideLoading } from '@/utils/loading'
 import handleClipboardText from '@/utils/handleClipboardText'
-import { getParentWithClass } from '@/utils'
 import Scrollbar from './Scrollbar.vue'
-import exampleData from 'simple-mind-map/example/exampleData'
 import FormulaSidebar from './FormulaSidebar.vue'
 import NodeOuterFrame from './NodeOuterFrame.vue'
 import NodeTagStyle from './NodeTagStyle.vue'
@@ -124,8 +120,7 @@ import Setting from './Setting.vue'
 import AssociativeLineStyle from './AssociativeLineStyle.vue'
 import NodeImgPlacementToolbar from './NodeImgPlacementToolbar.vue'
 import NodeNoteSidebar from './NodeNoteSidebar.vue'
-import AiCreate from './AiCreate.vue'
-import AiChat from './AiChat.vue'
+import { registerArtThemes, attachArtThemeRuntime, prepareArtTheme } from '@/mappop/themes'
 
 // 注册插件
 MindMap.usePlugin(MiniMap)
@@ -151,9 +146,10 @@ MindMap.usePlugin(MiniMap)
 
 // 注册主题
 Themes.init(MindMap)
+registerArtThemes(MindMap)
 // 扩展主题列表
-if (typeof MoreThemes !== 'undefined') {
-  MoreThemes.init(MindMap)
+if (window.MoreThemes) {
+  window.MoreThemes.init(MindMap)
 }
 
 export default {
@@ -183,9 +179,7 @@ export default {
     Setting,
     AssociativeLineStyle,
     NodeImgPlacementToolbar,
-    NodeNoteSidebar,
-    AiCreate,
-    AiChat
+    NodeNoteSidebar
   },
   data() {
     return {
@@ -195,7 +189,8 @@ export default {
       mindMapConfig: {},
       prevImg: '',
       storeConfigTimer: null,
-      showDragMask: false
+      showDragMask: false,
+      editorStarted: false
     }
   },
   computed: {
@@ -207,8 +202,7 @@ export default {
       useLeftKeySelectionRightKeyDrag: state =>
         state.localConfig.useLeftKeySelectionRightKeyDrag,
       extraTextOnExport: state => state.extraTextOnExport,
-      isDragOutlineTreeNode: state => state.isDragOutlineTreeNode,
-      enableAi: state => state.localConfig.enableAi
+      isDragOutlineTreeNode: state => state.isDragOutlineTreeNode
     })
   },
   watch: {
@@ -227,9 +221,12 @@ export default {
       }
     }
   },
-  mounted() {
+  async mounted() {
     showLoading()
     this.getData()
+    // Load only the active local font before the first layout measurement.
+    await prepareArtTheme(this.mindMapData.theme.template)
+    if (this._isDestroyed) return
     this.init()
     this.$bus.$on('execCommand', this.execCommand)
     this.$bus.$on('paddingChange', this.onPaddingChange)
@@ -243,8 +240,6 @@ export default {
     this.$bus.$on('showLoading', this.handleShowLoading)
     this.$bus.$on('localStorageExceeded', this.onLocalStorageExceeded)
     window.addEventListener('resize', this.handleResize)
-    this.$bus.$on('showDownloadTip', this.showDownloadTip)
-    this.webTip()
   },
   beforeDestroy() {
     this.$bus.$off('execCommand', this.execCommand)
@@ -259,8 +254,9 @@ export default {
     this.$bus.$off('showLoading', this.handleShowLoading)
     this.$bus.$off('localStorageExceeded', this.onLocalStorageExceeded)
     window.removeEventListener('resize', this.handleResize)
-    this.$bus.$off('showDownloadTip', this.showDownloadTip)
-    this.mindMap.destroy()
+    if (this.disposeArtThemeRuntime) this.disposeArtThemeRuntime()
+    if (this.mindMap) this.mindMap.destroy()
+    delete Vue.prototype.getCurrentData
   },
   methods: {
     onLocalStorageExceeded() {
@@ -304,6 +300,10 @@ export default {
         this.enableShowLoading = false
         hideLoading()
       }
+      if (!this.editorStarted) {
+        this.editorStarted = true
+        this.$nextTick(() => this.$bus.$emit('mappop_editor_ready'))
+      }
     },
 
     // 获取思维导图数据，实际应该调接口获取
@@ -334,25 +334,20 @@ export default {
 
     // 初始化
     init() {
-      let hasFileURL = this.hasFileURL()
       let { root, layout, theme, view } = this.mindMapData
       const config = this.mindMapConfig
-      // 如果url中存在要打开的文件，那么思维导图数据、主题、布局都使用默认的
-      if (hasFileURL) {
-        root = {
-          data: {
-            text: this.$t('edit.root')
-          },
-          children: []
-        }
-        layout = exampleData.layout
-        theme = exampleData.theme
-        view = null
-      }
       this.mindMap = new MindMap({
         el: this.$refs.mindMapContainer,
         data: root,
-        fit: false,
+        fit: !view,
+        fitPadding: window.innerWidth < 640 ? 70 : 100,
+        ...(this.$i18n.locale === 'en' ? {
+          defaultInsertSecondLevelNodeText: 'New branch',
+          defaultInsertBelowSecondLevelNodeText: 'New idea',
+          defaultGeneralizationText: 'Summary',
+          defaultAssociativeLineText: 'Connection',
+          defaultOuterFrameText: 'Group'
+        } : {}),
         layout: layout,
         theme: theme.template,
         themeConfig: theme.config,
@@ -426,7 +421,7 @@ export default {
         expandBtnNumHandler: num => {
           return num >= 100 ? '…' : num
         },
-        beforeDeleteNodeImg: node => {
+        beforeDeleteNodeImg: () => {
           return new Promise(resolve => {
             this.$confirm(
               this.$t('edit.deleteNodeImgTip'),
@@ -446,6 +441,7 @@ export default {
           })
         }
       })
+      this.disposeArtThemeRuntime = attachArtThemeRuntime(this.mindMap, { initialFontReady: true })
       this.loadPlugins()
       this.mindMap.keyCommand.addShortcut('Control+s', () => {
         this.manualSave()
@@ -488,10 +484,6 @@ export default {
       if (window.takeOverApp) {
         this.$bus.$emit('app_inited', this.mindMap)
       }
-      // 解析url中的文件
-      if (hasFileURL) {
-        this.$bus.$emit('handle_file_url')
-      }
       // api/index.js文件使用
       // 当正在编辑本地文件时通过该方法获取最新数据
       Vue.prototype.getCurrentData = () => {
@@ -508,16 +500,14 @@ export default {
       if (this.isShowScrollbar) this.addScrollbarPlugin()
     },
 
-    // url中是否存在要打开的文件
-    hasFileURL() {
-      const fileURL = this.$route.query.fileURL
-      if (!fileURL) return false
-      return /\.(smm|json|xmind|md|xlsx)$/.test(fileURL)
-    },
-
     // 动态设置思维导图数据
     setData(data) {
       this.handleShowLoading()
+      const fitImportedMap = () => {
+        this.mindMap.off('node_tree_render_end', fitImportedMap)
+        this.mindMap.view.fit()
+      }
+      this.mindMap.on('node_tree_render_end', fitImportedMap)
       let rootNodeData = null
       if (data.root) {
         this.mindMap.setFullData(data)
@@ -627,56 +617,7 @@ export default {
       this.$bus.$emit('importFile', file)
     },
 
-    // 网页版试用提示
-    webTip() {
-      const storageKey = 'webUseTip'
-      const data = localStorage.getItem(storageKey)
-      if (data) {
-        return
-      }
-      this.showDownloadTip(
-        '重要提示',
-        '网页版仅供试用，请下载客户端获得完整体验~'
-      )
-      localStorage.setItem(storageKey, 1)
-    },
 
-    showDownloadTip(title, desc) {
-      const h = this.$createElement
-      this.$msgbox({
-        title,
-        message: h('div', null, [
-          h(
-            'p',
-            {
-              style: {
-                marginBottom: '12px'
-              }
-            },
-            desc
-          ),
-          h('div', null, [
-            h(
-              'a',
-              {
-                attrs: {
-                  href:
-                    'https://sxmind.cn/',
-                  target: '_blank'
-                },
-                style: {
-                  color: '#409eff',
-                  marginRight: '12px'
-                }
-              },
-              '详细了解：https://sxmind.cn/'
-            )
-          ])
-        ]),
-        showCancelButton: false,
-        showConfirmButton: false
-      })
-    }
   }
 }
 </script>

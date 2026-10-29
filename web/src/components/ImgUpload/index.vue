@@ -8,7 +8,7 @@
           @dragenter.stop.prevent
           @dragover.stop.prevent
           @drop.stop.prevent="onDrop"
-          >点击此处选择图片、或拖动图片到此</label
+          >{{ $t('nodeImage.uploadPrompt') }}</label
         >
         <input
           type="file"

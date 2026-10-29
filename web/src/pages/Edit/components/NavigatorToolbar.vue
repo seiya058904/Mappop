@@ -100,21 +100,13 @@
             <span class="iconfont iconjianpan"></span>
             {{ $t('navigatorToolbar.shortcutKeys') }}
           </el-dropdown-item>
-          <el-dropdown-item command="aiChat">
-            <span class="iconfont iconAIshengcheng"></span>
-            {{ $t('navigatorToolbar.ai') }}
-          </el-dropdown-item>
-          <el-dropdown-item command="client">
-            <span class="iconfont iconxiazai"></span>
-            {{ $t('navigatorToolbar.downloadClient') }}
-          </el-dropdown-item>
           <el-dropdown-item command="github">
             <span class="iconfont icongithub"></span>
-            Github
+            Mappop on GitHub
           </el-dropdown-item>
-          <el-dropdown-item command="site">
+          <el-dropdown-item command="helpDoc">
             <span class="iconfont iconwangzhan"></span>
-            {{ $t('navigatorToolbar.site') }}
+            Editor guide
           </el-dropdown-item>
           <el-dropdown-item disabled
             >{{ $t('navigatorToolbar.current') }}v{{
@@ -206,14 +198,11 @@ export default {
       if (command === 'shortcutKey') {
         this.setActiveSidebar('shortcutKey')
         return
-      } else if (command === 'aiChat') {
-        this.setActiveSidebar('ai')
-        return
       }
       let url = ''
       switch (command) {
         case 'github':
-          url = 'https://github.com/wanglin2/mind-map'
+          url = 'https://github.com/seiya058904/Mappop'
           break
         case 'helpDoc':
           url = 'https://wanglin2.github.io/mind-map-docs/help/help1.html'
@@ -222,14 +211,8 @@ export default {
           url =
             'https://wanglin2.github.io/mind-map-docs/start/introduction.html'
           break
-        case 'site':
-          url = 'https://sxmind.cn/'
-          break
         case 'issue':
-          url = 'https://github.com/wanglin2/mind-map/issues/new'
-          break
-        case 'client':
-          url = 'https://sxmind.cn/'
+          url = 'https://github.com/seiya058904/Mappop/issues/new/choose'
           break
         default:
           break
@@ -237,6 +220,7 @@ export default {
       const a = document.createElement('a')
       a.href = url
       a.target = '_blank'
+      a.rel = 'noopener noreferrer'
       a.click()
     },
 
@@ -300,10 +284,14 @@ export default {
 
 @media screen and (max-width: 700px) {
   .navigatorContainer {
-    left: 20px;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
     overflow-x: auto;
     overflow-y: hidden;
     height: 60px;
+    .item { flex-shrink: 0; }
+    .btn { min-width: 32px; min-height: 40px; display: flex; align-items: center; justify-content: center; }
   }
 }
 </style>

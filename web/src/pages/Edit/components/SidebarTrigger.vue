@@ -13,8 +13,14 @@
         class="triggerItem"
         v-for="item in triggerList"
         :key="item.value"
+        role="button"
+        :tabindex="show ? 0 : -1"
+        :aria-label="item.name"
+        :aria-expanded="String(activeSidebar === item.value)"
         :class="{ active: activeSidebar === item.value }"
         @click="trigger(item)"
+        @keydown.enter.stop.prevent="trigger(item)"
+        @keydown.space.stop.prevent="trigger(item)"
       >
         <div class="triggerIcon iconfont" :class="[item.icon]"></div>
         <div class="triggerName">{{ item.name }}</div>
@@ -172,6 +178,10 @@ export default {
     overflow-x: hidden;
 
     .triggerItem {
+      &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: -3px;
+      }
       height: 60px;
       display: flex;
       flex-direction: column;

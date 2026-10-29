@@ -415,17 +415,17 @@ export const shapeList = [
 // 侧边栏列表
 export const sidebarTriggerList = [
   {
-    name: 'Node style',
+    name: 'Node',
     value: 'nodeStyle',
     icon: 'iconzhuti'
   },
   {
-    name: 'Base style',
+    name: 'Style',
     value: 'baseStyle',
     icon: 'iconyangshi'
   },
   {
-    name: 'Theme',
+    name: 'Themes',
     value: 'theme',
     icon: 'iconjingzi'
   },
@@ -445,7 +445,7 @@ export const sidebarTriggerList = [
   //   icon: 'iconAIshengcheng'
   // },
   {
-    name: 'Setting',
+    name: 'Settings',
     value: 'setting',
     icon: 'iconshezhi'
   },
@@ -459,11 +459,11 @@ export const sidebarTriggerList = [
 // 下载类型列表
 export const downTypeList = [
   {
-    name: '思绪 file',
+    name: 'Mappop document',
     type: 'smm',
     icon: 'iconwenjian',
     desc:
-      'SimpleMindMap private format, can be used for re import, and the client can directly edit it'
+      'Editable .smm document. Export a copy and import it again to keep working.'
   },
   {
     name: 'Image',

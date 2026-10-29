@@ -5,7 +5,15 @@
     :class="{ show: show, isDark: isDark }"
     :style="{ zIndex: zIndex }"
   >
-    <span class="closeBtn el-icon-close" @click="close"></span>
+    <span
+      class="closeBtn el-icon-close"
+      role="button"
+      :tabindex="show ? 0 : -1"
+      aria-label="Close sidebar"
+      @click="close"
+      @keydown.enter.stop.prevent="close"
+      @keydown.space.stop.prevent="close"
+    ></span>
     <div class="sidebarHeader" v-if="title">
       {{ title }}
     </div>
@@ -107,6 +115,10 @@ export default {
     top: 12px;
     font-size: 20px;
     cursor: pointer;
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 3px;
+    }
   }
 
   .sidebarHeader {

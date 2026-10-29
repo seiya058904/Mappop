@@ -19,7 +19,7 @@ const store = new Vuex.Store({
       // 是否是暗黑模式
       isDark: false,
       // 是否开启AI功能
-      enableAi: true
+      enableAi: false
     },
     activeSidebar: '', // 当前显示的侧边栏
     isOutlineEdit: false, // 是否是大纲编辑模式
@@ -28,7 +28,7 @@ const store = new Vuex.Store({
     extraTextOnExport: '', // 导出时底部添加的文字
     isDragOutlineTreeNode: false, // 当前是否正在拖拽大纲树的节点
     aiConfig: {
-      api: 'http://ark.cn-beijing.volces.com/api/v3/chat/completions',
+      api: '',
       key: '',
       model: '',
       port: 3456,
@@ -55,6 +55,8 @@ const store = new Vuex.Store({
           state.localConfig[key] = data[key]
         }
       })
+      // Mappop has no in-app LLM. Ignore a legacy enabled preference.
+      state.localConfig.enableAi = false
       storeLocalConfig({
         ...state.localConfig,
         ...state.aiConfig

@@ -246,16 +246,6 @@
           >
         </div>
       </div>
-      <!-- 是否开启ai功能 -->
-      <div class="row">
-        <div class="rowItem">
-          <el-checkbox
-            v-model="localConfigs.enableAi"
-            @change="updateLocalConfig('enableAi', $event)"
-            >{{ $t('setting.enableAi') }}</el-checkbox
-          >
-        </div>
-      </div>
       <!-- 配置鼠标滚轮行为 -->
       <div class="row">
         <div class="rowItem">
@@ -514,7 +504,8 @@ export default {
     updateWatermarkConfig() {
       clearTimeout(this.updateWatermarkTimer)
       this.updateWatermarkTimer = setTimeout(() => {
-        let { show, ...config } = this.watermarkConfig
+        const config = { ...this.watermarkConfig }
+        delete config.show
         this.mindMap.watermark.updateWatermark({
           ...config
         })

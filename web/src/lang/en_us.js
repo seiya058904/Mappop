@@ -1,6 +1,6 @@
 export default {
   baseStyle: {
-    title: 'BaseStyle',
+    title: 'Canvas style',
     background: 'Background',
     color: 'Color',
     image: 'Image',
@@ -45,7 +45,7 @@ export default {
     builtInBackgroundImage: 'Built in background image'
   },
   setting: {
-    title: 'Setting',
+    title: 'Settings',
     openPerformance: 'Enable performance mode',
     enableFreeDrag: 'Enable node free drag(Beta)',
     isEnableNodeRichText: 'Enable node rich text editing',
@@ -227,6 +227,11 @@ export default {
     title: 'Icon'
   },
   nodeImage: {
+    uploadTitle: 'Upload an image',
+    urlTitle: 'Or use an image URL',
+    urlLabel: 'Image URL',
+    optional: 'Optional details',
+    uploadPrompt: 'Choose an image or drop it here',
     title: 'Image',
     imgTitle: 'Title'
   },
@@ -251,7 +256,7 @@ export default {
     title: 'Shortcut key'
   },
   strusture: {
-    title: 'Strusture'
+    title: 'Structure'
   },
   style: {
     title: 'Node style',
@@ -299,7 +304,7 @@ export default {
     tag: 'Tag'
   },
   theme: {
-    title: 'Theme',
+    title: 'Themes',
     classics: 'Classics',
     dark: 'Darkness',
     simple: 'Simple',
@@ -324,7 +329,7 @@ export default {
     displayOutline: 'Display outline',
     baseStyle: 'Base style',
     theme: 'Theme',
-    strusture: 'Strusture',
+    strusture: 'Structure',
     newFile: 'New file',
     openFile: 'Open file',
     saveAs: 'Save as',
@@ -345,7 +350,7 @@ export default {
     editingLocalFileTipEnd: '】file',
     fileContentError: 'File content error',
     fileOpenFailed: 'File open failed',
-    defaultFileName: 'Mind map',
+    defaultFileName: 'Mappop map',
     creatingTip: 'Creating file',
     directory: 'Directory',
     newFileTip:
@@ -369,7 +374,7 @@ export default {
     autoOpenNodeRichTextTip:
       'Detected imported rich text content, automatically enabled rich text mode',
     localStorageExceededTip:
-      'The volume of the mind map you created has exceeded the maximum storage limit allowed by the browser. Please export it immediately, otherwise the data will be lost! It is recommended to download the client for use, as there is no size limit for the client.',
+      'This map exceeds your browser storage limit. Export a copy now to keep your changes, then reduce large images before continuing.',
     withBg: 'With background image',
     tryTipTitle: 'Function trial prompt',
     tryTipDesc:

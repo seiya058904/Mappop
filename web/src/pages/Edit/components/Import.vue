@@ -25,6 +25,9 @@
           {{ $t('import.support') }}{{ supportFileStr }}{{ $t('import.file') }}
         </div>
       </el-upload>
+      <el-button v-if="hasLinkBackup" class="restoreBackup" size="small" @click="restoreLinkBackup">
+        Restore pre-import backup
+      </el-button>
       <span slot="footer" class="dialog-footer">
         <el-button @click="cancel">{{ $t('dialog.cancel') }}</el-button>
         <el-button type="primary" @click="confirm">{{
@@ -72,7 +75,12 @@ export default {
       xmindCanvasSelectDialogVisible: false,
       selectCanvas: '',
       canvasList: [],
-      mdStr: ''
+      mdStr: '',
+      editorReady: typeof Vue.prototype.getCurrentData === 'function',
+      isDisposed: false,
+      importingLink: false,
+      hasStoredMap: localStorage.getItem('SIMPLE_MIND_MAP_DATA') !== null,
+      hasLinkBackup: localStorage.getItem('MAPPOP_PRE_IMPORT_BACKUP') !== null
     }
   },
   computed: {
@@ -81,6 +89,12 @@ export default {
     }
   },
   watch: {
+    '$route.query.fileURL'(value) {
+      if (value) {
+        this.hasStoredMap = this.hasStoredMap || localStorage.getItem('SIMPLE_MIND_MAP_DATA') !== null
+        this.handleFileURL()
+      }
+    },
     dialogVisible(val, oldVal) {
       if (!val && oldVal) {
         this.fileList = []
@@ -91,47 +105,143 @@ export default {
     this.$bus.$on('showImport', this.handleShowImport)
     this.$bus.$on('handle_file_url', this.handleFileURL)
     this.$bus.$on('importFile', this.handleImportFile)
+    this.$bus.$on('setData', this.markLocalMapChanged)
+    // Initial render also emits data_change. Track real interaction instead so
+    // a first-time share link opens automatically, while edits during fetch are protected.
+    document.addEventListener('pointerdown', this.markLocalMapChanged, true)
+    document.addEventListener('keydown', this.markLocalMapChanged, true)
+    this.$bus.$on('mappop_editor_ready', this.onEditorReady)
   },
   beforeDestroy() {
+    this.isDisposed = true
+    if (this.linkController) this.linkController.abort()
     this.$bus.$off('showImport', this.handleShowImport)
     this.$bus.$off('handle_file_url', this.handleFileURL)
     this.$bus.$off('importFile', this.handleImportFile)
+    this.$bus.$off('setData', this.markLocalMapChanged)
+    document.removeEventListener('pointerdown', this.markLocalMapChanged, true)
+    document.removeEventListener('keydown', this.markLocalMapChanged, true)
+    this.$bus.$off('mappop_editor_ready', this.onEditorReady)
   },
   methods: {
     ...mapMutations(['setActiveSidebar']),
+
+    markLocalMapChanged() {
+      this.hasStoredMap = true
+    },
+
+    onEditorReady() {
+      this.editorReady = true
+      if (this.$route.query.fileURL) this.handleFileURL()
+    },
 
     handleShowImport() {
       this.dialogVisible = true
     },
 
     getRegexp() {
-      return new RegExp(`\.(smm|json|xmind|md)$`)
+      return /\.(smm|json|xmind|md)$/i
     },
 
-    // 检查url中是否操作需要打开的文件
+    // Keep the existing Markdown parser and setData pipeline. Resolve the file
+    // before replacing anything, and keep an explicit recovery point locally.
     async handleFileURL() {
+      const fileURL = this.$route.query.fileURL
+      if (!fileURL || this.importingLink || !this.editorReady || this.isDisposed) return
+      this.importingLink = true
+      const controller = new AbortController()
+      this.linkController = controller
+      const timeout = setTimeout(() => controller.abort(), 15000)
       try {
-        const fileURL = this.$route.query.fileURL
-        if (!fileURL) return
-        const macth = this.getRegexp().exec(fileURL)
-        if (!macth) {
-          return
+        const url = new URL(fileURL, window.location.origin)
+        if (!['http:', 'https:'].includes(url.protocol)) {
+          throw new Error('Only HTTP or HTTPS import links are supported.')
         }
-        const type = macth[1]
-        const res = await fetch(fileURL)
-        const file = await res.blob()
-        const data = {
-          raw: file
+        const match = /\.(smm|json|xmind|md)$/i.exec(url.pathname)
+        if (!match) throw new Error('The import link must end in .md, .smm, .json or .xmind.')
+        const res = await fetch(url.href, { signal: controller.signal, credentials: 'omit', referrerPolicy: 'no-referrer' })
+        if (!res.ok) throw new Error(`This map could not be opened (HTTP ${res.status}).`)
+        const limit = 10 * 1024 * 1024
+        if (Number(res.headers.get('Content-Length')) > limit) throw new Error('Import files must be smaller than 10 MiB.')
+        const reader = res.body.getReader()
+        const chunks = []
+        let size = 0
+        for (let chunk = await reader.read(); !chunk.done; chunk = await reader.read()) {
+          const { value } = chunk
+          size += value.byteLength
+          if (size > limit) {
+            await reader.cancel()
+            throw new Error('Import files must be smaller than 10 MiB.')
+          }
+          chunks.push(value)
         }
-        if (type === 'smm' || type === 'json') {
-          this.handleSmm(data)
+        const file = new Blob(chunks)
+        const type = match[1].toLowerCase()
+        let data
+        if (type === 'md') {
+          data = markdown.transformMarkdownTo(await file.text())
         } else if (type === 'xmind') {
-          this.handleXmind(data)
-        } else if (type === 'md') {
-          this.handleMd(data)
+          data = await xmind.parseXmindFile(file, content => {
+            this.showSelectXmindCanvasDialog(content)
+            return new Promise(resolve => { this.selectPromiseResolve = resolve })
+          })
+        } else {
+          data = JSON.parse(await file.text())
         }
+        if (!data || !(data.root || data).data) throw new Error('The file does not contain a valid mind map.')
+        if (this.isDisposed || this.$route.query.fileURL !== fileURL) return
+        if (this.hasStoredMap || this.$store.state.isHandleLocalFile) {
+          await this.$confirm(
+            'Open this shared draft? Your current map will be backed up on this device. You can restore it from Import. Edits to the draft are saved locally; they do not change the shared link.',
+            'Protect your current map',
+            { confirmButtonText: 'Back up & open', cancelButtonText: 'Keep my map', closeOnClickModal: false, type: 'warning' }
+          )
+          if (this.isDisposed || this.$route.query.fileURL !== fileURL) return
+          const current = Vue.prototype.getCurrentData()
+          // If storage is full, abort rather than overwrite unprotected work.
+          localStorage.setItem('MAPPOP_PRE_IMPORT_BACKUP', JSON.stringify(current))
+          this.hasLinkBackup = true
+        }
+        this.$store.commit('setIsHandleLocalFile', false)
+        this.$bus.$emit('setData', data)
+        this.hasStoredMap = true
+        await this.clearFileURL(fileURL)
+        this.$message.success('Shared draft opened. Your edits save on this device.')
       } catch (error) {
-        console.log(error)
+        if (this.isDisposed) return
+        if (error === 'cancel' || error === 'close') {
+          await this.clearFileURL(fileURL)
+        } else {
+          if (this.$route.query.fileURL === fileURL) this.$message.error(error.name === 'AbortError' ? 'The import timed out. Your current map is safe.' : (error.message || 'Import failed. Your current map is safe.'))
+        }
+      } finally {
+        clearTimeout(timeout)
+        this.importingLink = false
+        this.linkController = null
+        if (!this.isDisposed && this.$route.query.fileURL && this.$route.query.fileURL !== fileURL) {
+          this.$nextTick(this.handleFileURL)
+        }
+      }
+    },
+
+    clearFileURL(expected) {
+      if (this.$route.query.fileURL !== expected) return Promise.resolve()
+      const query = { ...this.$route.query }
+      delete query.fileURL
+      return this.$router.replace({ path: this.$route.path, query })
+    },
+
+    async restoreLinkBackup() {
+      try {
+        const backup = JSON.parse(localStorage.getItem('MAPPOP_PRE_IMPORT_BACKUP'))
+        if (!backup || !backup.root) throw new Error('No valid backup is available.')
+        await this.$confirm('Restore the map saved before the last shared link import? Export your current map first if you want to keep both.', 'Restore backup', { type: 'warning', confirmButtonText: 'Restore', cancelButtonText: 'Cancel' })
+        this.$store.commit('setIsHandleLocalFile', false)
+        this.$bus.$emit('setData', backup)
+        this.cancel()
+        this.$message.success('Pre-import map restored.')
+      } catch (error) {
+        if (error !== 'cancel' && error !== 'close') this.$message.error(error.message || 'Backup could not be restored.')
       }
     },
 
@@ -171,11 +281,11 @@ export default {
       }
       this.$store.commit('setIsHandleLocalFile', false)
       let file = this.fileList[0]
-      if (/\.(smm|json)$/.test(file.name)) {
+      if (/\.(smm|json)$/i.test(file.name)) {
         this.handleSmm(file)
-      } else if (/\.xmind$/.test(file.name)) {
+      } else if (/\.xmind$/i.test(file.name)) {
         this.handleXmind(file)
-      } else if (/\.md$/.test(file.name)) {
+      } else if (/\.md$/i.test(file.name)) {
         this.handleMd(file)
       }
       this.cancel()
@@ -264,6 +374,7 @@ export default {
 
 <style lang="less" scoped>
 .nodeImportDialog {
+  .restoreBackup { margin-top: 20px; }
 }
 
 .canvasList {

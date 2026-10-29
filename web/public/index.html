@@ -1,43 +1,25 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
       name="viewport"
-      content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0"
+      content="width=device-width,initial-scale=1.0"
     />
-    <link rel="icon" href="dist/logo.ico" />
-    <title>思绪思维导图</title>
+    <meta name="description" content="Make room for ideas. Mappop is an open-source visual mind map editor with expressive themes and a simple map API." />
+    <meta name="theme-color" content="#382735" />
+    <link rel="icon" type="image/svg+xml" href="<%= BASE_URL %>favicon.svg" />
+    <title>Mappop — Make room for ideas</title>
     <script>
-      // 自定义静态资源的路径
-      window.externalPublicPath = './dist/'
       // 接管应用
       window.takeOverApp = false
-    </script>
-    <script
-      charset="UTF-8"
-      id="LA_COLLECT"
-      src="//sdk.51.la/js-sdk-pro.min.js"
-    ></script>
-    <script>
-      try {
-        LA.init({
-          id: 'KRO0WxK8GT66tYCQ',
-          ck: 'KRO0WxK8GT66tYCQ',
-          autoTrack: false
-        })
-      } catch (error) {
-        console.log(error)
-      }
     </script>
   </head>
   <body>
     <noscript>
       <strong
-        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
-        properly without JavaScript enabled. Please enable it to
-        continue.</strong
+        >Mappop needs JavaScript to edit your map. Enable JavaScript to continue.</strong
       >
     </noscript>
     <div id="app"></div>
@@ -50,7 +32,7 @@
               mindMapData: {
                 root: {
                   data: {
-                    text: '根节点'
+                    text: 'My idea'
                   },
                   children: []
                 },
@@ -63,7 +45,7 @@
                 view: null
               },
               mindMapConfig: {},
-              lang: 'zh',
+              lang: 'en',
               localConfig: null
             })
           }, 200)

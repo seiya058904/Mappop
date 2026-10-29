@@ -3,6 +3,7 @@
     <template v-for="item in list">
       <div
         v-if="item === 'back'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: readonly || backEnd
@@ -14,6 +15,7 @@
       </div>
       <div
         v-if="item === 'forward'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: readonly || forwardEnd
@@ -25,6 +27,7 @@
       </div>
       <div
         v-if="item === 'painter'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: activeNodes.length <= 0 || hasGeneralization,
@@ -37,6 +40,7 @@
       </div>
       <div
         v-if="item === 'siblingNode'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: activeNodes.length <= 0 || hasRoot || hasGeneralization
@@ -48,6 +52,7 @@
       </div>
       <div
         v-if="item === 'childNode'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: activeNodes.length <= 0 || hasGeneralization
@@ -59,6 +64,7 @@
       </div>
       <div
         v-if="item === 'deleteNode'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: activeNodes.length <= 0
@@ -70,6 +76,7 @@
       </div>
       <div
         v-if="item === 'image'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: activeNodes.length <= 0
@@ -81,6 +88,7 @@
       </div>
       <div
         v-if="item === 'icon'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: activeNodes.length <= 0
@@ -92,6 +100,7 @@
       </div>
       <div
         v-if="item === 'link'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: activeNodes.length <= 0
@@ -103,6 +112,7 @@
       </div>
       <div
         v-if="item === 'note'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: activeNodes.length <= 0
@@ -114,6 +124,7 @@
       </div>
       <div
         v-if="item === 'tag'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: activeNodes.length <= 0
@@ -125,6 +136,7 @@
       </div>
       <div
         v-if="item === 'summary'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: activeNodes.length <= 0 || hasRoot || hasGeneralization
@@ -136,6 +148,7 @@
       </div>
       <div
         v-if="item === 'associativeLine'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: activeNodes.length <= 0 || hasGeneralization
@@ -147,6 +160,7 @@
       </div>
       <div
         v-if="item === 'formula'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: activeNodes.length <= 0 || hasGeneralization
@@ -158,6 +172,7 @@
       </div>
       <div
         v-if="item === 'attachment'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: activeNodes.length <= 0 || hasGeneralization
@@ -169,6 +184,7 @@
       </div>
       <div
         v-if="item === 'outerFrame'"
+        :key="item"
         class="toolbarBtn"
         :class="{
           disabled: activeNodes.length <= 0 || hasGeneralization
@@ -177,17 +193,6 @@
       >
         <span class="icon iconfont iconwaikuang"></span>
         <span class="text">{{ $t('toolbar.outerFrame') }}</span>
-      </div>
-      <div
-        v-if="item === 'ai'"
-        class="toolbarBtn"
-        :class="{
-          disabled: hasGeneralization
-        }"
-        @click="aiCrate"
-      >
-        <span class="icon iconfont iconAIshengcheng"></span>
-        <span class="text">{{ $t('toolbar.ai') }}</span>
       </div>
     </template>
   </div>
@@ -307,11 +312,6 @@ export default {
     // 设置标记
     onSetAnnotation(...args) {
       this.$bus.$emit('execCommand', 'SET_NOTATION', this.activeNodes, ...args)
-    },
-
-    // AI生成整体
-    aiCrate() {
-      this.$bus.$emit('ai_create_all')
     }
   }
 }
@@ -395,7 +395,7 @@ export default {
 
   &.v {
     display: block;
-    width: 120px;
+    width: 160px;
     flex-wrap: wrap;
 
     .toolbarBtn {
@@ -419,6 +419,19 @@ export default {
         text-overflow: ellipsis;
       }
     }
+  }
+}
+
+@media (max-width: 700px) {
+  .toolbarNodeBtnList .toolbarBtn {
+    min-width: 36px;
+    min-height: 44px;
+    margin-right: 8px;
+  }
+  .toolbarNodeBtnList.v {
+    max-height: ~"min(65vh, 560px)";
+    overflow-y: auto;
+    .toolbarBtn { align-items: center; margin-bottom: 2px; }
   }
 }
 </style>

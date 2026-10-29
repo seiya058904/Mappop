@@ -1,4 +1,4 @@
-import exampleData from 'simple-mind-map/example/exampleData'
+import exampleData from '@/config/welcome'
 import { simpleDeepClone } from 'simple-mind-map/src/utils/index'
 import Vue from 'vue'
 import vuexStore from '@/store'
@@ -9,6 +9,19 @@ const SIMPLE_MIND_MAP_LANG = 'SIMPLE_MIND_MAP_LANG'
 const SIMPLE_MIND_MAP_LOCAL_CONFIG = 'SIMPLE_MIND_MAP_LOCAL_CONFIG'
 
 let mindMapData = null
+
+const getWelcomeData = () => {
+  const data = simpleDeepClone(exampleData)
+  // A short vertical overview keeps the first map readable on a phone.
+  // Children stay in the document and can be expanded with the node control.
+  if (window.innerWidth <= 700) {
+    data.layout = 'verticalTimeline3'
+    data.root.children.forEach(node => {
+      node.data.expand = false
+    })
+  }
+  return data
+}
 
 // 获取缓存的思维导图数据
 export const getData = () => {
@@ -23,12 +36,12 @@ export const getData = () => {
   }
   let store = localStorage.getItem(SIMPLE_MIND_MAP_DATA)
   if (store === null) {
-    return simpleDeepClone(exampleData)
+    return getWelcomeData()
   } else {
     try {
       return JSON.parse(store)
     } catch (error) {
-      return simpleDeepClone(exampleData)
+      return getWelcomeData()
     }
   }
 }
@@ -61,7 +74,7 @@ export const storeData = data => {
     localStorage.setItem(SIMPLE_MIND_MAP_DATA, JSON.stringify(originData))
   } catch (error) {
     console.log(error)
-    if ('exceeded') {
+    if (error && (error.name === 'QuotaExceededError' || error.name === 'NS_ERROR_DOM_QUOTA_REACHED')) {
       Vue.prototype.$bus.$emit('localStorageExceeded')
     }
   }
@@ -105,14 +118,14 @@ export const storeLang = lang => {
 // 获取存储的语言
 export const getLang = () => {
   if (window.takeOverApp) {
-    return window.takeOverAppMethods.getLanguage() || 'zh'
+    return window.takeOverAppMethods.getLanguage() || 'en'
   }
   let lang = localStorage.getItem(SIMPLE_MIND_MAP_LANG)
   if (lang) {
     return lang
   }
-  storeLang('zh')
-  return 'zh'
+  storeLang('en')
+  return 'en'
 }
 
 // 存储本地配置

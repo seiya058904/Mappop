@@ -1,0 +1,11 @@
+// Original geometric surface textures, authored for Mappop.
+export const textures = {
+  "pixel-arcade": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"64\" height=\"64\" viewBox=\"0 0 64 64\"><path d=\"M0 32h64M32 0v64\" stroke=\"#7eb5cc\" stroke-opacity=\".08\"/><path d=\"M12 10h4v4h-4zM48 48h3v3h-3z\" fill=\"#b2d9df\" opacity=\".18\"/></svg>",
+  "anime-pop": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"64\" height=\"64\" viewBox=\"0 0 64 64\"><circle cx=\"5\" cy=\"5\" r=\"1.1\" fill=\"#bc8b9a\" opacity=\".22\"/><circle cx=\"37\" cy=\"37\" r=\"1.1\" fill=\"#bc8b9a\" opacity=\".22\"/></svg>",
+  "toon-motion": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"64\" height=\"64\" viewBox=\"0 0 64 64\"><circle cx=\"8\" cy=\"8\" r=\"1.5\" fill=\"#b68a21\" opacity=\".24\"/><circle cx=\"40\" cy=\"40\" r=\"1.5\" fill=\"#b68a21\" opacity=\".24\"/><path d=\"M55 7l3-3m-3 0l3 3\" stroke=\"#b68a21\" stroke-opacity=\".18\"/></svg>",
+  "zen-japan": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"64\" height=\"64\" viewBox=\"0 0 64 64\"><path d=\"M3 12l12-1m17 16l17 1M12 48l7 1m31 6l9-2M24 3l2 9M5 33l1 9m51-25l-1 12\" stroke=\"#8f987d\" stroke-width=\".6\" stroke-opacity=\".16\"/></svg>",
+  "ink-wash": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"64\" height=\"64\" viewBox=\"0 0 64 64\"><path d=\"M0 17Q15 13 32 18T64 17M0 52Q19 48 37 52T64 50\" fill=\"none\" stroke=\"#72847c\" stroke-width=\".7\" stroke-opacity=\".12\"/><path d=\"M12 5l3 2m28 25l6-1M6 44l4 1m45 16l5-2\" stroke=\"#7b8781\" stroke-opacity=\".15\"/></svg>",
+  "sketchbook": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"64\" height=\"64\" viewBox=\"0 0 64 64\"><path d=\"M0 31.5h64M0 63.5h64\" stroke=\"#8ba9b6\" stroke-opacity=\".2\"/><path d=\"M7 0v64\" stroke=\"#c7786d\" stroke-opacity=\".12\"/></svg>",
+  "marker-notes": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"64\" height=\"64\" viewBox=\"0 0 64 64\"><circle cx=\"8\" cy=\"8\" r=\".8\" fill=\"#9b937f\" opacity=\".3\"/><circle cx=\"40\" cy=\"40\" r=\".8\" fill=\"#9b937f\" opacity=\".3\"/></svg>",
+  "cyber-neon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"64\" height=\"64\" viewBox=\"0 0 64 64\"><path d=\"M0 32h22l10-10V0M64 32H47L32 47v17\" fill=\"none\" stroke=\"#4eb7b1\" stroke-opacity=\".1\"/><rect x=\"20\" y=\"30\" width=\"3\" height=\"3\" fill=\"#63d3c6\" opacity=\".18\"/></svg>"
+}

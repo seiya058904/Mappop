@@ -9,20 +9,39 @@
           :name="group.name"
         ></el-tab-pane>
       </el-tabs>
-      <div class="themeListTheme customScrollbar">
-        <div
+      <p v-if="isArtGroup" class="themeIntroduction">
+        {{ isChinese ? '让想法拥有自己的画风。' : 'Give your ideas a world of their own.' }}
+      </p>
+      <div class="themeListTheme customScrollbar" :aria-busy="applyingTheme ? 'true' : 'false'">
+        <button
+          type="button"
           class="themeItem"
           v-for="item in currentList"
           :key="item.value"
           @click="useTheme(item)"
-          :class="{ active: item.value === theme }"
+          :disabled="!!applyingTheme"
+          :aria-pressed="item.value === theme ? 'true' : 'false'"
+          :aria-label="themeLabel(item)"
+          :class="{ active: item.value === theme, artThemeItem: !!item.slug }"
         >
-          <div class="imgBox">
-            <img :src="item.img || themeImgMap[item.value]" alt="" />
-          </div>
-          <div class="name">{{ item.name }}</div>
-        </div>
+          <span class="imgBox">
+            <img :src="item.img || themeImgMap[item.value]" alt="" loading="lazy" />
+            <span v-if="item.value === theme" class="selectedMark" aria-hidden="true">
+              <svg width="13" height="13" viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </span>
+          </span>
+          <span class="themeCaption">
+            <span class="name">{{ item.name }}</span>
+            <span v-if="item.slug" class="themeSwatches" aria-hidden="true">
+              <i v-for="color in [item.rootFill, item.accent, item.background]" :key="color" :style="{ backgroundColor: color }"></i>
+            </span>
+          </span>
+          <span v-if="item.description" class="themeDescription">{{ isChinese ? item.descriptionZh : item.description }}</span>
+        </button>
       </div>
+      <p class="themeStatus" aria-live="polite" role="status">
+        {{ applyingTheme ? (isChinese ? '正在准备画风…' : 'Preparing your theme…') : (isChinese ? '只改变画风，保留内容与布局。' : 'Your content and layout stay in place.') }}
+      </p>
     </div>
   </Sidebar>
 </template>
@@ -33,6 +52,7 @@ import { storeData } from '@/api'
 import { mapState, mapMutations } from 'vuex'
 import themeImgMap from 'simple-mind-map-plugin-themes/themeImgMap'
 import themeList from 'simple-mind-map-plugin-themes/themeList'
+import { artThemes, prepareArtTheme } from '@/mappop/themes'
 
 // 主题
 export default {
@@ -59,6 +79,7 @@ export default {
         ...themeList
       ].reverse(),
       themeImgMap,
+      applyingTheme: '',
       theme: '',
       activeName: '',
       defaultGroupList: []
@@ -75,10 +96,17 @@ export default {
       return [...this.defaultGroupList, ...this.extendThemeGroupList]
     },
 
+    isChinese() {
+      return this.$i18n.locale.indexOf('zh') === 0
+    },
+
+    isArtGroup() {
+      return this.activeName === 'Mappop Styles'
+    },
+
     currentList() {
-      return this.groupList.find(item => {
-        return item.name === this.activeName
-      }).list
+      const group = this.groupList.find(item => item.name === this.activeName)
+      return group ? group.list : []
     }
   },
   watch: {
@@ -134,6 +162,7 @@ export default {
         }
       })
       this.defaultGroupList = [
+        { name: 'Mappop Styles', list: artThemes },
         {
           name: this.$t('theme.classics'),
           list: classicsList
@@ -153,9 +182,7 @@ export default {
     },
 
     useTheme(theme) {
-      if (theme.value === this.theme) return
-      this.theme = theme.value
-      this.handleDark()
+      if (theme.value === this.theme || this.applyingTheme) return
       const customThemeConfig = this.mindMap.getCustomThemeConfig()
       const hasCustomThemeConfig = Object.keys(customThemeConfig).length > 0
       if (hasCustomThemeConfig) {
@@ -167,7 +194,7 @@ export default {
           callback: action => {
             if (action === 'confirm') {
               this.mindMap.setThemeConfig({}, true)
-              this.data.theme.config = {}
+              if (this.data && this.data.theme) this.data.theme.config = {}
               this.changeTheme(theme, {})
             } else if (action === 'cancel') {
               this.changeTheme(theme, customThemeConfig)
@@ -179,15 +206,23 @@ export default {
       }
     },
 
-    changeTheme(theme, config) {
-      this.$bus.$emit('showLoading')
-      this.mindMap.setTheme(theme.value)
-      storeData({
-        theme: {
-          template: theme.value,
-          config
-        }
-      })
+    themeLabel(item) {
+      return item.zh && this.isChinese ? `${item.name} · ${item.zh}` : item.name
+    },
+
+    async changeTheme(theme, config) {
+      this.applyingTheme = theme.value
+      try {
+        await prepareArtTheme(theme.value)
+        if (this._isDestroyed) return
+        this.$bus.$emit('showLoading')
+        this.mindMap.setTheme(theme.value)
+        this.theme = theme.value
+        this.handleDark()
+        storeData({ theme: { template: theme.value, config } })
+      } finally {
+        this.applyingTheme = ''
+      }
     },
 
     handleDark() {
@@ -195,11 +230,11 @@ export default {
       this.extendThemeGroupList.forEach(group => {
         extendThemeList.push(...group.list)
       })
-      let target = [...this.themeList, ...extendThemeList].find(item => {
+      let target = [...artThemes, ...this.themeList, ...extendThemeList].find(item => {
         return item.value === this.theme
       })
       this.setLocalConfig({
-        isDark: target.dark
+        isDark: target ? !!target.dark : false
       })
     }
   }
@@ -212,63 +247,111 @@ export default {
   flex-direction: column;
   overflow: hidden;
   height: 100%;
-
-  &.isDark {
-    .name {
-      color: #fff;
-    }
-  }
+  color: #34413c;
 
   .tabBox {
     flex-shrink: 0;
-
-    /deep/ .el-tabs__nav-wrap {
+    padding: 0 14px;
+    /deep/ .el-tabs__item { font-size: 12px; padding: 0 12px; }
+    /deep/ .el-tabs__nav-wrap::after { height: 1px; }
+  }
+  .themeIntroduction {
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 2px 18px 14px;
+    color: #68746c;
+  }
+  .themeListTheme {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 2px 14px 16px;
+  }
+  .themeItem {
+    display: block;
+    appearance: none;
+    width: 100%;
+    cursor: pointer;
+    margin: 0 0 14px;
+    padding: 5px 5px 11px;
+    border: 1px solid #d9dfd5;
+    border-radius: 10px;
+    background: #fffefa;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    overflow: hidden;
+    transition: border-color 160ms ease-out, background-color 160ms ease-out;
+    &:hover { border-color: #7a9889; background: #f4f7ef; }
+    &:focus-visible { outline: 3px solid #4d8370; outline-offset: 2px; }
+    &:disabled { cursor: wait; opacity: 0.7; }
+    &.active { border-color: #396957; background: #eaf1e8; }
+    .imgBox {
+      display: block;
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 6px;
+      img { display: block; width: 100%; height: auto; }
+    }
+    .themeCaption {
       display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 7px 0;
+    }
+    .name { font-size: 14px; font-weight: 600; line-height: 1.4; }
+    .themeDescription {
+      display: block;
+      padding: 4px 7px 0;
+      font-size: 11px;
+      line-height: 1.5;
+      color: #667269;
+    }
+    .themeSwatches {
+      display: flex;
+      gap: 3px;
+      i { display: block; width: 9px; height: 9px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(30, 40, 35, 0.14); }
+    }
+    .selectedMark {
+      position: absolute;
+      right: 7px;
+      bottom: 7px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #315f4c;
+      color: white;
+      display: flex;
+      align-items: center;
       justify-content: center;
     }
   }
-
-  .themeListTheme {
-    height: 100%;
-    overflow-y: auto;
-    padding: 0 20px;
-
+  .themeStatus {
+    flex-shrink: 0;
+    margin: 0;
+    padding: 10px 15px;
+    border-top: 1px solid #e0e5dc;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #667269;
+  }
+  &.isDark {
+    color: #e6eee9;
+    .themeIntroduction, .themeStatus, .themeDescription { color: #b4c6bd; }
+    .themeStatus { border-color: #414e48; }
     .themeItem {
-      width: 100%;
-      cursor: pointer;
-      border-bottom: 1px solid #e9e9e9;
-      margin-bottom: 20px;
-      padding-bottom: 20px;
-      transition: all 0.2s;
-      border: 3px solid transparent;
-      border-radius: 5px;
-      overflow: hidden;
-
-      &:last-of-type {
-        border: none;
-      }
-
-      &:hover {
-        box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.16),
-          0 3px 6px 0 rgba(0, 0, 0, 0.12), 0 5px 12px 4px rgba(0, 0, 0, 0.09);
-      }
-
-      &.active {
-        border: 3px solid rgb(154, 198, 250);
-      }
-
-      .imgBox {
-        width: 100%;
-
-        img {
-          width: 100%;
-        }
-      }
-      .name {
-        text-align: center;
-        font-size: 14px;
-      }
+      background: #293932;
+      border-color: #4c6256;
+      &:hover { background: #34483d; border-color: #8da99a; }
+      &.active { border-color: #b6d0bd; background: #354d3c; }
+      &:focus-visible { outline-color: #c6e6ce; }
     }
   }
+}
+@media (prefers-reduced-motion: reduce) {
+  .themeGroupList .themeItem { transition: none; }
 }
 </style>
