@@ -30,6 +30,7 @@ A free, open-source mind map editor with expressive themes, intuitive editing, a
   <a href="#features">Features</a> ·
   <a href="#themes">Theme gallery</a> ·
   <a href="#quick-start">Quick start</a> ·
+  <a href="#ai-import">AI-assisted import</a> ·
   <a href="#export">Export</a> ·
   <a href="#api">API</a> ·
   <a href="#self-host">Self-host</a> ·
@@ -61,7 +62,7 @@ Mappop is a reimagined home for the open-source [Simple mind map](https://github
     <td width="50%" valign="top"><strong>🎨 Make it feel like yours</strong><br />Switch between sixteen original Mappop art styles and the upstream theme collection. The editor keeps the map content and layout while you change its appearance.</td>
   </tr>
   <tr>
-    <td valign="top"><strong>📦 Take your ideas anywhere</strong><br />Import supported formats and export editable <code>.smm</code> / JSON, or create PNG, SVG, PDF, XMind, Markdown, and TXT copies.</td>
+    <td valign="top"><strong>📦 Take your ideas anywhere</strong><br />Bring your own file, or use the ready-to-send prompt in <strong>Import</strong> to prepare an outline with an external AI. Export editable <code>.smm</code> / JSON, or create PNG, SVG, PDF, XMind, Markdown, and TXT copies.</td>
     <td valign="top"><strong>🔗 Connect your own tools</strong><br />An optional, authenticated Markdown API turns a structured outline into a shareable map link—useful for your scripts and external AI agents without adding an in-app model provider.</td>
   </tr>
 </table>
@@ -77,6 +78,7 @@ Mappop is a reimagined home for the open-source [Simple mind map](https://github
 Chinese pixel lettering, brush calligraphy, pencilled
 notes, printed cartouches, layered paper and orbital diagrams share the same
 native editor. Content and structure stay in place when you change themes.
+Switch directly from Themes to Node, Style, Structure, Outline or Settings using the adjacent sidebar controls, without closing the panel first—even on narrow screens.
 
 ### Four moods, one canvas
 
@@ -175,9 +177,27 @@ Testing uses Chromium emulation; physical phones and Safari/Firefox were not tes
 | Double-click | Edit its text |
 | Toolbar **Undo / Redo** | Revisit a change |
 | **Themes / Structure** | Change the visual style or layout |
+| <kbd>Ctrl</kbd> + mouse wheel | Zoom the canvas |
+
+Prefer zooming without a modifier key? In **Settings → Mouse wheel behavior**, choose **Zoom view**. You can also choose the zoom direction; the setting persists in your browser.
 
 > [!IMPORTANT]
 > Browser storage is convenient for continuing a draft, **not a durable backup**. Export important maps. Mappop does not include user accounts, cloud collaboration, or automatic cross-device sync.
+
+<a id="ai-import"></a>
+
+## Start with an idea, let AI help with the outline
+
+You do not need to write a prompt or understand Markdown. The **Import** dialog includes a ready-to-send prompt that explains Mappop's file format and asks your external AI to guide the conversation.
+
+1. **Copy the prompt.** Open **Import → Copy AI prompt**, then paste it unchanged into your preferred external AI chat.
+2. **Talk about your map.** If you have not supplied a topic, the prompt instructs the AI to ask what you want to map and why. Answer in your own words or share source material. The instructions ask it to clarify only missing details, then generate the outline when it has enough information.
+3. **Save the result.** Download `mindmap.md` if the AI can provide files. Otherwise, save the generated Markdown as a plain-text UTF-8 `.md` file, not a `.txt` or Word document.
+4. **Bring it into Mappop.** Return to **Import**, select the `.md` file and confirm. Then edit the nodes, choose a theme and export your map. Import replaces the current map, so export it first if you want to keep it.
+
+**View prompt** lets you read or manually copy the instructions if clipboard access is unavailable. The guidance is available in English, Simplified Chinese, Traditional Chinese and Vietnamese. It covers a single root heading, nested headings and lists, and a format example; review the AI's result before importing.
+
+This file-based workflow needs **no Mappop API token or model configuration**. You use your own external AI service under its terms; Mappop supplies the prompt and imports the file, without calling a model or sending your map to that service. For automated link creation instead, see the [Markdown API](#api).
 
 <a id="export"></a>
 
