@@ -10,6 +10,10 @@
 [data-mappop-art="cyber-neon"] {
   caret-color: #aaf6df;
 }
+[data-mappop-art="blueprint-lab"],
+[data-mappop-art="celestial-atlas"] {
+  caret-color: #efd39b;
+}
 /* A small elastic reply from the comic ink, never from the editable node.
    Exports keep its resting pose; coordinates and hit targets do not move. */
 [data-mappop-art="toon-motion"] [data-mappop-decoration] {

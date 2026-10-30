@@ -11,7 +11,7 @@ Upstream documentation is available at [Simple mind map documentation](https://w
 ## What Mappop changes
 
 - Product branding, English defaults, and an editable first-run example.
-- Eight original visual theme families, local font assets, and lightweight SVG textures.
+- Sixteen original visual theme families, local font assets, and lightweight SVG textures.
 - An external map API and a link-opening workflow for the editor.
 - Cloudflare deployment setup, automated checks, documentation, and contribution templates.
 - Removal of in-app LLM entry points, upstream analytics, and closed-client promotional UI.

@@ -29,6 +29,11 @@ web/public/mappop/fonts/:
   and Noto Sans SC:
   SIL Open Font License 1.1, each with its original *-OFL.txt notice.
 - Permanent Marker: Apache License 2.0, permanentmarker-LICENSE.txt.
+- v1.1 web subsets: Fusion Pixel (including Ark Pixel, Cubic 11, Galmuri),
+  LXGW WenKai, ZCOOL KuaiLe, Ma Shan Zheng, Noto Serif SC, Noto Sans SC and
+  Rajdhani, all under SIL OFL 1.1. Modified web families use Mappop names.
+  See web/public/mappop/fonts/ART-FONTS.md and art-font-manifest.json for
+  sources, licenses, sizes, hashes and coverage.
 See web/public/mappop/ASSETS.md for official source links and font usage.
 SHA256SUMS.txt records hashes of the redistributed files.
 Third-party libraries retain their respective licenses; the repository MIT

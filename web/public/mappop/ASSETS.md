@@ -1,5 +1,11 @@
 # Mappop artwork and fonts
 
+## v1.1 active collection
+
+The active sixteen-theme collection uses original SVG geometry in `web/src/mappop/textures.js` and `decorations.js`. Its WebP previews are real editor captures from `scripts/capture-previews.cjs`. See [Chinese font provenance, coverage and licenses](fonts/ART-FONTS.md). The older assets listed below remain available for historical links but are not requested by the active theme selector.
+
+## v1.0 legacy assets (retained)
+
 The sixteen `theme-*-texture.svg` and `theme-*-preview.svg` files are original geometric vector artwork authored for Mappop. No franchise characters or third-party illustrations are used. Artwork follows this repository's MIT license. `web/src/mappop/textures.js` contains the same original tile sources as data URIs for reliable offline image exports.
 
 The seven display families are redistributed unmodified from the official Google Fonts repository. The Noto Sans SC fallback is a complete, non-subsetted static 400-weight WOFF2 instance of the official variable font; its reproducible conversion is recorded in `fonts/NotoSansSC-PROVENANCE.md`. Seven families use SIL Open Font License 1.1 (`fonts/*-OFL.txt`); Permanent Marker uses Apache License 2.0 (`fonts/permanentmarker-LICENSE.txt`).

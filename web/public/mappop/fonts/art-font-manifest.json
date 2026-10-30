@@ -1,0 +1,65 @@
+[
+  {
+    "family": "Mappop Pixel",
+    "file": "MappopPixel.woff2",
+    "bytes": 227000,
+    "sourceSHA256": "7cdaf516e63dbcb7b190b3d0606bdd5d451ef51593d6d3d934d30ba086e88b6d",
+    "sha256": "b2d81a3e0a30db98fe940358101581a0229644ac46a5503b192f605bf5a87d34",
+    "gb2312Missing": "劐唣垡墚墼媵嫠嬷尜峁嵴庋庥彀彘恝悫揿枞桊棼橼毂沲泐湓溆滹漭炱牦狴璁瘙瘛磙秭穸窀笫笾筇筘篼簋簏絷繇纨罾耱芪苁茚茳莜莸莼菝萏萑萜蒗蓥蔸蕹蘧蘼蚝蠛衮褰襻觳谮贽赕趑躞轫辔辘郄銎鏊镞镟镬雠颍飨饔骜骞骢骶髹鲞鲧鲰鲺鳌鳏鸨鸷鸺鹆鹌鹞鹭鹱麇黧鼗鼢鼷",
+    "glyphs": 7115
+  },
+  {
+    "family": "Mappop Hand",
+    "file": "MappopHand.woff2",
+    "bytes": 1574068,
+    "sourceSHA256": "2d73eea94ad808999d90c0000c239a84a33b09d4bc6ab6c5b8bbf1eda8a7fc8b",
+    "sha256": "9b790a6d9fe5c3645381bb01d25f4ffdf9fba11976f534361f990b931e0da88e",
+    "gb2312Missing": "",
+    "glyphs": 7298
+  },
+  {
+    "family": "Mappop Comic",
+    "file": "MappopComic.woff2",
+    "bytes": 855740,
+    "sourceSHA256": "812a6fc1fe54b6d73a419245c32dfeba8aa33104d5be90d1cf6af082007cb71d",
+    "sha256": "16b473166657bb7a6c96cb67a91dd384a9c8458aa377ed285c3826c58ec7a9cd",
+    "gb2312Missing": "",
+    "glyphs": 7004
+  },
+  {
+    "family": "Mappop Brush",
+    "file": "MappopBrush.woff2",
+    "bytes": 3233008,
+    "sourceSHA256": "6d2546bb189c732a8ca29af9e22457b152387d158aa459e4ac2ce1e51788b7fb",
+    "sha256": "b0baab8d4416f38d1e64c226f1079fda7f1003881caec164992f3ff213ebafba",
+    "gb2312Missing": "",
+    "glyphs": 7001
+  },
+  {
+    "family": "Mappop Serif",
+    "file": "MappopSerif.woff2",
+    "bytes": 1306364,
+    "sourceSHA256": "050080d9255a86808f2945bffac582b31ef32bc36411ce29563b4961670c66f9",
+    "sha256": "68d9e86bae9538c5a9e4645467b4685d53268059e85cae879845842a1287fd5a",
+    "gb2312Missing": "",
+    "glyphs": 7279
+  },
+  {
+    "family": "Mappop Sans",
+    "file": "MappopSans.woff2",
+    "bytes": 991548,
+    "sourceSHA256": "81b7cc58fc85fae33bca0b44556314f9097c44e5dd86b518bb0701c406b2348f",
+    "sha256": "dfdee08fc28a6e5756fd3b84fc7a4ff394bf1eec1fbfb8df372b95e8e2956a62",
+    "gb2312Missing": "",
+    "glyphs": 7279
+  },
+  {
+    "family": "Mappop Tech",
+    "file": "MappopTech.woff2",
+    "bytes": 14824,
+    "sourceSHA256": "94bbd25a18ca665999feb05a537de9fd2b860dcfb78bbe9ca00270825bf235da",
+    "sha256": "b7c6dc3da6867ac76c5b47524a701d594ddac9fda8984cf374f6c1fbaca3b9e6",
+    "gb2312Missing": "Latin display face; Sans companion",
+    "glyphs": 198
+  }
+]

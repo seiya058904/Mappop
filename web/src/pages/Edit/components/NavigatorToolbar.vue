@@ -108,11 +108,8 @@
             <span class="iconfont iconwangzhan"></span>
             Editor guide
           </el-dropdown-item>
-          <el-dropdown-item disabled
-            >{{ $t('navigatorToolbar.current') }}v{{
-              version
-            }}</el-dropdown-item
-          >
+          <el-dropdown-item disabled>Mappop v{{ version }}</el-dropdown-item>
+          <el-dropdown-item disabled>Simple mind map v{{ engineVersion }}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -128,6 +125,7 @@ import i18n from '@/i18n'
 import { storeLang, getLang } from '@/api'
 import { mapState, mapMutations } from 'vuex'
 import pkg from 'simple-mind-map/package.json'
+import mappopPackage from '../../../../../package.json'
 import Demonstrate from './Demonstrate.vue'
 
 // 导航器工具栏
@@ -145,7 +143,8 @@ export default {
   },
   data() {
     return {
-      version: pkg.version,
+      version: mappopPackage.version,
+      engineVersion: pkg.version,
       langList,
       lang: '',
       openMiniMap: false

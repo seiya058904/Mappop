@@ -8,7 +8,11 @@ const themes = [
   ['pixel-arcade', 'Pixel Arcade'], ['anime-pop', 'Anime Pop'],
   ['toon-motion', 'Toon Motion'], ['zen-japan', 'Zen Japan'],
   ['ink-wash', 'Ink Wash'], ['sketchbook', 'Sketchbook'],
-  ['marker-notes', 'Marker Notes'], ['cyber-neon', 'Cyber Neon']
+  ['marker-notes', 'Marker Notes'], ['cyber-neon', 'Cyber Neon'],
+  ['watercolor-garden', 'Watercolor Garden'], ['paper-cut', 'Paper Cut'],
+  ['ukiyo-e-print', 'Ukiyo-e Print'], ['blueprint-lab', 'Blueprint Lab'],
+  ['bauhaus-geometry', 'Bauhaus Geometry'], ['glass-aurora', 'Glass Aurora'],
+  ['vintage-editorial', 'Vintage Editorial'], ['celestial-atlas', 'Celestial Atlas']
 ]
 
 async function ready(page, slug = 'anime-pop') {
@@ -41,7 +45,7 @@ async function documentContent(page) {
   })
 }
 
-test('all eight art themes switch through UI, preserve the document, export and persist', async ({ page }, testInfo) => {
+test('all sixteen art themes switch through UI, preserve the document, export SVG/PNG and persist', async ({ page }, testInfo) => {
   test.setTimeout(180000)
   const errors = []
   page.on('pageerror', error => errors.push(error.message))
@@ -94,10 +98,14 @@ test('all eight art themes switch through UI, preserve the document, export and 
       compressedFallback: true, shadows: true, content: true,
       remoteFont: false, nodes: 10
     })
+    const png = await page.evaluate(() => document.querySelector('.editContainer').__vue__.mindMap.export('png', false, 'Theme export'))
+    const bytes = Buffer.from(png.split(',')[1], 'base64')
+    expect(bytes.subarray(1, 4).toString()).toBe('PNG')
+    expect(bytes.length).toBeGreaterThan(10000)
   }
-  expect(signatures.size).toBe(8)
+  expect(signatures.size).toBe(16)
   await page.reload()
-  await ready(page, 'cyber-neon')
+  await ready(page, 'celestial-atlas')
   expect(await documentContent(page)).toEqual(original)
   await openThemes(page)
   await page.getByRole('button', { name: 'Anime Pop', exact: true }).click()

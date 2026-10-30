@@ -1,0 +1,198 @@
+{
+  "captured": "2026-10-30T01:29:06.097Z",
+  "initialMs": 903,
+  "resources": [
+    {
+      "name": "/css/chunk-vendors.dc502cfa.css",
+      "bytes": 37215
+    },
+    {
+      "name": "/css/app.fc883365.css",
+      "bytes": 1383
+    },
+    {
+      "name": "/js/chunk-vendors.0ea11fc3.js",
+      "bytes": 310765
+    },
+    {
+      "name": "/js/app.fff57952.js",
+      "bytes": 31485
+    },
+    {
+      "name": "/css/chunk-5dfa8c4c.fda65862.css",
+      "bytes": 133980
+    },
+    {
+      "name": "/js/chunk-5dfa8c4c.cdba38cc.js",
+      "bytes": 1140238
+    },
+    {
+      "name": "/fonts/element-icons.535877f5.woff",
+      "bytes": 28200
+    },
+    {
+      "name": "/fonts/iconfont.77d93312.woff2",
+      "bytes": 17328
+    },
+    {
+      "name": "/mappop/fonts/ZenMaruGothic-Regular.ttf",
+      "bytes": 2142747
+    },
+    {
+      "name": "/mappop/fonts/NotoSansSC-Regular.woff2",
+      "bytes": 4193396
+    },
+    {
+      "name": "/img/logicalStructure.4532ecb3.jpg",
+      "bytes": 5623
+    },
+    {
+      "name": "/img/mindMap.387d3c5d.jpg",
+      "bytes": 6327
+    },
+    {
+      "name": "/img/organizationStructure.fed2500e.jpg",
+      "bytes": 7014
+    },
+    {
+      "name": "/img/logicalStructureLeft.cfd5dfc0.jpg",
+      "bytes": 5615
+    },
+    {
+      "name": "/img/catalogOrganization.4c7a113a.jpg",
+      "bytes": 6978
+    },
+    {
+      "name": "/img/timeline.108e42bf.jpg",
+      "bytes": 8442
+    },
+    {
+      "name": "/img/timeline2.95327d8e.jpg",
+      "bytes": 8119
+    },
+    {
+      "name": "/img/verticalTimeline.088296f2.jpg",
+      "bytes": 8505
+    },
+    {
+      "name": "/img/fishbone.94c4319d.jpg",
+      "bytes": 6647
+    },
+    {
+      "name": "/mappop/theme-pixel-arcade-preview.svg",
+      "bytes": 479
+    },
+    {
+      "name": "/mappop/theme-toon-motion-preview.svg",
+      "bytes": 469
+    },
+    {
+      "name": "/mappop/theme-zen-japan-preview.svg",
+      "bytes": 492
+    },
+    {
+      "name": "/mappop/theme-anime-pop-preview.svg",
+      "bytes": 472
+    },
+    {
+      "name": "/mappop/theme-ink-wash-preview.svg",
+      "bytes": 519
+    },
+    {
+      "name": "/mappop/theme-sketchbook-preview.svg",
+      "bytes": 483
+    },
+    {
+      "name": "/mappop/theme-marker-notes-preview.svg",
+      "bytes": 468
+    },
+    {
+      "name": "/mappop/theme-cyber-neon-preview.svg",
+      "bytes": 501
+    }
+  ],
+  "themes": {
+    "pixel-arcade": {
+      "coldSwitchMs": 321,
+      "svgBytes": 5696886,
+      "pngBytes": 466700,
+      "render121Ms": [
+        177,
+        188,
+        187
+      ]
+    },
+    "anime-pop": {
+      "coldSwitchMs": 246,
+      "svgBytes": 10771483,
+      "pngBytes": 806424,
+      "render121Ms": [
+        188,
+        184,
+        185
+      ]
+    },
+    "toon-motion": {
+      "coldSwitchMs": 249,
+      "svgBytes": 5784997,
+      "pngBytes": 1001761,
+      "pdfBytes": 513003,
+      "render121Ms": [
+        185,
+        185,
+        188
+      ]
+    },
+    "zen-japan": {
+      "coldSwitchMs": 482,
+      "svgBytes": 12920030,
+      "pngBytes": 807830,
+      "render121Ms": [
+        192,
+        184,
+        185
+      ]
+    },
+    "ink-wash": {
+      "coldSwitchMs": 171,
+      "svgBytes": 12924023,
+      "pngBytes": 1139771,
+      "render121Ms": [
+        192,
+        202,
+        202
+      ]
+    },
+    "sketchbook": {
+      "coldSwitchMs": 295,
+      "svgBytes": 6201178,
+      "pngBytes": 1316143,
+      "render121Ms": [
+        194,
+        186,
+        186
+      ]
+    },
+    "marker-notes": {
+      "coldSwitchMs": 261,
+      "svgBytes": 5765103,
+      "pngBytes": 862877,
+      "render121Ms": [
+        189,
+        188,
+        188
+      ]
+    },
+    "cyber-neon": {
+      "coldSwitchMs": 280,
+      "svgBytes": 6181264,
+      "pngBytes": 982967,
+      "render121Ms": [
+        199,
+        188,
+        189
+      ]
+    }
+  },
+  "errors": []
+}

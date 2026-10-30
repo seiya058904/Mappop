@@ -1,0 +1,311 @@
+{
+  "captured": "2026-10-30T01:51:23.382Z",
+  "initialMs": 749,
+  "resources": [
+    {
+      "name": "/css/chunk-vendors.dc502cfa.css",
+      "bytes": 37215
+    },
+    {
+      "name": "/css/app.fc883365.css",
+      "bytes": 1383
+    },
+    {
+      "name": "/js/app.ee4da48c.js",
+      "bytes": 31488
+    },
+    {
+      "name": "/js/chunk-vendors.0ea11fc3.js",
+      "bytes": 310765
+    },
+    {
+      "name": "/css/chunk-de127f68.b32d3828.css",
+      "bytes": 134280
+    },
+    {
+      "name": "/js/chunk-de127f68.6aabb851.js",
+      "bytes": 1143780
+    },
+    {
+      "name": "/fonts/element-icons.535877f5.woff",
+      "bytes": 28200
+    },
+    {
+      "name": "/fonts/iconfont.77d93312.woff2",
+      "bytes": 17328
+    },
+    {
+      "name": "/mappop/fonts/MappopHand.woff2",
+      "bytes": 1574068
+    },
+    {
+      "name": "/mappop/fonts/MappopSans.woff2",
+      "bytes": 991548
+    },
+    {
+      "name": "/img/logicalStructure.4532ecb3.jpg",
+      "bytes": 5623
+    },
+    {
+      "name": "/img/logicalStructureLeft.cfd5dfc0.jpg",
+      "bytes": 5615
+    },
+    {
+      "name": "/img/mindMap.387d3c5d.jpg",
+      "bytes": 6327
+    },
+    {
+      "name": "/img/organizationStructure.fed2500e.jpg",
+      "bytes": 7014
+    },
+    {
+      "name": "/img/timeline.108e42bf.jpg",
+      "bytes": 8442
+    },
+    {
+      "name": "/img/catalogOrganization.4c7a113a.jpg",
+      "bytes": 6978
+    },
+    {
+      "name": "/img/timeline2.95327d8e.jpg",
+      "bytes": 8119
+    },
+    {
+      "name": "/img/verticalTimeline.088296f2.jpg",
+      "bytes": 8505
+    },
+    {
+      "name": "/img/fishbone.94c4319d.jpg",
+      "bytes": 6647
+    },
+    {
+      "name": "/mappop/previews/pixel-arcade.webp",
+      "bytes": 9074
+    },
+    {
+      "name": "/mappop/previews/anime-pop.webp",
+      "bytes": 7244
+    },
+    {
+      "name": "/mappop/previews/toon-motion.webp",
+      "bytes": 9072
+    },
+    {
+      "name": "/mappop/previews/zen-japan.webp",
+      "bytes": 6844
+    },
+    {
+      "name": "/mappop/previews/ink-wash.webp",
+      "bytes": 7710
+    },
+    {
+      "name": "/mappop/previews/sketchbook.webp",
+      "bytes": 7572
+    },
+    {
+      "name": "/mappop/previews/marker-notes.webp",
+      "bytes": 7640
+    },
+    {
+      "name": "/mappop/previews/cyber-neon.webp",
+      "bytes": 8432
+    },
+    {
+      "name": "/mappop/previews/paper-cut.webp",
+      "bytes": 7622
+    },
+    {
+      "name": "/mappop/previews/watercolor-garden.webp",
+      "bytes": 7400
+    },
+    {
+      "name": "/mappop/previews/ukiyo-e-print.webp",
+      "bytes": 8190
+    },
+    {
+      "name": "/mappop/previews/bauhaus-geometry.webp",
+      "bytes": 8036
+    },
+    {
+      "name": "/mappop/previews/blueprint-lab.webp",
+      "bytes": 8378
+    },
+    {
+      "name": "/mappop/previews/glass-aurora.webp",
+      "bytes": 7142
+    },
+    {
+      "name": "/mappop/previews/vintage-editorial.webp",
+      "bytes": 7214
+    },
+    {
+      "name": "/mappop/previews/celestial-atlas.webp",
+      "bytes": 7412
+    }
+  ],
+  "themes": {
+    "pixel-arcade": {
+      "coldSwitchMs": 337,
+      "svgBytes": 1685977,
+      "pngBytes": 254395,
+      "render121Ms": [
+        211,
+        203,
+        188
+      ]
+    },
+    "anime-pop": {
+      "coldSwitchMs": 218,
+      "svgBytes": 3492027,
+      "pngBytes": 909549,
+      "render121Ms": [
+        182,
+        186,
+        172
+      ]
+    },
+    "toon-motion": {
+      "coldSwitchMs": 279,
+      "svgBytes": 2526444,
+      "pngBytes": 1055152,
+      "pdfBytes": 544623,
+      "render121Ms": [
+        190,
+        190,
+        187
+      ]
+    },
+    "zen-japan": {
+      "coldSwitchMs": 328,
+      "svgBytes": 3132650,
+      "pngBytes": 631558,
+      "render121Ms": [
+        195,
+        186,
+        188
+      ]
+    },
+    "ink-wash": {
+      "coldSwitchMs": 374,
+      "svgBytes": 5706729,
+      "pngBytes": 1100925,
+      "render121Ms": [
+        191,
+        187,
+        187
+      ]
+    },
+    "sketchbook": {
+      "coldSwitchMs": 204,
+      "svgBytes": 3490338,
+      "pngBytes": 1106177,
+      "render121Ms": [
+        211,
+        187,
+        190
+      ]
+    },
+    "marker-notes": {
+      "coldSwitchMs": 188,
+      "svgBytes": 2524714,
+      "pngBytes": 993978,
+      "render121Ms": [
+        195,
+        204,
+        203
+      ]
+    },
+    "cyber-neon": {
+      "coldSwitchMs": 248,
+      "svgBytes": 1411415,
+      "pngBytes": 597326,
+      "render121Ms": [
+        203,
+        186,
+        184
+      ]
+    },
+    "watercolor-garden": {
+      "coldSwitchMs": 218,
+      "svgBytes": 3494249,
+      "pngBytes": 1455803,
+      "render121Ms": [
+        196,
+        188,
+        201
+      ]
+    },
+    "paper-cut": {
+      "coldSwitchMs": 187,
+      "svgBytes": 1384797,
+      "pngBytes": 692344,
+      "render121Ms": [
+        180,
+        202,
+        188
+      ]
+    },
+    "ukiyo-e-print": {
+      "coldSwitchMs": 204,
+      "svgBytes": 3137871,
+      "pngBytes": 824551,
+      "render121Ms": [
+        206,
+        188,
+        186
+      ]
+    },
+    "blueprint-lab": {
+      "coldSwitchMs": 202,
+      "svgBytes": 1415189,
+      "pngBytes": 597367,
+      "render121Ms": [
+        209,
+        201,
+        204
+      ]
+    },
+    "bauhaus-geometry": {
+      "coldSwitchMs": 234,
+      "svgBytes": 1396448,
+      "pngBytes": 666139,
+      "render121Ms": [
+        196,
+        201,
+        219
+      ]
+    },
+    "glass-aurora": {
+      "coldSwitchMs": 174,
+      "svgBytes": 3820952,
+      "pngBytes": 2453402,
+      "render121Ms": [
+        211,
+        202,
+        202
+      ]
+    },
+    "vintage-editorial": {
+      "coldSwitchMs": 186,
+      "svgBytes": 3133287,
+      "pngBytes": 604981,
+      "pdfBytes": 323691,
+      "render121Ms": [
+        207,
+        219,
+        218
+      ]
+    },
+    "celestial-atlas": {
+      "coldSwitchMs": 203,
+      "svgBytes": 3144071,
+      "pngBytes": 921117,
+      "render121Ms": [
+        195,
+        203,
+        202
+      ]
+    }
+  },
+  "errors": []
+}

@@ -1,5 +1,5 @@
 <template>
-  <Sidebar ref="sidebar" :title="$t('theme.title')">
+  <Sidebar ref="sidebar" :title="$t('theme.title')" class="artThemeSidebar">
     <div class="themeGroupList" :class="{ isDark: isDark }">
       <el-tabs v-model="activeName" class="tabBox">
         <el-tab-pane
@@ -10,9 +10,12 @@
         ></el-tab-pane>
       </el-tabs>
       <p v-if="isArtGroup" class="themeIntroduction">
-        {{ isChinese ? '让想法拥有自己的画风。' : 'Give your ideas a world of their own.' }}
+        {{ isChinese ? '16 种画风，同一份灵感。预览来自真实导图。' : '16 visual worlds. Previews from the real editor.' }}
       </p>
-      <div class="themeListTheme customScrollbar" :aria-busy="applyingTheme ? 'true' : 'false'">
+      <div v-if="isArtGroup" class="themeCategories" :aria-label="isChinese ? '主题分类' : 'Theme categories'">
+        <button v-for="category in categories" :key="category.value" type="button" :aria-pressed="artCategory === category.value ? 'true' : 'false'" @click="artCategory = category.value">{{ isChinese ? category.zh : category.name }}</button>
+      </div>
+      <div class="themeListTheme customScrollbar" :class="{ artGrid: isArtGroup }" :aria-busy="applyingTheme ? 'true' : 'false'">
         <button
           type="button"
           class="themeItem"
@@ -36,6 +39,7 @@
               <i v-for="color in [item.rootFill, item.accent, item.background]" :key="color" :style="{ backgroundColor: color }"></i>
             </span>
           </span>
+          <span v-if="item.zh" class="themeChineseName">{{ item.zh }}</span>
           <span v-if="item.description" class="themeDescription">{{ isChinese ? item.descriptionZh : item.description }}</span>
         </button>
       </div>
@@ -82,6 +86,14 @@ export default {
       applyingTheme: '',
       theme: '',
       activeName: '',
+      artCategory: 'all',
+      categories: [
+        { value: 'all', name: 'All 16', zh: '全部 16' },
+        { value: 'play', name: 'Playful', zh: '趣味' },
+        { value: 'paper', name: 'Paper & ink', zh: '纸与墨' },
+        { value: 'graphic', name: 'Graphic', zh: '设计' },
+        { value: 'night', name: 'After dark', zh: '夜色' }
+      ],
       defaultGroupList: []
     }
   },
@@ -106,7 +118,8 @@ export default {
 
     currentList() {
       const group = this.groupList.find(item => item.name === this.activeName)
-      return group ? group.list : []
+      const list = group ? group.list : []
+      return this.isArtGroup && this.artCategory !== 'all' ? list.filter(item => item.category === this.artCategory) : list
     }
   },
   watch: {
@@ -242,6 +255,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.artThemeSidebar {
+  width: min(410px, calc(100vw - 12px));
+  right: -420px;
+  &.show { right: 0; }
+}
 .themeGroupList {
   display: flex;
   flex-direction: column;
@@ -267,7 +285,38 @@ export default {
     min-height: 0;
     overflow-y: auto;
     padding: 2px 14px 16px;
+    &.artGrid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: max-content;
+      align-content: start;
+      gap: 12px;
+      .themeItem { margin: 0; }
+      .name { font-size: 12px; }
+      .themeCaption { padding: 8px 4px 0; }
+      .themeDescription { padding: 4px 4px 0; }
+      .themeSwatches { display: none; }
+    }
   }
+  .themeCategories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 0 14px 12px;
+    button {
+      font: inherit;
+      font-size: 11px;
+      padding: 6px 8px;
+      background: transparent;
+      color: inherit;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      cursor: pointer;
+      &[aria-pressed=true] { border-color: currentColor; }
+      &:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; }
+    }
+  }
+  .themeChineseName { display: block; padding: 2px 4px 0; font-size: 12px; line-height: 1.5; }
   .themeItem {
     display: block;
     appearance: none;
@@ -353,5 +402,6 @@ export default {
 }
 @media (prefers-reduced-motion: reduce) {
   .themeGroupList .themeItem { transition: none; }
+  .artThemeSidebar { transition: none; }
 }
 </style>

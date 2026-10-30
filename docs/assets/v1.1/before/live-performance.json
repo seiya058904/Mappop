@@ -1,0 +1,47 @@
+{
+  "url": "https://mappop.seiya-api.workers.dev/#/",
+  "versionStage": "before",
+  "warmSwitchMs": {
+    "pixel-arcade": [
+      113,
+      111,
+      117
+    ],
+    "anime-pop": [
+      167,
+      152,
+      150
+    ],
+    "toon-motion": [
+      137,
+      94,
+      115
+    ],
+    "zen-japan": [
+      125,
+      87,
+      94
+    ],
+    "ink-wash": [
+      114,
+      154,
+      87
+    ],
+    "sketchbook": [
+      99,
+      127,
+      96
+    ],
+    "marker-notes": [
+      105,
+      123,
+      84
+    ],
+    "cyber-neon": [
+      141,
+      138,
+      105
+    ]
+  },
+  "errors": []
+}
