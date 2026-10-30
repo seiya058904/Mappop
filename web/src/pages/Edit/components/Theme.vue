@@ -256,7 +256,7 @@ export default {
 
 <style lang="less" scoped>
 .artThemeSidebar {
-  width: min(410px, calc(100vw - 12px));
+  width: var(--art-theme-sidebar-width);
   right: -420px;
   &.show { right: 0; }
 }

@@ -624,6 +624,7 @@ export default {
 
 <style lang="less" scoped>
 .editContainer {
+  --art-theme-sidebar-width: ~"min(410px, calc(100vw - 80px))";
   position: fixed;
   left: 0;
   right: 0;

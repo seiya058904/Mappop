@@ -4,7 +4,7 @@
       class="nodeImportDialog"
       :title="$t('import.title')"
       :visible.sync="dialogVisible"
-      width="350px"
+      width="480px"
     >
       <el-upload
         ref="upload"
@@ -28,6 +28,21 @@
       <el-button v-if="hasLinkBackup" class="restoreBackup" size="small" @click="restoreLinkBackup">
         Restore pre-import backup
       </el-button>
+      <section class="aiImportHelp" :class="{ isDark: $store.state.localConfig.isDark }" aria-labelledby="aiImportTitle">
+        <h3 id="aiImportTitle">{{ $t('import.aiTitle') }}</h3>
+        <p>{{ $t('import.aiDescription') }}</p>
+        <ol>
+          <li>{{ $t('import.aiStepPrompt') }}</li>
+          <li>{{ $t('import.aiStepSave') }}</li>
+          <li>{{ $t('import.aiStepImport') }}</li>
+        </ol>
+        <el-button size="small" @click="copyAiPrompt">{{ $t('import.aiCopy') }}</el-button>
+        <p v-if="copyStatus" class="copyStatus" role="status">{{ copyStatus }}</p>
+        <details ref="promptDetails">
+          <summary>{{ $t('import.aiPreview') }}</summary>
+          <textarea ref="promptText" readonly rows="7" :aria-label="$t('import.aiPreview')" :value="$t('import.aiPrompt')"></textarea>
+        </details>
+      </section>
       <span slot="footer" class="dialog-footer">
         <el-button @click="cancel">{{ $t('dialog.cancel') }}</el-button>
         <el-button type="primary" @click="confirm">{{
@@ -70,6 +85,7 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      copyStatus: '',
       fileList: [],
       selectPromiseResolve: null,
       xmindCanvasSelectDialogVisible: false,
@@ -98,6 +114,8 @@ export default {
     dialogVisible(val, oldVal) {
       if (!val && oldVal) {
         this.fileList = []
+        this.copyStatus = ''
+        if (this.$refs.promptDetails) this.$refs.promptDetails.open = false
       }
     }
   },
@@ -125,6 +143,19 @@ export default {
   },
   methods: {
     ...mapMutations(['setActiveSidebar']),
+
+    async copyAiPrompt() {
+      try {
+        await navigator.clipboard.writeText(this.$t('import.aiPrompt'))
+        this.copyStatus = this.$t('import.aiCopied')
+      } catch (error) {
+        this.copyStatus = this.$t('import.aiCopyFailed')
+        this.$refs.promptDetails.open = true
+        await this.$nextTick()
+        this.$refs.promptText.focus()
+        this.$refs.promptText.select()
+      }
+    },
 
     markLocalMapChanged() {
       this.hasStoredMap = true
@@ -374,7 +405,44 @@ export default {
 
 <style lang="less" scoped>
 .nodeImportDialog {
+  /deep/ .el-dialog { max-width: calc(100vw - 32px); }
+  /deep/ .el-dialog__body { padding-top: 20px; padding-bottom: 20px; }
   .restoreBackup { margin-top: 20px; }
+  .aiImportHelp {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #dcdfe6;
+    line-height: 1.6;
+    word-break: normal;
+    overflow-wrap: break-word;
+    &.isDark {
+      color: #dbe2e9;
+      border-color: #53606c;
+      textarea { border-color: #53606c; }
+    }
+    h3 { margin: 0 0 8px; font-size: 16px; color: inherit; }
+    p { margin: 0 0 12px; }
+    ol { margin: 0 0 16px; padding-left: 22px; }
+    li + li { margin-top: 6px; }
+    .copyStatus { margin-top: 10px; }
+    details { margin-top: 14px; }
+    summary { cursor: pointer; width: fit-content; }
+    summary:focus-visible, textarea:focus-visible { outline: 2px solid #409eff; outline-offset: 3px; }
+    textarea {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #dcdfe6;
+      border-radius: 4px;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      line-height: 1.6;
+      resize: vertical;
+    }
+  }
 }
 
 .canvasList {

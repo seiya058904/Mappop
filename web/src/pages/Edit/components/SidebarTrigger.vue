@@ -2,7 +2,7 @@
   <div
     class="sidebarTriggerContainer "
     @click.stop
-    :class="{ hasActive: show && activeSidebar, show: show, isDark: isDark }"
+    :class="{ hasActive: show && activeSidebar, hasTheme: activeSidebar === 'theme', show: show, isDark: isDark }"
     :style="{ maxHeight: maxHeight + 'px' }"
   >
     <div class="toggleShowBtn" :class="{ hide: !show }" @click="show = !show">
@@ -129,6 +129,10 @@ export default {
 
   &.hasActive {
     right: 305px;
+
+    &.hasTheme {
+      right: calc(var(--art-theme-sidebar-width) + 5px);
+    }
   }
 
   .toggleShowBtn {
