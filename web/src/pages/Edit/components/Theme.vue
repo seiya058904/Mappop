@@ -39,7 +39,7 @@
           :class="{ active: item.value === theme, artThemeItem: !!item.slug }"
         >
           <span class="imgBox">
-            <img v-if="activeSidebar === 'theme'" :src="item.img || themeImgMap[item.value]" alt="" loading="lazy" />
+            <img v-if="activeSidebar === 'theme'" :src="item.img || themeImgMap[item.value]" :width="item.slug ? 480 : null" :height="item.slug ? 280 : null" alt="" loading="lazy" />
             <span v-if="item.value === theme" class="selectedMark" aria-hidden="true">
               <svg width="13" height="13" viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
             </span>
@@ -317,6 +317,11 @@ export default {
   width: var(--art-theme-sidebar-width);
   right: -420px;
   &.show { right: 0; }
+  /deep/ .sidebarContent {
+    flex: 1;
+    min-height: 0;
+    height: auto;
+  }
 }
 .themeGroupList {
   display: flex;
@@ -408,6 +413,7 @@ export default {
     font: inherit;
     text-align: left;
     overflow: hidden;
+    scroll-margin-block: 6px;
     transition: border-color 160ms ease-out, background-color 160ms ease-out;
     &:hover { border-color: #7a9889; background: #f4f7ef; }
     &:focus-visible { outline: 3px solid #4d8370; outline-offset: 2px; }
@@ -475,6 +481,19 @@ export default {
       &:hover { background: #34483d; border-color: #8da99a; }
       &.active { border-color: #b6d0bd; background: #354d3c; }
       &:focus-visible { outline-color: #c6e6ce; }
+    }
+  }
+}
+// Below this height the filters leave too little room for a complete card.
+// Let the sidebar body own scrolling; its header and close button stay fixed.
+@media (max-height: 640px) {
+  .themeGroupList {
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
+    .themeListTheme {
+      flex: none;
+      overflow: visible;
     }
   }
 }

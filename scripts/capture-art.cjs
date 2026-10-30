@@ -9,7 +9,7 @@ const exportImages = process.argv.includes('--exports')
 const { slugs } = require('./art-registry.cjs')
 const { raw, stage, url } = require('./art-options.cjs')
 const { execFileSync } = require('node:child_process')
-const { createHash } = require('node:crypto')
+const { sourceHashes } = require('./source-hashes.cjs')
 const folder = path.join(raw, stage)
 async function settled(page, slug, count) {
   await page.waitForFunction(({ slug, count }) => {
@@ -43,10 +43,13 @@ async function fit(page) {
   const sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
   const sourceState = execFileSync('git', ['status', '--porcelain', '--', 'web/src/mappop'], { encoding: 'utf8' }).trim() ? 'working-tree-candidate' : 'committed'
   const sources = {}
+  const sourcesLfSha256 = {}
   for (const name of ['theme-tokens.js', 'themes.js', 'textures.js', 'decorations.js', 'decoration-presets.js']) {
-    sources[name] = createHash('sha256').update(await fs.readFile(`web/src/mappop/${name}`)).digest('hex')
+    const hashes = sourceHashes(await fs.readFile(`web/src/mappop/${name}`))
+    sources[name] = hashes.rawSha256
+    sourcesLfSha256[name] = hashes.lfSha256
   }
-  const metrics = { sourceCommit, sourceState, sources, slugs, captured: new Date().toISOString(), initialMs: Date.now() - start, resources: await page.evaluate(() => performance.getEntriesByType('resource').filter(r => /^https?:/.test(r.name)).map(r => ({ name: new URL(r.name).pathname, bytes: r.encodedBodySize }))), themes: {} }
+  const metrics = { sourceCommit, sourceState, sources, sourcesLfSha256, slugs, captured: new Date().toISOString(), initialMs: Date.now() - start, resources: await page.evaluate(() => performance.getEntriesByType('resource').filter(r => /^https?:/.test(r.name)).map(r => ({ name: new URL(r.name).pathname, bytes: r.encodedBodySize }))), themes: {} }
   await page.evaluate(root => document.querySelector('.editContainer').__vue__.mindMap.setFullData({ root, layout: 'mindMap', theme: { template: 'mappop-anime-pop', config: {} } }), artMap)
   for (const slug of slugs) {
     const before = Date.now()

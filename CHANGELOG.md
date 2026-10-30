@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.2.1 — 2026-10-30
+
+- Fixed the theme picker in landscape and short windows: at heights up to 640px, tabs, filters, cards and status share one scroll area while the title and close control remain visible.
+- Added responsive regression coverage for 844×390, 667×375, 390×844 and both sides of the height breakpoint, including full-card visibility, search recovery, keyboard selection and resizing an open panel.
+- Reserved the existing 480×280 preview dimensions during lazy loading and added scroll clearance for card focus rings.
+- Retained raw screenshot-source hashes and added LF-normalized SHA-256 digests to make future evidence comparable across Windows and Linux checkouts.
+- Run CI browser tests with two isolated workers while retaining all existing assertions and the test-before-deploy gate.
+
 ## v1.2.0 — 2026-10-30
 
 - Added 16 independent art styles, bringing the original collection to 32 while retaining all 16 saved-theme IDs.

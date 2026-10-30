@@ -2,7 +2,7 @@
 const { chromium } = require('@playwright/test')
 const fs = require('node:fs/promises')
 const path = require('node:path')
-const { createHash } = require('node:crypto')
+const { sourceHashes } = require('./source-hashes.cjs')
 const { raw, docs, url } = require('./art-options.cjs')
 ;(async () => {
   const browser = await chromium.launch()
@@ -14,10 +14,12 @@ const { raw, docs, url } = require('./art-options.cjs')
   await page.waitForFunction(() => document.querySelector('[data-mappop-font]') && document.querySelectorAll('.smm-node').length === 10)
   await page.evaluate(() => document.querySelector('.editContainer').__vue__.mindMap.waitForArtTheme())
   await page.waitForTimeout(120)
+  const pickerHashes = sourceHashes(await fs.readFile('web/src/pages/Edit/components/Theme.vue'))
   const result = {
     method: 'Fresh Chromium context, default ten-node map, current-theme font barrier plus 120ms capture settling. Encoded response bodies exclude headers; not pure CPU timing.',
     initialMs: Date.now() - start,
-    themePickerSourceSha256: createHash('sha256').update(await fs.readFile('web/src/pages/Edit/components/Theme.vue')).digest('hex'),
+    themePickerSourceSha256: pickerHashes.rawSha256,
+    themePickerSourceLfSha256: pickerHashes.lfSha256,
     resources: await page.evaluate(() => performance.getEntriesByType('resource').filter(r => /^https?:/.test(r.name)).map(r => ({ name: new URL(r.name).pathname, bytes: r.encodedBodySize }))),
     errors
   }

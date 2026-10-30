@@ -1,5 +1,22 @@
 # Release verification
 
+## v1.2.1 candidate verification
+
+Verified locally on 2026-10-30, Windows / Chromium at `http://127.0.0.1:8787`.
+The Browser plugin was unavailable; the existing Playwright suite was used.
+Impeccable adapt/polish guided the scoped layout and visual checks.
+
+- Reproduced the original 844×390 defect: the list was 18px high, with an approximately 184px card. The new full-card clipping assertion failed against that build.
+- At heights up to 640px the theme sidebar body owns scrolling. Measured scrollports are 236px at 844×390 and 221px at 667×375; the header and close control stay visible. A 560px breakpoint was insufficient for narrow English layouts, so both sides of 640px are covered.
+- Seven added browser cases cover Chinese at 844×390, 667×375, 390×844, 1440×640 and 1440×641, plus English at 844×390 and 390×641. They assert first/last-card visibility, status access, search and empty-state recovery, all 32 cards via native Tab, keyboard selection, orientation changes and keyboard closing with focus restoration.
+- All 34 existing browser cases passed on the final application build. The seven new cases initially failed at their final Escape step because applying a theme disables the focused card. The tests now explicitly focus the close control and press Enter; all seven passed separately in 30.9s. Final CI runs the combined 41-test suite before deployment.
+- `npm test`: 12 API and 5 resource/provenance tests passed. Production build, scoped Theme.vue ESLint, script syntax checks and `git diff --check` passed. The Impeccable detector reported no findings on the scoped component; rendered light/dark, portrait/landscape and classic-theme checks also passed with no observed page errors.
+- Preview dimensions are reserved before lazy images arrive, and cards have scroll clearance for focus rings. Screenshot inspection confirmed readable names and descriptions through the last theme. No new fonts, art assets or dependencies were introduced.
+- Future capture manifests retain raw hashes and add `sourcesLfSha256`; first-screen evidence adds `themePickerSourceLfSha256`. Tests distinguish real content changes from CRLF/LF differences. All five current art modules also matched their Git blob after LF normalization. Historical evidence was not rewritten or recaptured.
+- CI uses two workers across independent spec files, preserving all assertions and isolated browser contexts. Actual CI duration, deployed revision and production results are recorded in the [v1.2.1 release](https://github.com/seiya058904/Mappop/releases/tag/v1.2.1).
+
+Limits: browser viewport emulation, not physical iOS/Android devices or Safari/Firefox. Existing bundle-size, Browserslist and Node deprecation warnings remain. This patch does not revise Stained Glass/Memphis artwork or regenerate the historical 70-file export audit.
+
 ## v1.2.0 candidate verification
 
 Verified locally on 2026-10-30, Windows / Node 24 / Chromium. Base:
