@@ -1,20 +1,18 @@
 const { test, expect } = require('@playwright/test')
 const { artMap } = require('../fixtures/art-map.cjs')
-const fs = require('node:fs')
-const vm = require('node:vm')
-const themes = vm.runInNewContext(fs.readFileSync('web/src/mappop/theme-tokens.js', 'utf8').replace('export const definitions =', 'globalThis.definitions ='))
+const { definitions: themes } = require('../../scripts/art-registry.cjs')
 const mapReady = async page => {
   await page.waitForFunction(() => !!document.querySelector('[data-mappop-font]') && !document.querySelector('.editContainer').__vue__.mindMap.renderer.isRendering)
 }
 
-test('16 real previews, Chinese font files and category/focus controls load on a 390px screen', async ({ page }) => {
+test('All real previews, Chinese font files and category/focus controls load on a 390px screen', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   const failures = []
   page.on('response', r => { if (r.status() >= 400 && /mappop\//.test(r.url())) failures.push(r.url()) })
   await page.goto('/')
   await mapReady(page)
   await page.locator('.sidebarTriggerContainer .triggerItem').filter({ hasText: /^Themes$/ }).click()
-  await expect(page.locator('.artThemeItem')).toHaveCount(16)
+  await expect(page.locator('.artThemeItem')).toHaveCount(themes.length)
   for (const theme of themes) {
     const image = page.getByRole('button', { name: theme.name, exact: true }).locator('img')
     await image.scrollIntoViewIfNeeded()
@@ -27,7 +25,7 @@ test('16 real previews, Chinese font files and category/focus controls load on a
     })).toBe(true)
   }
   await page.getByRole('button', { name: 'After dark', exact: true }).click()
-  await expect(page.locator('.artThemeItem')).toHaveCount(3)
+  await expect(page.locator('.artThemeItem')).toHaveCount(themes.filter(t => t.dark).length)
   const atlas = page.getByRole('button', { name: 'Celestial Atlas', exact: true })
   await atlas.focus()
   await page.keyboard.press('Enter')
@@ -65,12 +63,12 @@ test('manual geometry, image, relationship and four-level content survive all th
     await expect(page.locator('[data-mappop-font]')).toHaveCount(1)
   }
   await page.evaluate(slugs => { const map = document.querySelector('.editContainer').__vue__.mindMap; slugs.forEach(slug => map.setTheme(`mappop-${slug}`)) }, themes.map(t => t.slug))
-  await expect(page.locator('[data-mappop-font][data-theme="mappop-celestial-atlas"]')).toHaveCount(1)
+  await expect(page.locator('[data-mappop-font][data-theme="mappop-' + themes[themes.length - 1].slug + '"]')).toHaveCount(1)
   await expect(page.locator('.smm-node')).toHaveCount(43)
   expect(errors).toEqual([])
 })
 
-test('500-node map remains editable, collapsible and zoomable through all 16 themes', async ({ page }) => {
+test('500-node map remains editable, collapsible and zoomable through all registered themes', async ({ page }) => {
   test.setTimeout(120000)
   const errors = []
   page.on('pageerror', e => errors.push(e.message))
@@ -107,7 +105,7 @@ test('all Chinese display faces render local glyphs and long multiline labels wi
   await page.goto('/')
   await mapReady(page)
   const root = JSON.parse(JSON.stringify(artMap))
-  root.data.text = '<p>灵感生长 ABC 中文标点。</p><p>让每一个复杂的想法都有可以展开的空间：记录观察、连接知识，在日常生活中找到值得继续探索的问题。</p>'
+  root.data.text = '<p>灵感生长 ABC 中文标点。</p><p>让每一个复杂的想法都有可以展开的空间：记录观察、连接知识，在日常生活中找到值得继续探索的问题。</p><p>繁體中文（計畫與觀察）· 罕见字龘 · 123 · 🚀</p>'
   root.data.richText = true
   await page.evaluate(root => document.querySelector('.editContainer').__vue__.mindMap.setData(root), root)
   await expect(page.locator('.smm-node')).toHaveCount(43)

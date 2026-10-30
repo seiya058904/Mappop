@@ -4,6 +4,9 @@
     @click.stop
     :class="{ show: show, isDark: isDark }"
     :style="{ zIndex: zIndex }"
+    :inert="show ? null : ''"
+    :aria-hidden="show ? 'false' : 'true'"
+    @keydown.esc.stop.prevent="close"
   >
     <span
       class="closeBtn el-icon-close"
@@ -38,7 +41,8 @@ export default {
   data() {
     return {
       show: false,
-      zIndex: 0
+      zIndex: 0,
+      returnFocus: null
     }
   },
   computed: {
@@ -50,6 +54,11 @@ export default {
     show(val, oldVal) {
       if (val && !oldVal) {
         this.zIndex = store.sidebarZIndex++
+        this.returnFocus = document.querySelector('.sidebarTriggerContainer .triggerItem[aria-expanded="true"]') || document.activeElement
+      } else if (!val && this.$el.contains(document.activeElement)) {
+        // Switching sections leaves focus on the new trigger; closing from
+        // inside a panel restores the trigger that opened that panel.
+        this.restoreFocus()
       }
     }
   },
@@ -67,8 +76,14 @@ export default {
     },
 
     close() {
+      if (!this.show) return
+      this.restoreFocus()
       this.show = false
       this.setActiveSidebar(null)
+    },
+
+    restoreFocus() {
+      if (this.returnFocus && this.returnFocus.isConnected) this.returnFocus.focus({ preventScroll: true })
     },
 
     getEl() {
@@ -89,7 +104,8 @@ export default {
   border-left: 1px solid #e8e8e8;
   display: flex;
   flex-direction: column;
-  transition: all 0.3s;
+  visibility: hidden;
+  transition: right 0.3s, visibility 0s 0.3s;
 
   &.isDark {
     background-color: #262a2e;
@@ -107,6 +123,8 @@ export default {
 
   &.show {
     right: 0;
+    visibility: visible;
+    transition: right 0.3s, visibility 0s;
   }
 
   .closeBtn {

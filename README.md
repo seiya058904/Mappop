@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://mappop.seiya-api.workers.dev" title="Open the Mappop editor">
-    <img src="docs/assets/banner.svg" alt="Mappop — Make room for ideas. One canvas, sixteen ways to see the world." width="100%" />
+    <img src="docs/assets/banner.svg" alt="Mappop — Make room for ideas. One canvas, thirty-two ways to see the world." width="100%" />
   </a>
 </p>
 
@@ -22,7 +22,7 @@ A free, open-source mind map editor with expressive themes, intuitive editing, a
 
 <p>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-69ae98" alt="MIT license" /></a>
-<a href="https://github.com/seiya058904/Mappop/releases/tag/v1.1.0"><img src="https://img.shields.io/badge/release-v1.1.0-e6b572" alt="Release v1.1.0" /></a>
+<a href="https://github.com/seiya058904/Mappop/releases/tag/v1.2.0"><img src="https://img.shields.io/badge/release-v1.2.0-e6b572" alt="Release v1.2.0" /></a>
 <a href="https://github.com/seiya058904/Mappop/actions/workflows/deploy.yml"><img src="https://github.com/seiya058904/Mappop/actions/workflows/deploy.yml/badge.svg?branch=main" alt="Build and deploy status" /></a>
 </p>
 
@@ -49,17 +49,17 @@ A free, open-source mind map editor with expressive themes, intuitive editing, a
 
 A reading note, a project plan, a story that is still finding its shape. Give each thought room to branch—and let the whole map feel like yours.
 
-Mappop is a reimagined home for the open-source [Simple mind map](https://github.com/wanglin2/mind-map) editor. It keeps the practical editing tools you expect and gives your ideas sixteen distinctive visual worlds to live in.
+Mappop is a reimagined home for the open-source [Simple mind map](https://github.com/wanglin2/mind-map) editor. It keeps the practical editing tools you expect and gives your ideas thirty-two distinctive visual worlds to live in.
 
 <p align="center">
-  <a href="docs/assets/v1.1/after/anime-pop.png"><img src="docs/assets/v1.1/after/anime-pop.png" alt="Anime Pop in the real editor: a four-level map with 43 Chinese and English nodes" width="100%" /></a><br />
+  <a href="docs/assets/v1.2/after/anime-pop.png"><img src="docs/assets/v1.2/after/anime-pop.png" alt="Anime Pop in the real editor: a four-level map with 43 Chinese and English nodes" width="100%" /></a><br />
   <sub>Anime Pop — an actual desktop capture. Click to explore the full-size map.</sub>
 </p>
 
 <table>
   <tr>
     <td width="50%" valign="top"><strong>🧠 Think without friction</strong><br />Edit with double-click, branch with <code>Tab</code>, add siblings with <code>Enter</code>, and rearrange ideas by dragging. Rich text, links, notes, images, outlines, and undo/redo are inherited from the editor.</td>
-    <td width="50%" valign="top"><strong>🎨 Make it feel like yours</strong><br />Switch between sixteen original Mappop art styles and the upstream theme collection. The editor keeps the map content and layout while you change its appearance.</td>
+    <td width="50%" valign="top"><strong>🎨 Make it feel like yours</strong><br />Switch between thirty-two original Mappop art styles and the upstream theme collection. The editor keeps the map content and layout while you change its appearance.</td>
   </tr>
   <tr>
     <td valign="top"><strong>📦 Take your ideas anywhere</strong><br />Bring your own file, or use the ready-to-send prompt in <strong>Import</strong> to prepare an outline with an external AI. Export editable <code>.smm</code> / JSON, or create PNG, SVG, PDF, XMind, Markdown, and TXT copies.</td>
@@ -71,7 +71,7 @@ Mappop is a reimagined home for the open-source [Simple mind map](https://github
 
 <a id="themes"></a>
 
-## Sixteen visual worlds
+## Thirty-two visual worlds
 
 **[Open Mappop online →](https://mappop.seiya-api.workers.dev/)**
 
@@ -80,84 +80,46 @@ notes, printed cartouches, layered paper and orbital diagrams share the same
 native editor. Content and structure stay in place when you change themes.
 Switch directly from Themes to Node, Style, Structure, Outline or Settings using the adjacent sidebar controls, without closing the panel first—even on narrow screens.
 
-### Four moods, one canvas
+### Distinct shapes, the same ideas
 
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <a href="docs/assets/v1.1/after/ink-wash-detail.png"><img src="docs/assets/v1.1/after/ink-wash.png" alt="Ink Wash: Chinese brush lettering and irregular ink silhouettes" width="100%" /></a><br />
-      <strong>Ink Wash</strong><br /><sub>Brush lettering, dry strokes and room to breathe.</sub>
-    </td>
-    <td width="50%" valign="top">
-      <a href="docs/assets/v1.1/after/celestial-atlas-detail.png"><img src="docs/assets/v1.1/after/celestial-atlas.png" alt="Celestial Atlas: midnight blue with concentric frames and gold-silver lines" width="100%" /></a><br />
-      <strong>Celestial Atlas</strong><br /><sub>Orbital frames and fine gold lines after dark.</sub>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <a href="docs/assets/v1.1/after/ukiyo-e-print-detail.png"><img src="docs/assets/v1.1/after/ukiyo-e-print.png" alt="Ukiyo-e Print: indigo and vermilion cartouches on warm rice paper" width="100%" /></a><br />
-      <strong>Ukiyo-e Print</strong><br /><sub>Indigo, vermilion and the rhythm of a woodblock print.</sub>
-    </td>
-    <td width="50%" valign="top">
-      <a href="docs/assets/v1.1/after/bauhaus-geometry-detail.png"><img src="docs/assets/v1.1/after/bauhaus-geometry.png" alt="Bauhaus Geometry: primary shapes, semicircle headings and open leaves" width="100%" /></a><br />
-      <strong>Bauhaus Geometry</strong><br /><sub>Primary shapes, direct lines and graphic order.</sub>
-    </td>
-  </tr>
-</table>
+[![Four real editor previews: Ink Wash, Swiss Type, Circuit Board and Clay Studio](docs/assets/v1.2/featured.jpg)](docs/THEMES.md)
 
-### One document, sixteen interpretations
+Brush silhouettes, editorial baselines, copper component pins and matte clay relief.
+These are real seven-node editor previews, with identical content. Each style
+has its own root, branch, leaf and line rules; decorations become lighter deeper
+in the map.
 
-[![16 real themes, the same 43-node Chinese/English map](docs/assets/v1.1/after/contact-sheet.jpg)](docs/assets/v1.1/after/contact-sheet.jpg)
-
-Actual Chromium editor captures at 1600×1100, with the same four-level document.
-[Unlabelled overview](docs/assets/v1.1/after/contact-sheet-unlabelled.jpg) ·
-[Before/after audit](docs/ART-AUDIT.md) · [Design details](docs/THEMES.md)
+**[Explore all 32 styles](docs/THEMES.md)** ·
+[32-theme 43-node gallery](docs/assets/v1.2/after/contact-sheet.jpg) ·
+[Unlabelled comparison](docs/assets/v1.2/after/contact-sheet-unlabelled.jpg) ·
+[Original 16 before/after](docs/ART-AUDIT.md)
 
 <details>
-<summary><strong>Explore all 16 themes</strong></summary>
+<summary><strong>Find a style that fits</strong></summary>
 
-| Theme | Visual character |
-| --- | --- |
-| [Pixel Arcade](docs/assets/v1.1/after/pixel-arcade.png) | Chinese pixel type, stepped frames and square circuits |
-| [Anime Pop](docs/assets/v1.1/after/anime-pop.png) | Sakura panels, handwritten Chinese and fine halftone |
-| [Toon Motion](docs/assets/v1.1/after/toon-motion.png) | Comic Chinese lettering and integrated speech balloons |
-| [Zen Japan](docs/assets/v1.1/after/zen-japan.png) | Washi, fine rules, unboxed leaves and a vermilion seal |
-| [Ink Wash](docs/assets/v1.1/after/ink-wash.png) | Brush calligraphy, uneven ink blocks and flowing branches |
-| [Sketchbook](docs/assets/v1.1/after/sketchbook.png) | Chinese pen lettering, double pencil contours and notebook rules |
-| [Marker Notes](docs/assets/v1.1/after/marker-notes.png) | Folded taped headings and broad highlighter leaves |
-| [Cyber Neon](docs/assets/v1.1/after/cyber-neon.png) | Cut terminals, amber hardware marks and controlled teal light |
-| [Watercolor Garden](docs/assets/v1.1/after/watercolor-garden.png) | Pigment edges, botanical colors and soft paper |
-| [Paper Cut](docs/assets/v1.1/after/paper-cut.png) | Layered cut paper, folded corners and offset depth |
-| [Ukiyo-e Print](docs/assets/v1.1/after/ukiyo-e-print.png) | Indigo/vermilion woodblock cartouches and subtle waves |
-| [Blueprint Lab](docs/assets/v1.1/after/blueprint-lab.png) | Dimension lines, dashed outlines and a quiet drafting grid |
-| [Bauhaus Geometry](docs/assets/v1.1/after/bauhaus-geometry.png) | Primary geometry, half-circle headings and open leaves |
-| [Glass Aurora](docs/assets/v1.1/after/glass-aurora.png) | Opal glass, fine highlights and exportable spectral light |
-| [Vintage Editorial](docs/assets/v1.1/after/vintage-editorial.png) | Chinese serif typography, letterpress rules and warm book paper |
-| [Celestial Atlas](docs/assets/v1.1/after/celestial-atlas.png) | Concentric title orbits, star terminals and gold/silver lines |
+[![Search and independent family/appearance filters](docs/assets/v1.2/theme-selector.png)](docs/assets/v1.2/theme-selector.png)
 
-</details>
+Search Chinese or English names and style keywords. Combine **Playful**, **Paper
+& ink**, **Graphic**, **Technical** or **Materials** with **Light / After dark**.
+After dark includes Pixel Arcade. Chinese UI leads with Chinese names; every
+card is reachable by scrolling and keyboard. Closing the panel restores focus.
 
-<details>
-<summary><strong>Inside the theme picker</strong></summary>
-
-[![The theme selector with real editor thumbnails](docs/assets/v1.1/theme-selector.png)](docs/assets/v1.1/theme-selector.png)
-
-Browse **Playful**, **Paper & ink**, **Graphic** and **After dark**. Thumbnails come from a shared seven-node map rendered by the editor. Fonts load when their style is needed; the default font pair is 68% smaller than in v1.0.
-
-[390px theme picker](docs/assets/v1.1/theme-selector-mobile.png) · [Font sources and licenses](web/public/mappop/fonts/ART-FONTS.md)
+[390px theme picker](docs/assets/v1.2/theme-selector-mobile.png) ·
+[Font sources and coverage](web/public/mappop/fonts/ART-FONTS.md)
 
 </details>
 
 <details>
 <summary><strong>Mobile and large maps</strong></summary>
 
-[390px screenshots](docs/assets/v1.1/after/contact-sheet-mobile.jpg) ·
-[121-node density](docs/assets/v1.1/after/contact-sheet-121.jpg)
+[390px overview](docs/assets/v1.2/after/contact-sheet-mobile.jpg) ·
+[121-node density](docs/assets/v1.2/after/contact-sheet-121.jpg) ·
+[121-node reading detail](docs/assets/v1.2/after/contact-sheet-121-detail.jpg)
 
-The starter map uses a compact mobile layout. Existing maps keep their chosen
-layout: use zoom, pan and branch collapse to read large documents. Fit-to-canvas
-is a navigation overview, not a promise that 121 labels fit legibly on a phone.
-Testing uses Chromium emulation; physical phones and Safari/Firefox were not tested.
+Existing maps keep their layout. Use zoom, pan and branch collapse to read large
+documents; fit-to-canvas is a navigation overview. Chromium tests include 390px,
+768px and desktop viewports, plus editing and collapse on 500-node maps.
+Physical phones, Firefox and Safari/WebKit were not tested in this release.
 
 </details>
 
@@ -167,7 +129,7 @@ Testing uses Chromium emulation; physical phones and Safari/Firefox were not tes
 
 1. **[Open Mappop](https://mappop.seiya-api.workers.dev).** The example map is already editable; there is no sign-up step.
 2. **Follow a thought.** Double-click any node to type, press `Tab` to grow a child branch, or use `Enter` to add a sibling. Drag nodes to reorganize.
-3. **Choose a visual world.** Open **Themes** for the sixteen Mappop styles, or **Structure** to try another layout.
+3. **Choose a visual world.** Open **Themes** for the thirty-two Mappop styles, or **Structure** to try another layout.
 4. **Keep a copy.** Export an editable `.smm` file or another supported format before you close the browser or clear its data.
 
 | While a node is selected | Action |
@@ -213,7 +175,11 @@ Choose the format for the next step:
 | Read or distribute a document | PDF | A fixed-appearance document |
 | Move an outline into another workflow | XMind / Markdown / TXT | Native export options; visual details depend on the destination format |
 
-**See the actual output:** [SVG gallery](docs/assets/v1.1/svg-exports.jpg) · [PNG gallery](docs/assets/v1.1/png-exports.jpg) · [Download 16 SVG + 16 PNG + 2 PDF samples](https://github.com/seiya058904/Mappop/releases/download/v1.1.0/Mappop-v1.1.0-art-exports.zip).
+Image exports wait for the current theme fonts and layout, including immediately
+after importing SMM. If a local font fails, the editor explains its fallback;
+keep editing or save SMM, then reload before exporting images.
+
+**See the actual output:** [SVG gallery](docs/assets/v1.2/svg-exports.jpg) · [PNG gallery](docs/assets/v1.2/png-exports.jpg) · [Download six representative SVG/PNG/PDF sets](https://github.com/seiya058904/Mappop/releases/download/v1.2.0/Mappop-v1.2.0-art-samples.zip).
 
 These are exports from the same 43-node test document. The [QA report](docs/QA.md) records typography, decoration and independent SVG rendering checks.
 
@@ -282,7 +248,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-The v1.1.0 release passed **12 API tests, 3 art-resource checks and 17 Chromium browser tests** locally on Windows and in Linux CI. Eight additional theme-focused tests passed against the deployed site. Coverage includes 16-theme switching and exports, saved maps, rich content, 500-node operations and mobile-sized viewports. See the [verification report](docs/QA.md) and [publishing workflow](.github/workflows/deploy.yml). These results do not certify physical mobile devices or Safari/Firefox.
+The v1.2.0 verification covers **12 API tests, 4 art/resource checks and 34 Chromium browser tests**. Coverage includes all 32 themes, standalone exports, saved maps, rich content, 500-node operations, slow/failed fonts, damaged preferences and keyboard/mobile flows. The [verification report](docs/QA.md) records local runs and limits; the [release](https://github.com/seiya058904/Mappop/releases/tag/v1.2.0) links the final CI and deployed revision.
 
 For your own public deployment, configure a **Cloudflare Workers + D1** project, a database, rate-limit bindings, and a write token. Do not reuse the maintainer's account/database IDs. Start with [deployment instructions](docs/DEPLOYMENT.md).
 

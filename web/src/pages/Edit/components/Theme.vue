@@ -10,10 +10,21 @@
         ></el-tab-pane>
       </el-tabs>
       <p v-if="isArtGroup" class="themeIntroduction">
-        {{ isChinese ? '16 种画风，同一份灵感。预览来自真实导图。' : '16 visual worlds. Previews from the real editor.' }}
+        {{ isChinese ? `${artCount} 种画风，同一份灵感。` : `${artCount} visual worlds for your ideas.` }}
       </p>
-      <div v-if="isArtGroup" class="themeCategories" :aria-label="isChinese ? '主题分类' : 'Theme categories'">
-        <button v-for="category in categories" :key="category.value" type="button" :aria-pressed="artCategory === category.value ? 'true' : 'false'" @click="artCategory = category.value">{{ isChinese ? category.zh : category.name }}</button>
+      <div v-if="isArtGroup" class="themeFilters">
+        <input v-model="search" class="themeSearch" type="search" :placeholder="isChinese ? '搜索画风、名称或关键词' : 'Search names or styles'" :aria-label="isChinese ? '搜索画风' : 'Search themes'" @keydown.stop @keydown.esc.stop.prevent="$refs.sidebar.close()" />
+        <div class="themeCategories" :aria-label="isChinese ? '画风家族' : 'Style families'">
+          <button v-for="category in categories" :key="category.value" type="button" :aria-pressed="artCategory === category.value ? 'true' : 'false'" @click="artCategory = category.value">{{ isChinese ? category.zh : category.name }}</button>
+        </div>
+        <div class="themeTones" :aria-label="isChinese ? '明暗' : 'Appearance'">
+          <button v-for="tone in tones" :key="tone.value" type="button" :aria-pressed="artTone === tone.value ? 'true' : 'false'" @click="artTone = tone.value">{{ isChinese ? tone.zh : tone.name }}</button>
+          <span class="themeResultCount" aria-live="polite">{{ isChinese ? `${currentList.length} 款` : `${currentList.length} styles` }}</span>
+        </div>
+      </div>
+      <div v-if="isArtGroup && !currentList.length" class="themeEmpty">
+        <p>{{ isChinese ? '没有匹配的画风。试试其他关键词。' : 'No matching styles. Try another search.' }}</p>
+        <button type="button" @click="clearFilters">{{ isChinese ? '清除筛选' : 'Clear filters' }}</button>
       </div>
       <div class="themeListTheme customScrollbar" :class="{ artGrid: isArtGroup }" :aria-busy="applyingTheme ? 'true' : 'false'">
         <button
@@ -28,23 +39,23 @@
           :class="{ active: item.value === theme, artThemeItem: !!item.slug }"
         >
           <span class="imgBox">
-            <img :src="item.img || themeImgMap[item.value]" alt="" loading="lazy" />
+            <img v-if="activeSidebar === 'theme'" :src="item.img || themeImgMap[item.value]" alt="" loading="lazy" />
             <span v-if="item.value === theme" class="selectedMark" aria-hidden="true">
               <svg width="13" height="13" viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
             </span>
           </span>
           <span class="themeCaption">
-            <span class="name">{{ item.name }}</span>
+            <span class="name">{{ isChinese && item.zh ? item.zh : item.name }}</span>
             <span v-if="item.slug" class="themeSwatches" aria-hidden="true">
               <i v-for="color in [item.rootFill, item.accent, item.background]" :key="color" :style="{ backgroundColor: color }"></i>
             </span>
           </span>
-          <span v-if="item.zh" class="themeChineseName">{{ item.zh }}</span>
+          <span v-if="item.zh" class="themeChineseName">{{ isChinese ? item.name : item.zh }}</span>
           <span v-if="item.description" class="themeDescription">{{ isChinese ? item.descriptionZh : item.description }}</span>
         </button>
       </div>
       <p class="themeStatus" aria-live="polite" role="status">
-        {{ applyingTheme ? (isChinese ? '正在准备画风…' : 'Preparing your theme…') : (isChinese ? '只改变画风，保留内容与布局。' : 'Your content and layout stay in place.') }}
+        {{ statusText }}
       </p>
     </div>
   </Sidebar>
@@ -56,7 +67,7 @@ import { storeData } from '@/api'
 import { mapState, mapMutations } from 'vuex'
 import themeImgMap from 'simple-mind-map-plugin-themes/themeImgMap'
 import themeList from 'simple-mind-map-plugin-themes/themeList'
-import { artThemes, prepareArtTheme } from '@/mappop/themes'
+import { artThemes, prepareArtTheme, hasArtFontFallback } from '@/mappop/themes'
 
 // 主题
 export default {
@@ -87,12 +98,16 @@ export default {
       theme: '',
       activeName: '',
       artCategory: 'all',
-      categories: [
-        { value: 'all', name: 'All 16', zh: '全部 16' },
-        { value: 'play', name: 'Playful', zh: '趣味' },
-        { value: 'paper', name: 'Paper & ink', zh: '纸与墨' },
-        { value: 'graphic', name: 'Graphic', zh: '设计' },
-        { value: 'night', name: 'After dark', zh: '夜色' }
+      search: '',
+      artTone: 'all',
+      artCount: artThemes.length,
+      fontFallback: false,
+      themeRevision: 0,
+      applyRequest: 0,
+      tones: [
+        { value: 'all', name: 'Any light', zh: '全部明暗' },
+        { value: 'light', name: 'Light', zh: '浅色' },
+        { value: 'dark', name: 'After dark', zh: '夜色' }
       ],
       defaultGroupList: []
     }
@@ -116,11 +131,36 @@ export default {
       return this.activeName === 'Mappop Styles'
     },
 
+    categories() {
+      const families = [
+        { value: 'play', name: 'Playful', zh: '趣味' },
+        { value: 'paper', name: 'Paper & ink', zh: '纸与墨' },
+        { value: 'graphic', name: 'Graphic', zh: '设计' },
+        { value: 'technical', name: 'Technical', zh: '技术' },
+        { value: 'material', name: 'Materials', zh: '材质' }
+      ]
+      return [{ value: 'all', name: `All ${artThemes.length}`, zh: `全部 ${artThemes.length}` }, ...families.filter(family => artThemes.some(theme => theme.category === family.value))]
+    },
+
+    statusText() {
+      if (this.applyingTheme) return this.isChinese ? '正在准备画风…' : 'Preparing your theme…'
+      if (this.fontFallback) return this.isChinese ? '部分字体加载失败，正在使用回退字体。可继续编辑；请重载后导出图片。' : 'A font failed; fallback type is in use. Keep editing, or reload before image export.'
+      return this.isChinese ? '预览来自真实导图。内容与布局保持不变。' : 'Real map previews. Your content and layout stay in place.'
+    },
+
     currentList() {
       const group = this.groupList.find(item => item.name === this.activeName)
       const list = group ? group.list : []
-      return this.isArtGroup && this.artCategory !== 'all' ? list.filter(item => item.category === this.artCategory) : list
+      if (!this.isArtGroup) return list
+      const words = this.search.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean)
+      return list.filter(item => {
+        const text = [item.name, item.zh, item.description, item.descriptionZh, item.keywords || '', item.slug].join(' ').toLocaleLowerCase()
+        return (this.artCategory === 'all' || item.category === this.artCategory) &&
+          (this.artTone === 'all' || item.dark === (this.artTone === 'dark')) &&
+          words.every(word => text.includes(word))
+      })
     }
+
   },
   watch: {
     activeSidebar(val) {
@@ -136,15 +176,31 @@ export default {
     this.initGroup()
     this.theme = this.mindMap.getTheme()
     this.mindMap.on('view_theme_change', this.handleViewThemeChange)
+    this.mindMap.on('mappop_art_status', this.handleFontStatus)
+    this.fontFallback = hasArtFontFallback(this.theme)
   },
   beforeDestroy() {
+    this.applyRequest++
     this.mindMap.off('view_theme_change', this.handleViewThemeChange)
+    this.mindMap.off('mappop_art_status', this.handleFontStatus)
   },
   methods: {
     ...mapMutations(['setLocalConfig']),
 
+    clearFilters() {
+      this.search = ''
+      this.artCategory = 'all'
+      this.artTone = 'all'
+    },
+
+    handleFontStatus(status) {
+      if (status.theme === this.mindMap.getTheme()) this.fontFallback = status.fallback
+    },
+
     handleViewThemeChange() {
+      this.themeRevision++
       this.theme = this.mindMap.getTheme()
+      this.fontFallback = hasArtFontFallback(this.theme)
       this.handleDark()
     },
 
@@ -220,21 +276,23 @@ export default {
     },
 
     themeLabel(item) {
-      return item.zh && this.isChinese ? `${item.name} · ${item.zh}` : item.name
+      return item.zh && this.isChinese ? `${item.zh} · ${item.name}` : item.name
     },
 
     async changeTheme(theme, config) {
+      const request = ++this.applyRequest
+      const revision = this.themeRevision
       this.applyingTheme = theme.value
       try {
         await prepareArtTheme(theme.value)
-        if (this._isDestroyed) return
+        if (this._isDestroyed || request !== this.applyRequest || revision !== this.themeRevision) return
         this.$bus.$emit('showLoading')
         this.mindMap.setTheme(theme.value)
         this.theme = theme.value
         this.handleDark()
         storeData({ theme: { template: theme.value, config } })
       } finally {
-        this.applyingTheme = ''
+        if (request === this.applyRequest) this.applyingTheme = ''
       }
     },
 
@@ -277,7 +335,7 @@ export default {
     font-size: 12px;
     line-height: 1.6;
     margin: 0;
-    padding: 2px 18px 14px;
+    padding: 2px 18px 8px;
     color: #68746c;
   }
   .themeListTheme {
@@ -298,11 +356,30 @@ export default {
       .themeSwatches { display: none; }
     }
   }
+  .themeFilters { flex-shrink: 0; padding: 0 14px 10px; }
+  .themeSearch {
+    width: 100%; min-width: 0; box-sizing: border-box;
+    border: 1px solid #85958b; border-radius: 6px;
+    padding: 9px 10px; font: inherit; font-size: 12px;
+    color: inherit; background: transparent; caret-color: currentColor;
+    &::placeholder { color: #596b60; opacity: 1; }
+    &:focus-visible { outline: 2px solid #396957; outline-offset: 2px; }
+  }
+  .themeTones { display: flex; align-items: center; gap: 4px; padding-top: 4px; }
+  .themeResultCount { margin-left: auto; font-size: 11px; white-space: nowrap; }
+  .themeEmpty { padding: 6px 18px 12px; font-size: 12px; line-height: 1.6; }
+  .themeEmpty button { font: inherit; cursor: pointer; color: inherit; background: none; border: 0; text-decoration: underline; text-underline-offset: 3px; }
+  .themeTones button, .themeCategories button {
+    font: inherit; font-size: 11px; padding: 6px 7px; color: inherit;
+    border: 1px solid transparent; border-radius: 5px; background: transparent; cursor: pointer;
+    &[aria-pressed=true] { border-color: currentColor; }
+    &:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; }
+  }
   .themeCategories {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-    padding: 0 14px 12px;
+    padding: 7px 0 0;
     button {
       font: inherit;
       font-size: 11px;
@@ -391,6 +468,7 @@ export default {
     color: #e6eee9;
     .themeIntroduction, .themeStatus, .themeDescription { color: #b4c6bd; }
     .themeStatus { border-color: #414e48; }
+    .themeSearch { border-color: #809b8d; &::placeholder { color: #b4c6bd; } &:focus-visible { outline-color: #c6e6ce; } }
     .themeItem {
       background: #293932;
       border-color: #4c6256;

@@ -4,16 +4,8 @@ const path = require('node:path')
 
 test.use({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' })
 
-const themes = [
-  ['pixel-arcade', 'Pixel Arcade'], ['anime-pop', 'Anime Pop'],
-  ['toon-motion', 'Toon Motion'], ['zen-japan', 'Zen Japan'],
-  ['ink-wash', 'Ink Wash'], ['sketchbook', 'Sketchbook'],
-  ['marker-notes', 'Marker Notes'], ['cyber-neon', 'Cyber Neon'],
-  ['watercolor-garden', 'Watercolor Garden'], ['paper-cut', 'Paper Cut'],
-  ['ukiyo-e-print', 'Ukiyo-e Print'], ['blueprint-lab', 'Blueprint Lab'],
-  ['bauhaus-geometry', 'Bauhaus Geometry'], ['glass-aurora', 'Glass Aurora'],
-  ['vintage-editorial', 'Vintage Editorial'], ['celestial-atlas', 'Celestial Atlas']
-]
+const { definitions } = require('../../scripts/art-registry.cjs')
+const themes = definitions.map(t => [t.slug, t.name])
 
 async function ready(page, slug = 'anime-pop') {
   await expect(page.locator('#mindMapContainer')).toHaveAttribute('data-mappop-art', slug)
@@ -45,7 +37,7 @@ async function documentContent(page) {
   })
 }
 
-test('all sixteen art themes switch through UI, preserve the document, export SVG/PNG and persist', async ({ page }, testInfo) => {
+test('all registered art themes switch through UI, preserve the document, export SVG/PNG and persist', async ({ page }, testInfo) => {
   test.setTimeout(180000)
   const errors = []
   page.on('pageerror', error => errors.push(error.message))
@@ -103,9 +95,9 @@ test('all sixteen art themes switch through UI, preserve the document, export SV
     expect(bytes.subarray(1, 4).toString()).toBe('PNG')
     expect(bytes.length).toBeGreaterThan(10000)
   }
-  expect(signatures.size).toBe(16)
+  expect(signatures.size).toBe(themes.length)
   await page.reload()
-  await ready(page, 'celestial-atlas')
+  await ready(page, themes[themes.length - 1][0])
   expect(await documentContent(page)).toEqual(original)
   await openThemes(page)
   await page.getByRole('button', { name: 'Anime Pop', exact: true }).click()

@@ -1,0 +1,302 @@
+{
+  "sourceCommit": "1a6fc63662aba0cb9c5ef97e783680e99117aa22",
+  "sources": {
+    "theme-tokens.js": "062fd1aed617d6426b0bddc4af703a1b459261237f4a9104db2a5fc7d76fd182",
+    "themes.js": "cb8ee28460409ccf0efb280f172912192154f381fbecc9640865e41426371fc0",
+    "textures.js": "66c01716d4f61b78bfe04a36f239e7604977d21a3c54454cdadae0afad029f23",
+    "decorations.js": "3aa05df0a43101861543dc3ee33991e7dd6829ea7609985b24c96afb2b12c8e2"
+  },
+  "slugs": [
+    "pixel-arcade",
+    "anime-pop",
+    "toon-motion",
+    "zen-japan",
+    "ink-wash",
+    "sketchbook",
+    "marker-notes",
+    "cyber-neon",
+    "watercolor-garden",
+    "paper-cut",
+    "ukiyo-e-print",
+    "blueprint-lab",
+    "bauhaus-geometry",
+    "glass-aurora",
+    "vintage-editorial",
+    "celestial-atlas"
+  ],
+  "captured": "2026-10-30T06:20:40.814Z",
+  "initialMs": 715,
+  "resources": [
+    {
+      "name": "/css/chunk-vendors.dc502cfa.css",
+      "bytes": 37215
+    },
+    {
+      "name": "/css/app.fc883365.css",
+      "bytes": 1383
+    },
+    {
+      "name": "/js/chunk-vendors.1a2f9ee6.js",
+      "bytes": 310479
+    },
+    {
+      "name": "/js/app.c108bdb3.js",
+      "bytes": 38300
+    },
+    {
+      "name": "/css/chunk-eab749de.e4a211ff.css",
+      "bytes": 134624
+    },
+    {
+      "name": "/js/chunk-eab749de.c17704b5.js",
+      "bytes": 1144509
+    },
+    {
+      "name": "/fonts/element-icons.535877f5.woff",
+      "bytes": 28200
+    },
+    {
+      "name": "/fonts/iconfont.77d93312.woff2",
+      "bytes": 17328
+    },
+    {
+      "name": "/mappop/fonts/MappopHand.woff2",
+      "bytes": 1574068
+    },
+    {
+      "name": "/mappop/fonts/MappopSans.woff2",
+      "bytes": 991548
+    },
+    {
+      "name": "/img/logicalStructure.4532ecb3.jpg",
+      "bytes": 5623
+    },
+    {
+      "name": "/img/mindMap.387d3c5d.jpg",
+      "bytes": 6327
+    },
+    {
+      "name": "/img/logicalStructureLeft.cfd5dfc0.jpg",
+      "bytes": 5615
+    },
+    {
+      "name": "/img/organizationStructure.fed2500e.jpg",
+      "bytes": 7014
+    },
+    {
+      "name": "/img/catalogOrganization.4c7a113a.jpg",
+      "bytes": 6978
+    },
+    {
+      "name": "/img/timeline.108e42bf.jpg",
+      "bytes": 8442
+    },
+    {
+      "name": "/img/timeline2.95327d8e.jpg",
+      "bytes": 8119
+    },
+    {
+      "name": "/img/verticalTimeline.088296f2.jpg",
+      "bytes": 8505
+    },
+    {
+      "name": "/img/fishbone.94c4319d.jpg",
+      "bytes": 6647
+    },
+    {
+      "name": "/mappop/previews/pixel-arcade.webp",
+      "bytes": 9244
+    },
+    {
+      "name": "/mappop/previews/anime-pop.webp",
+      "bytes": 7422
+    },
+    {
+      "name": "/mappop/previews/ink-wash.webp",
+      "bytes": 7242
+    },
+    {
+      "name": "/mappop/previews/toon-motion.webp",
+      "bytes": 8964
+    },
+    {
+      "name": "/mappop/previews/zen-japan.webp",
+      "bytes": 5476
+    },
+    {
+      "name": "/mappop/previews/sketchbook.webp",
+      "bytes": 8060
+    },
+    {
+      "name": "/mappop/previews/marker-notes.webp",
+      "bytes": 7770
+    },
+    {
+      "name": "/mappop/previews/cyber-neon.webp",
+      "bytes": 7996
+    },
+    {
+      "name": "/mappop/previews/watercolor-garden.webp",
+      "bytes": 6888
+    },
+    {
+      "name": "/mappop/previews/ukiyo-e-print.webp",
+      "bytes": 7722
+    },
+    {
+      "name": "/mappop/previews/paper-cut.webp",
+      "bytes": 7146
+    },
+    {
+      "name": "/mappop/previews/blueprint-lab.webp",
+      "bytes": 8642
+    },
+    {
+      "name": "/mappop/previews/bauhaus-geometry.webp",
+      "bytes": 7754
+    },
+    {
+      "name": "/mappop/previews/glass-aurora.webp",
+      "bytes": 6506
+    },
+    {
+      "name": "/mappop/previews/celestial-atlas.webp",
+      "bytes": 7952
+    },
+    {
+      "name": "/mappop/previews/vintage-editorial.webp",
+      "bytes": 5848
+    }
+  ],
+  "themes": {
+    "pixel-arcade": {
+      "coldSwitchMs": 320,
+      "render121Ms": [
+        53.39999997615814,
+        65.7000000178814,
+        69.19999998807907
+      ]
+    },
+    "anime-pop": {
+      "coldSwitchMs": 200,
+      "render121Ms": [
+        52,
+        60.79999998211861,
+        70.09999999403954
+      ]
+    },
+    "toon-motion": {
+      "coldSwitchMs": 265,
+      "render121Ms": [
+        48.5,
+        90,
+        66.09999999403954
+      ]
+    },
+    "zen-japan": {
+      "coldSwitchMs": 296,
+      "render121Ms": [
+        54.19999998807907,
+        74.80000001192093,
+        108.59999999403954
+      ]
+    },
+    "ink-wash": {
+      "coldSwitchMs": 373,
+      "render121Ms": [
+        55.19999998807907,
+        82.80000001192093,
+        112.89999997615814
+      ]
+    },
+    "sketchbook": {
+      "coldSwitchMs": 203,
+      "render121Ms": [
+        57.5,
+        92.40000000596046,
+        69
+      ]
+    },
+    "marker-notes": {
+      "coldSwitchMs": 189,
+      "render121Ms": [
+        56.400000005960464,
+        77.7000000178814,
+        111.19999998807907
+      ]
+    },
+    "cyber-neon": {
+      "coldSwitchMs": 234,
+      "render121Ms": [
+        59.900000005960464,
+        90.59999999403954,
+        104.5
+      ]
+    },
+    "watercolor-garden": {
+      "coldSwitchMs": 202,
+      "render121Ms": [
+        59.70000001788139,
+        88.2999999821186,
+        106.40000000596046
+      ]
+    },
+    "paper-cut": {
+      "coldSwitchMs": 187,
+      "render121Ms": [
+        61.30000001192093,
+        78.90000000596046,
+        110.2999999821186
+      ]
+    },
+    "ukiyo-e-print": {
+      "coldSwitchMs": 203,
+      "render121Ms": [
+        61.30000001192093,
+        79.19999998807907,
+        124.09999999403954
+      ]
+    },
+    "blueprint-lab": {
+      "coldSwitchMs": 203,
+      "render121Ms": [
+        59.69999998807907,
+        70.59999999403954,
+        111.5
+      ]
+    },
+    "bauhaus-geometry": {
+      "coldSwitchMs": 202,
+      "render121Ms": [
+        55.599999994039536,
+        88,
+        111.30000001192093
+      ]
+    },
+    "glass-aurora": {
+      "coldSwitchMs": 171,
+      "render121Ms": [
+        61,
+        89.5,
+        107.5
+      ]
+    },
+    "vintage-editorial": {
+      "coldSwitchMs": 171,
+      "render121Ms": [
+        64.80000001192093,
+        80.90000000596046,
+        110.5
+      ]
+    },
+    "celestial-atlas": {
+      "coldSwitchMs": 204,
+      "render121Ms": [
+        60.60000002384186,
+        102.5,
+        109.69999998807907
+      ]
+    }
+  },
+  "errors": []
+}

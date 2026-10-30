@@ -10,6 +10,16 @@ const SIMPLE_MIND_MAP_LOCAL_CONFIG = 'SIMPLE_MIND_MAP_LOCAL_CONFIG'
 
 let mindMapData = null
 
+// A malformed preference must not prevent opening a map or destroy its backup.
+const configObject = value => value && typeof value === 'object' && !Array.isArray(value) ? value : null
+const readConfig = key => {
+  try {
+    return configObject(JSON.parse(localStorage.getItem(key)))
+  } catch (error) {
+    return null
+  }
+}
+
 const getWelcomeData = () => {
   const data = simpleDeepClone(exampleData)
   // A short vertical overview keeps the first map readable on a phone.
@@ -83,14 +93,9 @@ export const storeData = data => {
 // 获取思维导图配置数据
 export const getConfig = () => {
   if (window.takeOverApp) {
-    window.takeOverAppMethods.getMindMapConfig()
-    return
+    return configObject(window.takeOverAppMethods.getMindMapConfig())
   }
-  let config = localStorage.getItem(SIMPLE_MIND_MAP_CONFIG)
-  if (config) {
-    return JSON.parse(config)
-  }
-  return null
+  return readConfig(SIMPLE_MIND_MAP_CONFIG)
 }
 
 // 存储思维导图配置数据
@@ -139,11 +144,7 @@ export const storeLocalConfig = config => {
 // 获取本地配置
 export const getLocalConfig = () => {
   if (window.takeOverApp) {
-    return window.takeOverAppMethods.getLocalConfig()
+    return configObject(window.takeOverAppMethods.getLocalConfig())
   }
-  let config = localStorage.getItem(SIMPLE_MIND_MAP_LOCAL_CONFIG)
-  if (config) {
-    return JSON.parse(config)
-  }
-  return null
+  return readConfig(SIMPLE_MIND_MAP_LOCAL_CONFIG)
 }

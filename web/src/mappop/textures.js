@@ -16,5 +16,21 @@ export const textures = {
   'bauhaus-geometry': tile(400, '<circle cx="200" cy="200" r="1" fill="#766d58" opacity=".16"/>'),
   'glass-aurora': tile(1200, '<defs><radialGradient id="a"><stop stop-color="#b9d7dd" stop-opacity=".5"/><stop offset="1" stop-color="#b9d7dd" stop-opacity="0"/></radialGradient><radialGradient id="b"><stop stop-color="#d8c6df" stop-opacity=".5"/><stop offset="1" stop-color="#d8c6df" stop-opacity="0"/></radialGradient></defs><ellipse cx="350" cy="400" rx="480" ry="480" fill="url(#a)"/><ellipse cx="900" cy="850" rx="460" ry="460" fill="url(#b)"/>'),
   'vintage-editorial': tile(160, '<path d="M13 20h7m58 30h11m41 72h8M21 103h5M69 146h9" stroke="#8c7653" stroke-width=".55" stroke-opacity=".16"/>'),
-  'celestial-atlas': tile(320, '<g fill="#c7c9cf" opacity=".35"><circle cx="21" cy="31" r=".7"/><circle cx="117" cy="74" r=".6"/><circle cx="263" cy="28" r=".8"/><circle cx="204" cy="191" r=".7"/><circle cx="51" cy="249" r=".7"/></g><path d="M150 269h6m-3-3v6M283 124h4m-2-2v4" stroke="#d3bc87" stroke-width=".6" opacity=".3"/><path d="M21 31l96 43 87 117" fill="none" stroke="#8b9fbf" stroke-opacity=".07" stroke-width=".6"/>')
+  'celestial-atlas': tile(320, '<g fill="#c7c9cf" opacity=".35"><circle cx="21" cy="31" r=".7"/><circle cx="117" cy="74" r=".6"/><circle cx="263" cy="28" r=".8"/><circle cx="204" cy="191" r=".7"/><circle cx="51" cy="249" r=".7"/></g><path d="M150 269h6m-3-3v6M283 124h4m-2-2v4" stroke="#d3bc87" stroke-width=".6" opacity=".3"/><path d="M21 31l96 43 87 117" fill="none" stroke="#8b9fbf" stroke-opacity=".07" stroke-width=".6"/>'),
+  'swiss-type': tile(400, '<path d="M399 0v400" stroke="#3e4a4d" stroke-opacity=".018"/>'),
+  'metro-transit': tile(320, '<circle cx="160" cy="160" r="1" fill="#56727a" opacity=".06"/>'),
+  'chalk-classroom': tile(500, '<path d="M30 74q76-4 102 1m178 291q71 3 118-1" stroke="#b8cabc" stroke-width="12" stroke-opacity=".025"/><path d="M29 85l76-2m208 274l63 2" stroke="#d4dfc7" stroke-width=".6" stroke-opacity=".05"/>'),
+  'terminal-tree': tile(400, '<path d="M0 399h400" stroke="#a4bba6" stroke-opacity=".015"/>'),
+  'circuit-board': tile(240, '<path d="M0 32h42v54h35M240 192h-48v-42h-35" stroke="#aeb77c" stroke-width=".7" stroke-opacity=".065"/><g stroke="#c3b886" stroke-opacity=".08"><circle cx="79" cy="86" r="3"/><circle cx="154" cy="150" r="3"/></g>'),
+  'art-deco': tile(360, '<path d="M148 180h14v-14h18v-14h18v14h18v14h14M162 180v14h18v14h18v-14h18v-14" stroke="#d4b474" stroke-width=".6" stroke-opacity=".05"/>'),
+  'risograph': tile(160, '<g fill="#5d7384" opacity=".12"><circle cx="14" cy="29" r=".6"/><circle cx="51" cy="112" r=".8"/><circle cx="123" cy="61" r=".6"/></g><path d="M85 144h3M145 15h2" stroke="#b64b35" stroke-opacity=".13"/>'),
+  'memphis-play': tile(360, '<path d="M24 32l6-6 6 6 6-6m231 230a10 10 0 0 1 17 12" stroke="#6f648d" stroke-width="1.4" stroke-opacity=".09"/><g fill="#bc705c" opacity=".1"><circle cx="211" cy="74" r="1.2"/><circle cx="218" cy="74" r="1.2"/><circle cx="211" cy="81" r="1.2"/></g>'),
+  'neo-brutalist': tile(400, '<path d="M30 30h2v2h-2z" fill="#202224" opacity=".06"/>'),
+  'retro-desktop': tile(8, '<path d="M1 1h.8v.8H1zm4 4h.8v.8H5z" fill="#325762" opacity=".06"/>'),
+  'stitched-linen': tile(24, '<path d="M0 6h24M0 18h24M6 0v24M18 0v24" stroke="#9f8d72" stroke-width=".45" stroke-opacity=".055"/>'),
+  'clay-studio': tile(240, '<circle cx="31" cy="42" r=".7" fill="#a18970" opacity=".12"/><circle cx="183" cy="159" r=".6" fill="#a18970" opacity=".1"/>'),
+  'stained-glass': tile(360, '<path d="M145 180l35-35 35 35-35 35Z" stroke="#65765f" stroke-width=".6" stroke-opacity=".04"/>'),
+  'topographic': tile(480, '<g stroke="#66795a" stroke-width=".7" opacity=".055"><path d="M-30 103Q38 13 110 71T290 94T510 24M-25 121Q42 33 113 88T293 111T510 43M-20 139Q46 53 116 105T296 128T510 62M189 383q61-72 147-22t164-15M184 402q64-74 152-23t169-14M179 421q67-76 157-24t174-13"/></g>'),
+  'film-storyboard': tile(300, '<path d="M0 299h300" stroke="#606365" stroke-opacity=".035" stroke-width=".5"/>'),
+  'travel-tickets': tile(180, '<path d="M20 31h11m72 79h7m-47 43h10" stroke="#a48c6c" stroke-width=".6" stroke-opacity=".12"/>')
 }

@@ -1,0 +1,95 @@
+{
+  "method": "121 nodes; one warmup, five interleaved samples per target; same Atlas predecessor; two stable frames; render-end counts; no capture or download in timings.",
+  "targets": {
+    "baseline": {
+      "url": "https://mappop.seiya-api.workers.dev",
+      "build": {
+        "version": "1.1.0",
+        "commit": "1a6fc63662aba0cb9c5ef97e783680e99117aa22"
+      },
+      "errors": [],
+      "samples": [
+        {
+          "ms": 73.09999999403954,
+          "renders": 1,
+          "renderEndsMs": [
+            62.79999998211861
+          ]
+        },
+        {
+          "ms": 72,
+          "renders": 1,
+          "renderEndsMs": [
+            61.400000005960464
+          ]
+        },
+        {
+          "ms": 96.90000000596046,
+          "renders": 1,
+          "renderEndsMs": [
+            85.59999999403954
+          ]
+        },
+        {
+          "ms": 75.90000000596046,
+          "renders": 1,
+          "renderEndsMs": [
+            66.40000000596046
+          ]
+        },
+        {
+          "ms": 85.40000000596046,
+          "renders": 1,
+          "renderEndsMs": [
+            75.90000000596046
+          ]
+        }
+      ]
+    },
+    "candidate": {
+      "url": "http://127.0.0.1:8787",
+      "build": {
+        "version": "1.2.0",
+        "commit": "1a6fc63662aba0cb9c5ef97e783680e99117aa22"
+      },
+      "errors": [],
+      "samples": [
+        {
+          "ms": 74.2999999821186,
+          "renders": 1,
+          "renderEndsMs": [
+            64.5
+          ]
+        },
+        {
+          "ms": 72.39999997615814,
+          "renders": 1,
+          "renderEndsMs": [
+            61.599999994039536
+          ]
+        },
+        {
+          "ms": 78.09999999403954,
+          "renders": 1,
+          "renderEndsMs": [
+            67.40000000596046
+          ]
+        },
+        {
+          "ms": 97.39999997615814,
+          "renders": 1,
+          "renderEndsMs": [
+            86
+          ]
+        },
+        {
+          "ms": 71.5,
+          "renders": 1,
+          "renderEndsMs": [
+            61.20000001788139
+          ]
+        }
+      ]
+    }
+  }
+}

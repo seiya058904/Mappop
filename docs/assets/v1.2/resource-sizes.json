@@ -1,0 +1,198 @@
+{
+  "before": {
+    "initialMs": 715,
+    "resources": {
+      "css": {
+        "bytes": 173222,
+        "count": 3
+      },
+      "js": {
+        "bytes": 1493288,
+        "count": 3
+      },
+      "fonts": {
+        "bytes": 2611144,
+        "count": 4
+      },
+      "other": {
+        "bytes": 63270,
+        "count": 9
+      },
+      "previews": {
+        "bytes": 120632,
+        "count": 16
+      }
+    },
+    "total": 4461556
+  },
+  "after": {
+    "initialMs": 856,
+    "resources": {
+      "css": {
+        "bytes": 173499,
+        "count": 3
+      },
+      "js": {
+        "bytes": 1501114,
+        "count": 3
+      },
+      "fonts": {
+        "bytes": 2611144,
+        "count": 4
+      },
+      "other": {
+        "bytes": 63270,
+        "count": 9
+      },
+      "previews": {
+        "bytes": 229678,
+        "count": 32
+      }
+    },
+    "total": 4578705
+  },
+  "fontAssets": {
+    "before": 22753826,
+    "after": 22754052
+  },
+  "previewAssets": {
+    "before": 120632,
+    "after": 229728
+  },
+  "finalFirstScreen": {
+    "method": "Fresh Chromium context, default ten-node map, current-theme font barrier plus 120ms capture settling. Encoded response bodies exclude headers; not pure CPU timing.",
+    "initialMs": 802,
+    "themePickerSourceSha256": "9f66f346f23d751c15a94fdab04efea772a65082d8cba06c2d28cc5eacbf0673",
+    "resources": [
+      {
+        "name": "/css/chunk-vendors.dc502cfa.css",
+        "bytes": 37215
+      },
+      {
+        "name": "/css/app.fc883365.css",
+        "bytes": 1383
+      },
+      {
+        "name": "/js/app.a8d2314f.js",
+        "bytes": 38320
+      },
+      {
+        "name": "/js/chunk-vendors.1a2f9ee6.js",
+        "bytes": 310479
+      },
+      {
+        "name": "/css/chunk-4c3fa37c.8e461660.css",
+        "bytes": 134901
+      },
+      {
+        "name": "/js/chunk-4c3fa37c.085b4c0d.js",
+        "bytes": 1152329
+      },
+      {
+        "name": "/fonts/element-icons.535877f5.woff",
+        "bytes": 28200
+      },
+      {
+        "name": "/fonts/iconfont.77d93312.woff2",
+        "bytes": 17328
+      },
+      {
+        "name": "/mappop/fonts/MappopHand.woff2",
+        "bytes": 1574068
+      },
+      {
+        "name": "/mappop/fonts/MappopSans.woff2",
+        "bytes": 991548
+      },
+      {
+        "name": "/img/logicalStructure.4532ecb3.jpg",
+        "bytes": 5623
+      },
+      {
+        "name": "/img/logicalStructureLeft.cfd5dfc0.jpg",
+        "bytes": 5615
+      },
+      {
+        "name": "/img/mindMap.387d3c5d.jpg",
+        "bytes": 6327
+      },
+      {
+        "name": "/img/organizationStructure.fed2500e.jpg",
+        "bytes": 7014
+      },
+      {
+        "name": "/img/catalogOrganization.4c7a113a.jpg",
+        "bytes": 6978
+      },
+      {
+        "name": "/img/timeline.108e42bf.jpg",
+        "bytes": 8442
+      },
+      {
+        "name": "/img/timeline2.95327d8e.jpg",
+        "bytes": 8119
+      },
+      {
+        "name": "/img/fishbone.94c4319d.jpg",
+        "bytes": 6647
+      },
+      {
+        "name": "/img/verticalTimeline.088296f2.jpg",
+        "bytes": 8505
+      }
+    ],
+    "errors": [],
+    "totalBytes": 4349041,
+    "previewRequests": 0
+  },
+  "fontBinaryBytes": {
+    "before": 22665204,
+    "after": 22665204
+  },
+  "finalBuiltAssets": {
+    "js": [
+      {
+        "name": "app.a8d2314f.js",
+        "bytes": 114848,
+        "gzipBytes": 38320
+      },
+      {
+        "name": "chunk-3222d6ee.ddc43450.js",
+        "bytes": 543,
+        "gzipBytes": 390
+      },
+      {
+        "name": "chunk-4c3fa37c.085b4c0d.js",
+        "bytes": 3289080,
+        "gzipBytes": 1152329
+      },
+      {
+        "name": "chunk-vendors.1a2f9ee6.js",
+        "bytes": 1112065,
+        "gzipBytes": 310479
+      }
+    ],
+    "css": [
+      {
+        "name": "app.fc883365.css",
+        "bytes": 4828,
+        "gzipBytes": 1383
+      },
+      {
+        "name": "chunk-3222d6ee.60fda6c9.css",
+        "bytes": 197,
+        "gzipBytes": 162
+      },
+      {
+        "name": "chunk-4c3fa37c.8e461660.css",
+        "bytes": 289552,
+        "gzipBytes": 134901
+      },
+      {
+        "name": "chunk-vendors.dc502cfa.css",
+        "bytes": 218770,
+        "gzipBytes": 37215
+      }
+    ]
+  }
+}

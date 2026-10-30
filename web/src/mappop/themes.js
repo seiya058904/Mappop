@@ -2,6 +2,7 @@ import { textures } from './textures'
 import './themes.css'
 import { definitions } from './theme-tokens'
 import { addDecoration, addArtDefs } from './decorations'
+import { branchColor } from './decoration-presets'
 
 const asset = file => `${process.env.BASE_URL || '/'}mappop/${file}`
 const fallback = '"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif'
@@ -35,7 +36,7 @@ export const artThemes = definitions.map(theme => {
       backgroundImage: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(textures[theme.slug])}`,
       backgroundRepeat: 'repeat', backgroundPosition: '0 0', backgroundSize: 'auto',
       fontFamily, lineColor: theme.line, lineWidth: theme.lineWidth,
-      lineStyle: theme.lineStyle, lineRadius: theme.slug === 'pixel-arcade' || theme.slug === 'blueprint-lab' ? 0 : 5,
+      lineStyle: theme.lineStyle, lineRadius: theme.lineRadius !== undefined ? theme.lineRadius : theme.slug === 'pixel-arcade' || theme.slug === 'blueprint-lab' ? 0 : 5,
       rootLineKeepSameInCurve: true, rootLineStartPositionKeepSameInCurve: true,
       generalizationLineColor: theme.line, associativeLineColor: theme.accent,
       associativeLineTextColor: theme.ink, associativeLineTextFontFamily: fontFamily,
@@ -57,50 +58,58 @@ export function registerArtThemes(MindMap) {
 }
 
 const fontCache = new Map()
-// Cache locally hosted font bytes for display and portable SVG/PNG/PDF export.
-// A failed download retains the final platform fallback instead of blocking UI.
+const failedFonts = new Set()
+const fontKeys = theme => [...new Set([theme.font === 'sans' ? 'chinese' : theme.font, 'chinese'])]
+export const hasArtFontFallback = value => {
+  const theme = findArtTheme(value)
+  return !!theme && fontKeys(theme).some(key => failedFonts.has(key))
+}
+// One bounded load per family per session. A failed family stays on a measured
+// fallback until reload; exports cannot silently pretend that font is embedded.
 function prepareFont(key) {
+  if (fontCache.has(key)) return fontCache.get(key)
   const font = fonts[key]
-  if (!fontCache.has(key)) {
-    const controller = typeof AbortController !== 'undefined' ? new AbortController() : null
-    const timeout = controller ? setTimeout(() => controller.abort(), 12000) : null
-    const promise = fetch(asset(`fonts/${encodeURIComponent(font.file)}`), controller ? { signal: controller.signal } : {})
-      .then(response => {
-        if (!response.ok) throw new Error('Local theme font unavailable')
-        return response.blob()
-      })
-      .then(blob => new Promise((resolve, reject) => {
-        const reader = new FileReader()
-        reader.onload = () => resolve(reader.result)
-        reader.onerror = reject
-        reader.readAsDataURL(blob)
-      }))
-      .then(async data => {
-        if (typeof FontFace !== 'undefined' && document.fonts) {
-          const face = new FontFace(font.family, `url(${data})`)
-          await face.load()
-          document.fonts.add(face)
-        }
-        clearTimeout(timeout)
-        return `@font-face{font-family:"${font.family}";src:url("${data}") format("${font.format || 'woff2'}");font-weight:normal;font-style:normal;}`
-      })
-      .catch(() => {
-        clearTimeout(timeout)
-        fontCache.delete(key)
-        return ''
-      })
-    fontCache.set(key, promise)
-  }
-  return fontCache.get(key)
+  const controller = new AbortController()
+  let expired = false
+  let timer
+  const deadline = new Promise((resolve, reject) => {
+    timer = setTimeout(() => {
+      expired = true
+      controller.abort()
+      reject(new Error('Local theme font timed out'))
+    }, 12000)
+  })
+  const load = fetch(asset(`fonts/${encodeURIComponent(font.file)}`), { signal: controller.signal })
+    .then(response => {
+      if (!response.ok) throw new Error('Local theme font unavailable')
+      return response.blob()
+    })
+    .then(blob => new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(reader.result)
+      reader.onerror = reject
+      reader.readAsDataURL(blob)
+    }))
+    .then(async data => {
+      if (typeof FontFace !== 'undefined' && document.fonts) {
+        const face = new FontFace(font.family, `url(${data})`)
+        await face.load()
+        if (!expired) document.fonts.add(face)
+      }
+      return `@font-face{font-family:"${font.family}";src:url("${data}") format("woff2");font-weight:normal;font-style:normal;}`
+    })
+  const promise = Promise.race([load, deadline]).catch(() => {
+    failedFonts.add(key)
+    return ''
+  }).finally(() => clearTimeout(timer))
+  fontCache.set(key, promise)
+  return promise
 }
 
 export function prepareArtTheme(value) {
   const theme = findArtTheme(value)
   if (!theme) return Promise.resolve('')
-  // Japanese display fonts omit many Simplified Chinese characters. Load and
-  // embed a complete local fallback for every preset, independent of the OS.
-  return Promise.all([...new Set([theme.font === 'sans' ? 'chinese' : theme.font, 'chinese'])].map(prepareFont))
-    .then(styles => styles.join('\n'))
+  return Promise.all(fontKeys(theme).map(prepareFont)).then(styles => styles.join('\n'))
 }
 
 const NS = 'http://www.w3.org/2000/svg'
@@ -131,7 +140,10 @@ export function attachArtThemeRuntime(mindMap, { initialFontReady = false } = {}
     return svg
   }
   mindMap.opt.handleBeingExportSvg = handleExport
+  const previousExport = mindMap.export
+  const previousReady = mindMap.waitForArtTheme
   let disposed = false
+  let generation = 0
   let loadedTheme = null
   let embeddedFont = ''
   let firstLoad = true
@@ -173,24 +185,35 @@ export function attachArtThemeRuntime(mindMap, { initialFontReady = false } = {}
     const defs = svgElement('defs', { 'data-mappop-defs': id })
     const filter = svgElement('filter', { id, x: '-30%', y: '-35%', width: '170%', height: '190%', 'color-interpolation-filters': 'sRGB' })
     const [color, dx, dy, blur] = theme.shadow
-    filter.appendChild(svgElement('feDropShadow', { dx, dy, stdDeviation: blur, 'flood-color': color, 'flood-opacity': theme.slug === 'cyber-neon' ? 0.55 : 0.48 }))
+    filter.appendChild(svgElement('feDropShadow', { dx, dy, stdDeviation: blur, 'flood-color': color, 'flood-opacity': theme.shadowOpacity || (theme.slug === 'cyber-neon' ? 0.55 : 0.48) }))
     defs.appendChild(filter)
     addArtDefs(defs, theme, id)
     svg.insertBefore(defs, svg.firstChild)
-    if (embeddedFont && loadedTheme === theme.value && !svg.querySelector(`[data-mappop-font="${id}"]`)) {
-      const style = svgElement('style', { 'data-mappop-font': id, 'data-theme': theme.value })
+    if (loadedTheme === theme.value && !svg.querySelector(`[data-mappop-font="${id}"]`)) {
+      const style = svgElement('style', { 'data-mappop-font': id, 'data-theme': theme.value, 'data-font-state': hasArtFontFallback(theme.value) ? 'fallback' : 'ready' })
       style.textContent = embeddedFont
       svg.insertBefore(style, svg.firstChild)
     }
     const visit = node => {
       if (!node) return
       addDecoration(node, theme, id)
-      ;(node.children || []).forEach(visit)
+      if (theme.branchPalette) {
+        const custom = mindMap.getCustomThemeConfig()
+        ;(node.children || []).forEach((child, index) => {
+          // Respect inherited manual line colors and the upstream rainbow tool.
+          const level = child.layerIndex === 1 ? 'second' : 'node'
+          if (!custom.lineColor && !(custom[level] && custom[level].lineColor) && !child.getSelfInhertStyle('lineColor') && !node.getRainbowLineColor(child) && node._lines[index]) {
+            node._lines[index].stroke({ color: branchColor(child, theme) })
+          }
+        })
+      }
+      (node.children || []).forEach(visit)
     }
     visit(mindMap.renderer.root)
     queueRemeasure()
   }
   const change = async () => {
+    const request = ++generation
     const preserveInitialRender = firstLoad && initialFontReady
     firstLoad = false
     const value = mindMap.getTheme()
@@ -201,9 +224,10 @@ export function attachArtThemeRuntime(mindMap, { initialFontReady = false } = {}
     }
     if (loadedTheme === value) return
     const css = await prepareArtTheme(value)
-    if (disposed || mindMap.getTheme() !== value) return
+    if (disposed || request !== generation || mindMap.getTheme() !== value) return
     loadedTheme = value
     embeddedFont = css
+    mindMap.emit('mappop_art_status', { theme: value, fallback: hasArtFontFallback(value) })
     // A caller that preloaded the font before constructing MindMap already
     // has correct metrics. Do not start a competing initial tree render.
     // Subsequent theme changes still remeasure for their different typefaces.
@@ -213,6 +237,53 @@ export function attachArtThemeRuntime(mindMap, { initialFontReady = false } = {}
       queueRemeasure()
     }
   }
+  // Both the UI and direct map.export() calls share this barrier. Two stable
+  // frames allow upstream's queued setData/setTheme renders to finish as well.
+  const waitForReady = ({ signal, timeoutMs = 15000 } = {}) => new Promise((resolve, reject) => {
+    const requestedTheme = mindMap.getTheme()
+    const request = generation
+    let frames = 0
+    let frame
+    const finish = error => {
+      clearTimeout(timer)
+      cancelAnimationFrame(frame)
+      mindMap.off('node_tree_render_end', rendered)
+      mindMap.off('view_theme_change', cancelled)
+      if (signal) signal.removeEventListener('abort', cancelled)
+      if (error) reject(error)
+      else resolve({ theme: requestedTheme, fallback: hasArtFontFallback(requestedTheme) })
+    }
+    const cancelled = () => finish(Object.assign(new Error('The theme changed or the export was cancelled. Export again when ready.'), { name: 'AbortError', code: 'MAPPOP_EXPORT_CANCELLED' }))
+    const rendered = () => { frames = 0 }
+    const timer = setTimeout(() => finish(Object.assign(new Error('The map is still preparing. Try exporting again.'), { code: 'MAPPOP_EXPORT_TIMEOUT' })), Math.min(15000, Math.max(1, timeoutMs)))
+    const check = () => {
+      if (disposed || request !== generation || mindMap.getTheme() !== requestedTheme || (signal && signal.aborted)) return cancelled()
+      const themeReady = !findArtTheme(requestedTheme) || loadedTheme === requestedTheme
+      const ready = themeReady && !pendingRemeasure && !remeasureQueued && !mindMap.renderer.isRendering && mindMap.renderer.root && mindMap.svg.node.querySelector('.smm-node')
+      frames = ready ? frames + 1 : 0
+      if (frames >= 2) finish()
+      else frame = requestAnimationFrame(check)
+    }
+    mindMap.on('node_tree_render_end', rendered)
+    mindMap.on('view_theme_change', cancelled)
+    if (signal) signal.addEventListener('abort', cancelled, { once: true })
+    frame = requestAnimationFrame(check)
+  })
+  mindMap.waitForArtTheme = waitForReady
+  const exportReady = async (...args) => {
+    if (['svg', 'png', 'pdf'].includes(args[0])) {
+      try {
+        const status = await waitForReady()
+        if (status.fallback) throw Object.assign(new Error('A local theme font failed. The editor uses a fallback; reload to retry, or save an editable SMM file.'), { code: 'MAPPOP_FONT_UNAVAILABLE' })
+      } catch (error) {
+        mindMap.opt.errorHandler('export_error', error)
+        if (args[1] === false) throw error
+        return
+      }
+    }
+    return previousExport.apply(mindMap, args)
+  }
+  mindMap.export = exportReady
   mindMap.on('node_tree_render_end', render)
   mindMap.on('view_theme_change', change)
   change()
@@ -221,6 +292,8 @@ export function attachArtThemeRuntime(mindMap, { initialFontReady = false } = {}
     pendingRemeasure = null
     mindMap.off('node_tree_render_end', render)
     mindMap.off('view_theme_change', change)
+    if (mindMap.export === exportReady) mindMap.export = previousExport
+    if (mindMap.waitForArtTheme === waitForReady) mindMap.waitForArtTheme = previousReady
     if (mindMap.opt.handleBeingExportSvg === handleExport) mindMap.opt.handleBeingExportSvg = previousExportHandler
   }
 }

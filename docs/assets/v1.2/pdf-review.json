@@ -1,0 +1,59 @@
+{
+  "renderer": "PyMuPDF 2.0",
+  "results": [
+    {
+      "slug": "clay-studio",
+      "pages": 1,
+      "raster": [
+        1600,
+        578
+      ],
+      "bytes": 437171
+    },
+    {
+      "slug": "glass-aurora",
+      "pages": 1,
+      "raster": [
+        1600,
+        655
+      ],
+      "bytes": 1058755
+    },
+    {
+      "slug": "stained-glass",
+      "pages": 1,
+      "raster": [
+        1600,
+        574
+      ],
+      "bytes": 351428
+    },
+    {
+      "slug": "terminal-tree",
+      "pages": 1,
+      "raster": [
+        1600,
+        569
+      ],
+      "bytes": 249417
+    },
+    {
+      "slug": "toon-motion",
+      "pages": 1,
+      "raster": [
+        1600,
+        631
+      ],
+      "bytes": 544629
+    },
+    {
+      "slug": "vintage-editorial",
+      "pages": 1,
+      "raster": [
+        1600,
+        533
+      ],
+      "bytes": 324751
+    }
+  ]
+}

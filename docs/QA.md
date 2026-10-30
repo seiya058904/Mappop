@@ -1,4 +1,136 @@
-# v1.1.0 release verification
+# Release verification
+
+## v1.2.0 candidate verification
+
+Verified locally on 2026-10-30, Windows / Node 24 / Chromium. Base:
+`1a6fc63662aba0cb9c5ef97e783680e99117aa22`. All visual sources are hashed in the
+[candidate manifest](assets/v1.2/after/metrics.json). The [v1.2.0 release](https://github.com/seiya058904/Mappop/releases/tag/v1.2.0)
+records the final CI run, deployed full SHA and read-only production results after
+commit, avoiding an endless documentation-only redeploy cycle.
+
+### Gates and risk matrix
+
+- `npm test`: **12 API + 4 art/resource tests pass**. The art gate independently
+  requires at least 32 IDs, all original 16 IDs and real font/preview/texture assets.
+- Production build and scoped frontend ESLint pass. Existing bundle-size,
+  Browserslist and webpack warnings remain; no dependencies were upgraded.
+- The complete local browser run passed **33 tests in 3.5 minutes**. A later
+  race/manual-line-color test brings the final suite to **34**; the changed long
+  multilingual-label and race tests passed together. The final thumbnail-loading
+  change passed eight affected checks, including search and three responsive-sidebar flows.
+  The final CI runs all 34 together before deployment; its status is in the release.
+- Only local D1 migrations and isolated browser contexts were used for write tests.
+  The API implementation, D1 schema, editor engine and production documents are unchanged.
+
+| Area | Actual coverage and result |
+| --- | --- |
+| Visual completeness | All 32 themes: 43-node desktop/mobile, fixed 80% detail, 121-node overview and reading detail; [audit](ART-AUDIT.md) includes original-16 comparisons |
+| Editing/data | All 32 traversed with stable node IDs, notes, links, rich text, images, associative targets, custom shapes/styles and layout; native editing, drag, undo/redo, SMM/Markdown import and saved reload retained |
+| Large maps | All 32 on the 500-node fixture; no node loss, editing/zoom/collapse/expand work; at most 26 title-tier filters and one owned defs/font style after switching |
+| Chinese typography | Long paragraphs, Chinese/English, punctuation, numbers, traditional Chinese, a rare glyph and emoji; all 32 fit their text bounds; CDP confirms local Chinese fonts for the covered subset |
+| SVG/PNG | 32 actual 43-node pairs; independent SVG DOM bounds plus image-renderer decoding; [results](assets/v1.2/export-review.json), [SVG sheet](assets/v1.2/svg-exports.jpg), [PNG sheet](assets/v1.2/png-exports.jpg) |
+| PDF | Toon, Editorial, Terminal, Aurora, Clay and Stained Glass; six single pages independently rasterized with PyMuPDF 2.0 and visually reviewed; [results](assets/v1.2/pdf-review.json), [sheet](assets/v1.2/pdf-exports.jpg) |
+| Selector | Chinese/English/keyword search, five families separate from light/dark, truthful counts including eight dark themes, empty-state reset, all cards reachable; 1440px, 768px and 390×844px flows |
+| Focus | Closed sidebars are inert and hidden from Tab navigation; 24 successive Tabs checked; close button and Escape return focus to the opener |
+| Slow font/import export | Fresh context, delayed uncached Serif, import then immediate SVG/PNG; resulting bytes equal a subsequent ready export; toolbar download follows the same barrier |
+| Failure/cancellation | Blocked font gives fallback status and a clear image-export error while SMM remains saveable; newer theme, AbortSignal and bounded timeout cancel waits |
+| Preferences | Invalid JSON, array, null, string, number and boolean config values recover without losing the 43-node saved document, pre-import backup or unrelated storage |
+| Theme compatibility | Unknown saved theme falls back without losing content; delayed picker cannot override a newer theme; Metro honors manual/global line colors |
+| Contrast | Body text ≥4.5:1, large root text ≥3:1; all 32 relationship palettes ≥3:1 against the worst composited texture pixel; nonstructural decoration excluded |
+| Requests | Hidden theme picker now creates no preview images; a fresh first screen makes **zero** preview requests, and opening the selector loads real thumbnails |
+
+Before the fix, importing a serif theme with a delayed font and immediately
+exporting returned in 53.7ms with **zero nodes and no embedded Serif**; a later
+export contained the font. A shared bounded readiness barrier now covers direct
+and toolbar SVG/PNG/PDF calls after font preparation and layout. Failed fonts are
+not silently represented as portable successful exports. A separate baseline
+reproduction showed corrupt preferences could leave zero editor nodes while the
+backup still existed; guarded object parsing repairs this without clearing storage.
+Tests also found and corrected Anime's 2.92:1 worst texture-pixel line contrast.
+No speculative security or data-loss defect is claimed beyond these reproductions.
+
+### Performance: small samples, explicit methods
+
+Before/after use the same Windows machine and Chromium, 121 nodes. Three render
+samples measure `reRender()` to `node_tree_render_end` **inside the page**, excluding
+capture sleeps and file downloads. Warm switches use one warmup and three rounds,
+`setTheme()` to two stable animation frames. They include browser scheduling and
+layout, not only engine CPU. Original [before](assets/v1.2/before/switch-performance.json)
+and [after](assets/v1.2/after/switch-performance.json) samples are retained.
+
+| Theme | Median 121-node render before → after (ms) | Warm switch before → after (ms) |
+| --- | --- | --- |
+| Pixel Arcade | 65.7 → 72.7 | 88.5 → 113.5 |
+| Anime Pop | 60.8 → 62.4 | 112.9 → 113.2 |
+| Toon Motion | 66.1 → 62.3 | 98.6 → 89.1 |
+| Zen Japan | 74.8 → 61.0 | 79.3 → 84.5 |
+| Ink Wash | 82.8 → 62.4 | 106.8 → 117.0 |
+| Sketchbook | 69.0 → 66.9 | 80.0 → 84.6 |
+| Marker Notes | 77.7 → 65.0 | 80.7 → 84.9 |
+| Cyber Neon | 90.6 → 69.8 | 109.9 → 118.3 |
+| Watercolor Garden | 88.3 → 68.1 | 107.0 → 112.4 |
+| Paper Cut | 78.9 → 67.2 | 86.4 → 84.6 |
+| Ukiyo-e Print | 79.2 → 66.3 | 84.4 → 87.6 |
+| Blueprint Lab | 70.6 → 68.3 | 105.2 → 116.2 |
+| Bauhaus Geometry | 88.0 → 71.9 | 104.9 → 113.9 |
+| Glass Aurora | 89.5 → 74.3 | 89.3 → 93.6 |
+| Vintage Editorial | 80.9 → 70.5 | 85.1 → 89.9 |
+| Celestial Atlas | 102.5 → 68.6 | 107.7 → 112.8 |
+
+The sixteen additions range from 73.5–97.3ms median render and 86.6–118.9ms warm
+switch. Pixel's initial **+28.2%** switch signal triggered a bounded investigation,
+not an assertion of stable regression or a replacement of the original samples.
+The collection loops have different predecessors (Atlas versus Tickets). Five
+interleaved samples with the same Atlas predecessor compared the still-live
+v1.1.0 baseline against the local candidate on the same machine: **75.9ms versus
+74.3ms**, one render-end in every sample, no new page errors. A stable additional
+render/workload was not reproduced. This follow-up used different serving origins,
+already-warm fonts and only GET/HEAD requests. [Raw investigation](assets/v1.2/switch-investigation.json)
+records those limits; `profile-art-switch.cjs --version v1.2 --baseline-url URL`
+reproduces the method when a matching old deployment is available.
+
+### Resources and first screen
+
+The main editor chunk grows from **3187.07 to 3211.99 KiB raw** (1117.68 to
+1125.32 KiB gzip); its CSS grows from **280.60 to 282.65 KiB** (131.47 to
+131.74 KiB gzip). The vendor chunk is unchanged. Existing font binary bytes and
+licenses are unchanged; a few documentation bytes explain the new failure behavior.
+All WebP previews total **120,632 → 229,728 bytes**, sixteen to thirty-two images.
+
+The original capture pass observed 4,461,556 → 4,578,705 encoded response-body
+bytes: all 32 thumbnails were still fetched despite native `loading="lazy"` on
+the hidden sidebar. Creating those images only while the theme panel is open fixes
+the cause. The final [fresh-context measurement](assets/v1.2/after/first-screen-final.json)
+records **4,349,041 bytes and zero preview requests**, about 2.5% below baseline.
+Only the default Hand + Sans art fonts load, alongside the existing icon fonts;
+theme expansion does not download seven families up front.
+
+Cold default-map readiness was 715ms before, 856ms in the first candidate capture,
+and 802ms in the final targeted check. These single observations include font
+network/loading, automation and 120ms settling, and the candidate adds a readiness
+barrier. They are **not** comparable pure CPU benchmarks or universal startup
+claims. Per-theme `firstVisitSwitchMs` also includes capture settling and shared
+font caches; it is not a cold-font benchmark for every theme. Warm-switch results
+above are separate. [Resource breakdown](assets/v1.2/resource-sizes.json).
+
+### Limits and release procedure
+
+This machine has Chromium; Firefox/WebKit are not installed and were not tested.
+390px is an emulated viewport, not an Android/iOS device. Dense fit views remain
+navigation overviews; users zoom/pan/collapse to read. GB2312 subsets do not cover
+all Chinese; traditional/rare characters and emoji can use platform fallback.
+SVG retains editable vector shapes plus `foreignObject` and embedded fonts, whose
+support varies by viewer. PNG and PDF preserve a fixed appearance; PDF is the
+existing raster export pipeline, not a claim of editable vector PDF text.
+
+Final publication uses the existing main Actions workflow only. Verify the final
+run, full SHA in `/build-info.json`, real theme/filter/thumbnail/font/export UI and
+GitHub README rendering. Production checks use isolated contexts and read-only
+requests, never the POST-creating API smoke/E2E suite. The release carries those
+post-commit results and a small selected export ZIP. Local ignored bulk evidence
+and previous font/source/backup material are retained; cleanup is exact-file only.
+
+## Archived v1.1.0 release verification
 
 Verified 2026-10-30, Asia/Singapore. The release extends the existing Vue 2 theme
 layer; `simple-mind-map/`, API handlers, D1 schema and sharing service are unchanged.

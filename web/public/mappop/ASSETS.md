@@ -1,8 +1,8 @@
 # Mappop artwork and fonts
 
-## v1.1 active collection
+## v1.2 active collection
 
-The active sixteen-theme collection uses original SVG geometry in `web/src/mappop/textures.js` and `decorations.js`. Its WebP previews are real editor captures from `scripts/capture-previews.cjs`. See [Chinese font provenance, coverage and licenses](fonts/ART-FONTS.md). The older assets listed below remain available for historical links but are not requested by the active theme selector.
+The active thirty-two-theme collection uses original SVG geometry in `web/src/mappop/textures.js` `decorations.js` and `decoration-presets.js`. No new fonts or third-party artwork were introduced in v1.2. Its WebP previews are real editor captures from `scripts/capture-previews.cjs`. See [Chinese font provenance, coverage and licenses](fonts/ART-FONTS.md). The older assets listed below remain available for historical links but are not requested by the active theme selector.
 
 ## v1.0 legacy assets (retained)
 

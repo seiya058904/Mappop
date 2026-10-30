@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.2.0 — 2026-10-30
+
+- Added 16 independent art styles, bringing the original collection to 32 while retaining all 16 saved-theme IDs.
+- Added Swiss Type, Metro Transit, Chalk Classroom, Terminal Tree, Circuit Board, Art Deco, Risograph, Memphis Play, Neo Brutalist, Retro Desktop, Stitched Linen, Clay Studio, Stained Glass, Topographic, Film Storyboard and Travel Tickets.
+- Strengthened structural lines in Anime Pop, Zen Japan, Watercolor Garden, Paper Cut, Glass Aurora and Vintage Editorial; retained their quieter decorative materials.
+- Added bilingual search, independent family/appearance filters, accurate counts, Chinese-first names and recoverable empty states.
+- Deferred theme thumbnails until the selector opens, avoiding hidden-panel requests on first load.
+- Made closed sidebars inert and restored keyboard focus to their triggers; malformed or non-object preferences now safely fall back without clearing map storage or import backups.
+- Fixed immediate SVG/PNG/PDF export after a themed SMM import by waiting for fonts and stable layout, with bounded waits, cancellation and explicit font-failure recovery.
+- Unified registry-driven tests and capture tools, preserving v1.1 evidence and recording all 16 before / 32 after themes in v1.2.
+- Reused the existing font files, engine, Vue architecture, API and deployment workflow; no dependency versions changed.
+
 ## v1.1.0 — 2026-10-30
 
 - Refined all eight existing art themes; retained their saved-document IDs.

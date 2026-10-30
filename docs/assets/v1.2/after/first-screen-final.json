@@ -1,0 +1,86 @@
+{
+  "method": "Fresh Chromium context, default ten-node map, current-theme font barrier plus 120ms capture settling. Encoded response bodies exclude headers; not pure CPU timing.",
+  "initialMs": 802,
+  "themePickerSourceSha256": "9f66f346f23d751c15a94fdab04efea772a65082d8cba06c2d28cc5eacbf0673",
+  "resources": [
+    {
+      "name": "/css/chunk-vendors.dc502cfa.css",
+      "bytes": 37215
+    },
+    {
+      "name": "/css/app.fc883365.css",
+      "bytes": 1383
+    },
+    {
+      "name": "/js/app.a8d2314f.js",
+      "bytes": 38320
+    },
+    {
+      "name": "/js/chunk-vendors.1a2f9ee6.js",
+      "bytes": 310479
+    },
+    {
+      "name": "/css/chunk-4c3fa37c.8e461660.css",
+      "bytes": 134901
+    },
+    {
+      "name": "/js/chunk-4c3fa37c.085b4c0d.js",
+      "bytes": 1152329
+    },
+    {
+      "name": "/fonts/element-icons.535877f5.woff",
+      "bytes": 28200
+    },
+    {
+      "name": "/fonts/iconfont.77d93312.woff2",
+      "bytes": 17328
+    },
+    {
+      "name": "/mappop/fonts/MappopHand.woff2",
+      "bytes": 1574068
+    },
+    {
+      "name": "/mappop/fonts/MappopSans.woff2",
+      "bytes": 991548
+    },
+    {
+      "name": "/img/logicalStructure.4532ecb3.jpg",
+      "bytes": 5623
+    },
+    {
+      "name": "/img/logicalStructureLeft.cfd5dfc0.jpg",
+      "bytes": 5615
+    },
+    {
+      "name": "/img/mindMap.387d3c5d.jpg",
+      "bytes": 6327
+    },
+    {
+      "name": "/img/organizationStructure.fed2500e.jpg",
+      "bytes": 7014
+    },
+    {
+      "name": "/img/catalogOrganization.4c7a113a.jpg",
+      "bytes": 6978
+    },
+    {
+      "name": "/img/timeline.108e42bf.jpg",
+      "bytes": 8442
+    },
+    {
+      "name": "/img/timeline2.95327d8e.jpg",
+      "bytes": 8119
+    },
+    {
+      "name": "/img/fishbone.94c4319d.jpg",
+      "bytes": 6647
+    },
+    {
+      "name": "/img/verticalTimeline.088296f2.jpg",
+      "bytes": 8505
+    }
+  ],
+  "errors": [],
+  "totalBytes": 4349041,
+  "previewRequests": 0
+}

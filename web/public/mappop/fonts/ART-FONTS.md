@@ -1,4 +1,4 @@
-# Chinese art fonts, v1.1
+# Chinese art fonts, v1.1–v1.2
 
 These are locally hosted **web-only WOFF2 subsets**, derived under SIL OFL 1.1.
 New family names (`Mappop …`) avoid reserved-name ambiguity. Copyright and OFL
@@ -29,7 +29,7 @@ fallback. Full rare/traditional-character coverage is not claimed. Explicit user
 font overrides retain the upstream behavior and are not automatically embedded.
 
 Chromium's `CSS.getPlatformFontsForNode` verifies actual local glyph use in the
-16-theme multilingual test, rather than merely checking that a font downloaded.
+registry-driven multilingual test, rather than merely checking that a font downloaded.
 
 The initial Anime theme loads Hand + Sans: **2,565,616 bytes**, versus the former
 Zen Maru Gothic + full Noto Sans SC **8,026,152 bytes**. The largest new pair,
@@ -37,6 +37,8 @@ Brush + Sans, is 4,224,556 bytes and only loads when selected. One cached promis
 and FontFace per family serve subsequent switches. SVG includes only the active
 pair; PNG/PDF use the same embedded SVG. Typography is prepared before UI theme
 application; imported themes queue one remeasure when their font is ready.
+The v1.2 export barrier waits for the current font and stable layout; a missing
+local font keeps editing available but blocks image export with a recovery message.
 
 Legacy full fonts and their notices remain at their existing URLs for historic
-asset links. The 1.1 theme selector does not request them.
+asset links. The current theme selector does not request them.

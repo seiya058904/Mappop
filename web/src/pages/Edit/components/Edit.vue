@@ -389,7 +389,12 @@ export default {
           console.error(err)
           switch (code) {
             case 'export_error':
-              this.$message.error(this.$t('edit.exportError'))
+              if (err && err.code && err.code.indexOf('MAPPOP_') === 0) {
+                const zh = this.$i18n.locale.indexOf('zh') === 0
+                this.$message.error(err.code === 'MAPPOP_FONT_UNAVAILABLE'
+                  ? (zh ? '主题字体加载失败，编辑器已使用回退字体。请重新加载后导出图片，或先保存 SMM 文件。' : 'A theme font failed; the editor uses a fallback. Reload before exporting images, or save an SMM file.')
+                  : (zh ? '导图仍在准备或画风已切换。请稍后重新导出。' : 'The map is preparing or its theme changed. Please export again when ready.'))
+              } else this.$message.error(this.$t('edit.exportError'))
               break
             default:
               break

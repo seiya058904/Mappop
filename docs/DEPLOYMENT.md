@@ -39,6 +39,13 @@ npm run test:e2e
 
 API tests run locally. Browser tests exercise the built editor. A passing local suite does not establish that a deployment or remote D1 binding works; verify the deployed editor and API after publishing.
 
+For an established deployment's theme-only release, keep the full E2E/API smoke
+suite on local D1: it creates public drafts. Use isolated browser contexts and
+read-only production page/resource requests instead. Compare the full commit in
+`/build-info.json` with the successful final Actions run and GitHub main; inspect
+theme counts, filters, fonts, thumbnails and export entry points. Do not create
+new permanent production test maps simply to repeat a local API gate.
+
 ## Provision your own Cloudflare account
 
 The committed `account_id` and D1 `database_id` identify the maintainer's deployment. They are identifiers, not credentials. A fork must replace them with its own account and database before deployment.

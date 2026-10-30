@@ -1,6 +1,7 @@
 const { test, expect } = require('@playwright/test')
+const { definitions: themes } = require('../../scripts/art-registry.cjs')
 
-for (const width of [1440, 390]) {
+for (const width of [1440, 768, 390]) {
   test(`theme sidebar keeps every section reachable at ${width}px`, async ({ page }, testInfo) => {
     await page.setViewportSize({ width, height: 1000 })
     const errors = []
@@ -23,7 +24,7 @@ for (const width of [1440, 390]) {
     }
     await trigger('Themes').click()
     for (const theme of ['Pixel Arcade', 'Anime Pop']) {
-      await page.getByRole('button', { name: 'All 16', exact: true }).click()
+      await page.getByRole('button', { name: 'All ' + themes.length, exact: true }).click()
       const card = page.getByRole('button', { name: new RegExp(`^${theme}$`) })
       await card.click()
       await expect(card).toHaveAttribute('aria-pressed', 'true')
@@ -40,9 +41,10 @@ for (const width of [1440, 390]) {
       }
     }
     await page.getByRole('button', { name: 'After dark', exact: true }).click()
-    await expect(page.locator('.artThemeItem')).toHaveCount(3)
-    await page.getByRole('button', { name: 'All 16', exact: true }).click()
-    await expect(page.locator('.artThemeItem')).toHaveCount(16)
+    await expect(page.locator('.artThemeItem')).toHaveCount(themes.filter(t => t.dark).length)
+    await page.getByRole('button', { name: 'Any light', exact: true }).click()
+    await page.getByRole('button', { name: 'All ' + themes.length, exact: true }).click()
+    await expect(page.locator('.artThemeItem')).toHaveCount(themes.length)
     await page.locator('.artThemeItem').last().scrollIntoViewIfNeeded()
     expect(await page.locator('.themeListTheme').evaluate(el => el.scrollTop)).toBeGreaterThan(0)
     await panel.getByRole('button', { name: 'Close sidebar' }).click()

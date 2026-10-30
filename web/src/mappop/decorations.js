@@ -1,5 +1,6 @@
 // Small, deterministic SVG geometry. No canvas-only effects, DOM text replacement,
 // random paths, hit targets or data mutations. Exports clone the same SVG.
+import { decorators } from './decoration-presets'
 const NS = 'http://www.w3.org/2000/svg'
 export const svgElement = (tag, attrs = {}) => {
   const el = document.createElementNS(NS, tag)
@@ -8,6 +9,13 @@ export const svgElement = (tag, attrs = {}) => {
 }
 
 export function addArtDefs(defs, theme, id) {
+  if (theme.slug === 'clay-studio') {
+    [['root', '#e8bda2', '#c89678'], ['second', '#d2dfc7', '#abbda0']].forEach(([level, light, shade]) => {
+      const gradient = svgElement('linearGradient', { id: `${id}-clay-${level}`, x1: '0%', y1: '0%', x2: '0%', y2: '100%' })
+      ;[['0%', light], ['100%', shade]].forEach(([offset, color]) => gradient.appendChild(svgElement('stop', { offset, 'stop-color': color })))
+      defs.appendChild(gradient)
+    })
+  }
   if (theme.slug === 'glass-aurora') {
     const gradient = svgElement('linearGradient', { id: `${id}-glass`, x1: '0%', y1: '0%', x2: '100%', y2: '100%' })
     ;[['0%', '#f8fbff'], ['55%', '#dcebf5'], ['100%', '#eee0ed']].forEach(([offset, color]) => gradient.appendChild(svgElement('stop', { offset, 'stop-color': color })))
@@ -42,10 +50,11 @@ export function addDecoration(node, theme, id) {
   const circle = attrs => decoration.appendChild(svgElement('circle', attrs))
   const outline = d => { if (shape.tagName.toLowerCase() === 'path') shape.setAttribute('d', d) }
   // A shared filter only on title tiers, never hundreds of leaf filters.
-  if (major && !['zen-japan', 'ink-wash', 'sketchbook', 'blueprint-lab', 'bauhaus-geometry', 'vintage-editorial', 'celestial-atlas'].includes(theme.slug)) {
+  if (major && theme.shadow.slice(1).some(value => value !== 0) && !['zen-japan', 'ink-wash', 'sketchbook', 'blueprint-lab', 'bauhaus-geometry', 'vintage-editorial', 'celestial-atlas'].includes(theme.slug)) {
     shape.setAttribute('filter', `url(#${id})`)
     shape.setAttribute('data-mappop-filter', 'true')
   }
+  if (decorators[theme.slug]) decorators[theme.slug]({ w, h, root, major, node, shape, path, rect, circle, outline, theme, id })
   switch (theme.slug) {
     case 'pixel-arcade': {
       const s = root ? 9 : 5
