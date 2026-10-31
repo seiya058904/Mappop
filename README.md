@@ -22,7 +22,7 @@ A free, open-source mind map editor with expressive themes, intuitive editing, a
 
 <p>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-69ae98" alt="MIT license" /></a>
-<a href="https://github.com/seiya058904/Mappop/releases/tag/v1.2.0"><img src="https://img.shields.io/badge/release-v1.2.0-e6b572" alt="Release v1.2.0" /></a>
+<a href="https://github.com/seiya058904/Mappop/releases/tag/v1.2.1"><img src="https://img.shields.io/badge/release-v1.2.1-e6b572" alt="Release v1.2.1" /></a>
 <a href="https://github.com/seiya058904/Mappop/actions/workflows/deploy.yml"><img src="https://github.com/seiya058904/Mappop/actions/workflows/deploy.yml/badge.svg?branch=main" alt="Build and deploy status" /></a>
 </p>
 
@@ -41,7 +41,7 @@ A free, open-source mind map editor with expressive themes, intuitive editing, a
 
 <p>
   <a href="docs/assets/promo/mappop-loop.mp4"><img src="docs/assets/promo/mappop-loop.gif" alt="A 10-second loop of the Mappop editor: the same mind map changes from Anime Pop to Ink Wash, Circuit Board, Clay Studio, Pixel Arcade and back, each switch rippling out from the root node" width="100%" /></a><br />
-  <sub>One map, five of the thirty-two themes. Real editor captures; the ripple and label are added for the loop. <a href="docs/assets/promo/mappop-loop.mp4">MP4</a></sub>
+  <sub>One map, five of the thirty-two themes (v1.2 artwork). Real editor captures; the ripple and label are added for the loop. <a href="docs/assets/promo/mappop-loop.mp4">MP4</a></sub>
 </p>
 
 </div>
@@ -253,7 +253,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-The v1.2.0 verification covers **12 API tests, 4 art/resource checks and 34 Chromium browser tests**. Coverage includes all 32 themes, standalone exports, saved maps, rich content, 500-node operations, slow/failed fonts, damaged preferences and keyboard/mobile flows. The [verification report](docs/QA.md) records local runs and limits; the [release](https://github.com/seiya058904/Mappop/releases/tag/v1.2.0) links the final CI and deployed revision.
+The latest tagged **v1.2.1** release passed **12 API tests, 5 resource/provenance checks and 41 Chromium browser tests**. Coverage includes all 32 themes, exports, saved maps, 500-node editing, and seven additional short-window, landscape and keyboard-navigation regressions. The [verification report](docs/QA.md) records local runs and limits; the [v1.2.1 release](https://github.com/seiya058904/Mappop/releases/tag/v1.2.1) links the final CI and deployed revision. The `main` branch may contain newer work that has not been tagged for release.
 
 For your own public deployment, configure a **Cloudflare Workers + D1** project, a database, rate-limit bindings, and a write token. Do not reuse the maintainer's account/database IDs. Start with [deployment instructions](docs/DEPLOYMENT.md).
 
