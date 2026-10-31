@@ -39,6 +39,11 @@ A free, open-source mind map editor with expressive themes, intuitive editing, a
 
 <sub>Browser-based · No account required for the editor · No in-app AI subscription</sub>
 
+<p>
+  <a href="docs/assets/promo/mappop-loop.mp4"><img src="docs/assets/promo/mappop-loop.gif" alt="A 10-second loop of the Mappop editor: the same mind map changes from Anime Pop to Ink Wash, Circuit Board, Clay Studio, Pixel Arcade and back, each switch rippling out from the root node" width="100%" /></a><br />
+  <sub>One map, five of the thirty-two themes. Real editor captures; the ripple and label are added for the loop. <a href="docs/assets/promo/mappop-loop.mp4">MP4</a></sub>
+</p>
+
 </div>
 
 ---
