@@ -537,13 +537,15 @@ export default {
     .toolbar {
       color: hsla(0, 0%, 100%, 0.9);
       .toolbarBlock {
-        background-color: #262a2e;
+        background-color: rgba(31, 34, 41, 0.94);
+        border-color: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
 
         .fileTreeBox {
-          background-color: #262a2e;
+          background-color: #1f2229;
 
           /deep/ .el-tree {
-            background-color: #262a2e;
+            background-color: #1f2229;
 
             &.el-tree--highlight-current {
               .el-tree-node.is-current > .el-tree-node__content {
@@ -585,10 +587,16 @@ export default {
 
         &:hover {
           &:not(.disabled) {
+            color: #fff;
             .icon {
-              background: hsla(0, 0%, 100%, 0.05);
+              background: hsla(0, 0%, 100%, 0.08);
+              color: #e7a6cf;
             }
           }
+        }
+        &.active .icon {
+          background: hsla(0, 0%, 100%, 0.08);
+          color: #e7a6cf;
         }
 
         &.disabled {
@@ -607,7 +615,7 @@ export default {
     font-size: 12px;
     font-family: inherit;
     font-weight: 400;
-    color: rgba(26, 26, 26, 0.8);
+    color: #4a4552;
     z-index: 2;
 
     .brand {
@@ -616,22 +624,27 @@ export default {
       gap: 8px;
       padding: 0 15px;
       margin-right: 12px;
-      color: #382735;
-      background: #fff;
-      border-radius: 6px;
+      color: #2b2233;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(24, 22, 40, 0.07);
+      border-radius: 12px;
+      box-shadow: 0 1px 2px rgba(24, 22, 40, 0.04), 0 8px 24px rgba(24, 22, 40, 0.07);
+      backdrop-filter: blur(10px);
       font-size: 17px;
       font-weight: 700;
       letter-spacing: -0.02em;
       flex-shrink: 0;
+      svg { color: #8a3f74; }
     }
 
     .toolbarBlock {
       display: flex;
-      background-color: #fff;
-      padding: 10px 14px;
-      border-radius: 6px;
-      box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
-      border: 1px solid rgba(0, 0, 0, 0.06);
+      background-color: rgba(255, 255, 255, 0.94);
+      padding: 9px 12px;
+      border-radius: 12px;
+      box-shadow: 0 1px 2px rgba(24, 22, 40, 0.04), 0 8px 24px rgba(24, 22, 40, 0.07);
+      border: 1px solid rgba(24, 22, 40, 0.07);
+      backdrop-filter: blur(10px);
       margin-right: 12px;
       flex-shrink: 0;
       position: relative;
@@ -652,9 +665,9 @@ export default {
         display: flex;
         flex-direction: column;
         overflow: hidden;
-        border-radius: 5px;
+        border-radius: 12px;
         min-width: 200px;
-        box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
+        box-shadow: 0 8px 24px rgba(24, 22, 40, 0.1);
 
         &.expand {
           height: 300px;
@@ -751,20 +764,23 @@ export default {
 
       &:hover {
         &:not(.disabled) {
+          color: #2b2233;
           .icon {
-            background: #f5f5f5;
+            background: #f3eef4;
+            color: #8a3f74;
           }
         }
       }
 
       &.active {
         .icon {
-          background: #f5f5f5;
+          background: #f3eef4;
+          color: #8a3f74;
         }
       }
 
       &.disabled {
-        color: #bcbcbc;
+        color: #b9b6bf;
         cursor: not-allowed;
         pointer-events: none;
       }
@@ -772,13 +788,16 @@ export default {
       .icon {
         display: flex;
         height: 26px;
-        background: #fff;
-        border-radius: 4px;
-        border: 1px solid #e9e9e9;
+        min-width: 26px;
+        box-sizing: border-box;
+        background: transparent;
+        border-radius: 7px;
+        border: 1px solid transparent;
         justify-content: center;
         flex-direction: column;
         text-align: center;
         padding: 0 5px;
+        transition: background-color 140ms ease-out, color 140ms ease-out;
       }
 
       .text {
@@ -813,7 +832,13 @@ export default {
 }
 
 .toolbarContainer.isDark .toolbar .brand {
-  background: #262a2e;
+  background: rgba(31, 34, 41, 0.94);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
   color: #f4edf2;
+  svg { color: #e7a6cf; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .toolbarContainer .toolbar .toolbarBtn .icon { transition: none; }
 }
 </style>

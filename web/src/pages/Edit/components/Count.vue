@@ -75,25 +75,29 @@ export default {
   position: fixed;
   left: 20px;
   bottom: 20px;
-  background: hsla(0, 0%, 100%, 0.8);
-  border-radius: 2px;
-  opacity: 0.8;
-  height: 22px;
-  line-height: 22px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(24, 22, 40, 0.07);
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(24, 22, 40, 0.06);
+  backdrop-filter: blur(10px);
+  height: 26px;
+  line-height: 26px;
   font-size: 12px;
   display: flex;
 
   &.isDark {
-    background: #262a2e;
+    background: rgba(31, 34, 41, 0.92);
+    border-color: rgba(255, 255, 255, 0.08);
 
     .item {
-      color: hsla(0, 0%, 100%, 0.6);
+      color: hsla(0, 0%, 100%, 0.75);
     }
   }
 
   .item {
-    color: #555;
+    color: #5a5562;
     margin-right: 15px;
+    font-variant-numeric: tabular-nums;
 
     &:last-of-type {
       margin-right: 0;

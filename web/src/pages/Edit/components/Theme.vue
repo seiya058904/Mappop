@@ -47,7 +47,7 @@
           <span class="themeCaption">
             <span class="name">{{ isChinese && item.zh ? item.zh : item.name }}</span>
             <span v-if="item.slug" class="themeSwatches" aria-hidden="true">
-              <i v-for="color in [item.rootFill, item.accent, item.background]" :key="color" :style="{ backgroundColor: color }"></i>
+              <i v-for="(color, index) in [item.rootFill, item.accent, item.background]" :key="index" :style="{ backgroundColor: color }"></i>
             </span>
           </span>
           <span v-if="item.zh" class="themeChineseName">{{ isChinese ? item.name : item.zh }}</span>
@@ -333,21 +333,22 @@ export default {
   .tabBox {
     flex-shrink: 0;
     padding: 0 14px;
-    /deep/ .el-tabs__item { font-size: 12px; padding: 0 12px; }
-    /deep/ .el-tabs__nav-wrap::after { height: 1px; }
+    /deep/ .el-tabs__item { font-size: 12px; padding: 0 12px; color: #6c6675; &:hover { color: #2b2233; } &.is-active { color: #8a3f74; font-weight: 600; } }
+    /deep/ .el-tabs__active-bar { background-color: #8a3f74; height: 2px; border-radius: 2px; }
+    /deep/ .el-tabs__nav-wrap::after { height: 1px; background-color: #ece8ef; }
   }
   .themeIntroduction {
     font-size: 12px;
     line-height: 1.6;
     margin: 0;
-    padding: 2px 18px 8px;
-    color: #68746c;
+    padding: 4px 18px 10px;
+    color: #6c6675;
   }
   .themeListTheme {
     flex: 1;
     min-height: 0;
     overflow-y: auto;
-    padding: 2px 14px 16px;
+    padding: 4px 14px 18px;
     &.artGrid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -355,48 +356,43 @@ export default {
       align-content: start;
       gap: 12px;
       .themeItem { margin: 0; }
+      .themeCaption { gap: 6px; }
       .name { font-size: 12px; }
       .themeCaption { padding: 8px 4px 0; }
       .themeDescription { padding: 4px 4px 0; }
-      .themeSwatches { display: none; }
     }
   }
   .themeFilters { flex-shrink: 0; padding: 0 14px 10px; }
   .themeSearch {
     width: 100%; min-width: 0; box-sizing: border-box;
-    border: 1px solid #85958b; border-radius: 6px;
-    padding: 9px 10px; font: inherit; font-size: 12px;
-    color: inherit; background: transparent; caret-color: currentColor;
-    &::placeholder { color: #596b60; opacity: 1; }
-    &:focus-visible { outline: 2px solid #396957; outline-offset: 2px; }
+    border: 1px solid #d8d3dd; border-radius: 10px;
+    padding: 9px 10px 9px 32px; font: inherit; font-size: 12px;
+    color: inherit; caret-color: currentColor;
+    background: #f7f5f8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 16 16' fill='none' stroke='%23746d7c' stroke-width='1.8' stroke-linecap='round'%3E%3Ccircle cx='7' cy='7' r='4.8'/%3E%3Cpath d='M10.6 10.6L14 14'/%3E%3C/svg%3E") no-repeat 11px 50%;
+    transition: border-color 140ms ease-out, background-color 140ms ease-out;
+    &::placeholder { color: #6c6675; opacity: 1; }
+    &:hover { border-color: #b9b1c0; }
+    &:focus { background-color: #fff; border-color: #8a3f74; }
+    &:focus-visible { outline: 3px solid rgba(138, 63, 116, 0.22); outline-offset: 0; }
   }
-  .themeTones { display: flex; align-items: center; gap: 4px; padding-top: 4px; }
-  .themeResultCount { margin-left: auto; font-size: 11px; white-space: nowrap; }
+  .themeTones { display: flex; align-items: center; gap: 4px; padding-top: 6px; }
+  .themeResultCount { margin-left: auto; font-size: 11px; white-space: nowrap; color: #6c6675; font-variant-numeric: tabular-nums; }
   .themeEmpty { padding: 6px 18px 12px; font-size: 12px; line-height: 1.6; }
   .themeEmpty button { font: inherit; cursor: pointer; color: inherit; background: none; border: 0; text-decoration: underline; text-underline-offset: 3px; }
   .themeTones button, .themeCategories button {
-    font: inherit; font-size: 11px; padding: 6px 7px; color: inherit;
-    border: 1px solid transparent; border-radius: 5px; background: transparent; cursor: pointer;
-    &[aria-pressed=true] { border-color: currentColor; }
-    &:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; }
+    font: inherit; font-size: 11px; line-height: 1.3; padding: 6px 10px; color: inherit;
+    border: 1px solid transparent; border-radius: 999px; background: #f3f1f4; cursor: pointer;
+    transition: background-color 140ms ease-out, color 140ms ease-out;
+    &:hover { background: #ebe5ee; }
+    &[aria-pressed=true] { background: #2b2233; border-color: #2b2233; color: #fff; font-weight: 600; }
+    &:focus-visible { outline: 2px solid #8a3f74; outline-offset: 2px; }
   }
   .themeCategories {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
     padding: 7px 0 0;
-    button {
-      font: inherit;
-      font-size: 11px;
-      padding: 6px 8px;
-      background: transparent;
-      color: inherit;
-      border: 1px solid transparent;
-      border-radius: 5px;
-      cursor: pointer;
-      &[aria-pressed=true] { border-color: currentColor; }
-      &:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; }
-    }
+    button { padding: 6px 10px; }
   }
   .themeChineseName { display: block; padding: 2px 4px 0; font-size: 12px; line-height: 1.5; }
   .themeItem {
@@ -406,25 +402,27 @@ export default {
     cursor: pointer;
     margin: 0 0 14px;
     padding: 5px 5px 11px;
-    border: 1px solid #d9dfd5;
-    border-radius: 10px;
-    background: #fffefa;
+    border: 1px solid #e6e1ea;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(24, 22, 40, 0.04);
     color: inherit;
     font: inherit;
     text-align: left;
     overflow: hidden;
     scroll-margin-block: 6px;
-    transition: border-color 160ms ease-out, background-color 160ms ease-out;
-    &:hover { border-color: #7a9889; background: #f4f7ef; }
-    &:focus-visible { outline: 3px solid #4d8370; outline-offset: 2px; }
+    transition: border-color 160ms ease-out, box-shadow 200ms ease-out, transform 200ms ease-out;
+    &:hover { border-color: #cfc6d6; box-shadow: 0 10px 24px rgba(24, 22, 40, 0.1); transform: translateY(-2px); }
+    &:focus-visible { outline: 3px solid #8a3f74; outline-offset: 2px; }
     &:disabled { cursor: wait; opacity: 0.7; }
-    &.active { border-color: #396957; background: #eaf1e8; }
+    &.active { border-color: #8a3f74; box-shadow: 0 0 0 2px #8a3f74, 0 10px 24px rgba(138, 63, 116, 0.16); background: #fbf7fa; }
     .imgBox {
       display: block;
       position: relative;
       width: 100%;
       overflow: hidden;
-      border-radius: 6px;
+      border-radius: 10px;
+      box-shadow: inset 0 0 0 1px rgba(24, 22, 40, 0.06);
       img { display: block; width: 100%; height: auto; }
     }
     .themeCaption {
@@ -434,18 +432,19 @@ export default {
       gap: 8px;
       padding: 10px 7px 0;
     }
-    .name { font-size: 14px; font-weight: 600; line-height: 1.4; }
+    .name { font-size: 14px; font-weight: 700; line-height: 1.4; color: #2b2233; }
     .themeDescription {
       display: block;
       padding: 4px 7px 0;
       font-size: 11px;
       line-height: 1.5;
-      color: #667269;
+      color: #6c6675;
     }
     .themeSwatches {
       display: flex;
       gap: 3px;
-      i { display: block; width: 9px; height: 9px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(30, 40, 35, 0.14); }
+      flex-shrink: 0;
+      i { display: block; width: 10px; height: 10px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(24, 22, 40, 0.16); }
     }
     .selectedMark {
       position: absolute;
@@ -454,8 +453,9 @@ export default {
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: #315f4c;
+      background: #8a3f74;
       color: white;
+      box-shadow: 0 0 0 2px #fff, 0 4px 10px rgba(24, 22, 40, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -465,22 +465,40 @@ export default {
     flex-shrink: 0;
     margin: 0;
     padding: 10px 15px;
-    border-top: 1px solid #e0e5dc;
+    border-top: 1px solid #ece8ef;
     font-size: 11px;
     line-height: 1.5;
-    color: #667269;
+    color: #6c6675;
   }
   &.isDark {
-    color: #e6eee9;
-    .themeIntroduction, .themeStatus, .themeDescription { color: #b4c6bd; }
-    .themeStatus { border-color: #414e48; }
-    .themeSearch { border-color: #809b8d; &::placeholder { color: #b4c6bd; } &:focus-visible { outline-color: #c6e6ce; } }
+    color: #ece8f0;
+    .tabBox {
+      /deep/ .el-tabs__item { color: #b9b2c2; &:hover { color: #fff; } &.is-active { color: #f2b8dc; } }
+      /deep/ .el-tabs__active-bar { background-color: #f2b8dc; }
+      /deep/ .el-tabs__nav-wrap::after { background-color: rgba(255, 255, 255, 0.08); }
+    }
+    .themeIntroduction, .themeStatus, .themeDescription, .themeResultCount { color: #b9b2c2; }
+    .themeItem .name { color: #fff; }
+    .themeStatus { border-color: rgba(255, 255, 255, 0.08); }
+    .themeSearch {
+      border-color: rgba(255, 255, 255, 0.14); background-color: rgba(255, 255, 255, 0.05);
+      &::placeholder { color: #b9b2c2; }
+      &:focus { background-color: rgba(255, 255, 255, 0.08); border-color: #f2b8dc; }
+      &:focus-visible { outline-color: rgba(242, 184, 220, 0.3); }
+    }
+    .themeTones button, .themeCategories button {
+      background: rgba(255, 255, 255, 0.06);
+      &:hover { background: rgba(255, 255, 255, 0.12); }
+      &[aria-pressed=true] { background: #f2b8dc; border-color: #f2b8dc; color: #24172a; }
+      &:focus-visible { outline-color: #f2b8dc; }
+    }
     .themeItem {
-      background: #293932;
-      border-color: #4c6256;
-      &:hover { background: #34483d; border-color: #8da99a; }
-      &.active { border-color: #b6d0bd; background: #354d3c; }
-      &:focus-visible { outline-color: #c6e6ce; }
+      background: #282c34;
+      border-color: rgba(255, 255, 255, 0.08);
+      &:hover { background: #2e333c; border-color: rgba(255, 255, 255, 0.18); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35); }
+      &.active { border-color: #f2b8dc; box-shadow: 0 0 0 2px #f2b8dc; background: #33303a; }
+      &:focus-visible { outline-color: #f2b8dc; }
+      .selectedMark { background: #f2b8dc; color: #24172a; box-shadow: 0 0 0 2px #282c34; }
     }
   }
 }
@@ -498,7 +516,8 @@ export default {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .themeGroupList .themeItem { transition: none; }
+  .themeGroupList .themeItem { transition: none; &:hover { transform: none; } }
+  .themeGroupList .themeSearch, .themeGroupList .themeTones button, .themeGroupList .themeCategories button { transition: none; }
   .artThemeSidebar { transition: none; }
 }
 </style>

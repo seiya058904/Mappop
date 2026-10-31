@@ -111,13 +111,22 @@ export default {
 
   &.isDark {
     .trigger {
-      background-color: #262a2e;
+      background-color: rgba(31, 34, 41, 0.94);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
 
       .triggerItem {
-        color: hsla(0, 0%, 100%, 0.6);
+        color: hsla(0, 0%, 100%, 0.72);
 
         &:hover {
-          background-color: hsla(0, 0%, 100%, 0.05);
+          background-color: hsla(0, 0%, 100%, 0.08);
+          color: #fff;
+        }
+
+        &.active {
+          color: #f2b8dc;
+          background-color: hsla(0, 0%, 100%, 0.08);
+          &::before { background: #f2b8dc; }
         }
       }
     }
@@ -140,7 +149,7 @@ export default {
     left: -6px;
     width: 35px;
     height: 60px;
-    background: #409eff;
+    background: #8a3f74;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
@@ -173,10 +182,12 @@ export default {
   .trigger {
     position: relative;
     width: 60px;
-    border-color: #eee;
-    background-color: #fff;
-    box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
-    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(24, 22, 40, 0.07);
+    box-shadow: 0 1px 2px rgba(24, 22, 40, 0.04), 0 8px 24px rgba(24, 22, 40, 0.07);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    padding: 4px 0;
     max-height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
@@ -191,18 +202,34 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      position: relative;
       cursor: pointer;
-      color: #464646;
+      color: #4a4552;
       user-select: none;
       white-space: nowrap;
+      margin: 0 4px;
+      border-radius: 10px;
+      transition: background-color 140ms ease-out, color 140ms ease-out;
 
       &:hover {
-        background-color: #ededed;
+        background-color: #f3eef4;
+        color: #2b2233;
       }
 
       &.active {
-        color: #409eff;
-        font-weight: bold;
+        color: #8a3f74;
+        font-weight: 600;
+        background-color: #f3eef4;
+        &::before {
+          content: '';
+          position: absolute;
+          left: -4px;
+          top: 16px;
+          bottom: 16px;
+          width: 3px;
+          border-radius: 0 3px 3px 0;
+          background: #8a3f74;
+        }
       }
 
       .triggerIcon {
@@ -211,9 +238,12 @@ export default {
       }
 
       .triggerName {
-        font-size: 13px;
+        font-size: 12px;
       }
     }
   }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sidebarTriggerContainer .trigger .triggerItem { transition: none; }
 }
 </style>

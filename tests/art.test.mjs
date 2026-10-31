@@ -32,11 +32,14 @@ test('at least 32 unique themes retain all 16 stable IDs and readable hierarchy'
     assert(['pixel', 'hand', 'comic', 'serif', 'brush', 'sans', 'tech'].includes(theme.font))
     for (const level of ['root', 'second', 'node']) {
       const color = theme.levels[level]?.color || (level === 'root' ? theme.rootInk : theme.ink)
-      let bg = theme[`${level}Fill`]
-      if (bg === 'transparent') bg = theme.background
-      const a = luminance(color), b = luminance(bg)
-      const contrast = (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
-      assert(contrast >= (level === 'root' ? 3 : 4.5), `${theme.slug}/${level}: ${contrast}`)
+      // Second tiers may take a per-branch fill; every one must carry the same ink.
+      const fills = level === 'second' && theme.secondPalette ? theme.secondPalette : [theme[`${level}Fill`]]
+      for (let bg of fills) {
+        if (bg === 'transparent') bg = theme.background
+        const a = luminance(color), b = luminance(bg)
+        const contrast = (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
+        assert(contrast >= (level === 'root' ? 3 : 4.5), `${theme.slug}/${level} on ${bg}: ${contrast}`)
+      }
     }
   }
 })

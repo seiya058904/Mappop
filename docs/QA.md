@@ -1,5 +1,33 @@
 # Release verification
 
+## v1.3.0 candidate verification
+
+Verified locally on 2026-10-31, Windows / Node 24 / Chromium, against the production
+build served by `wrangler dev`. Base: `1a58f471`.
+
+- `npm test`: 12 API and 5 art/resource tests pass. The art contract now also requires
+  every per-branch heading fill (`secondPalette`) to meet 4.5:1 against its ink.
+- Full browser suite: **41 passed (4.2 min)** on the final build. The first full run
+  caught two real regressions, both fixed at the source: brighter Pixel Arcade and
+  Cyber Neon texture dots fell to 2.61:1 and 2.23:1 against same-hue branch lines
+  (dots dimmed); and Stitched Linen's description no longer contained the searched
+  keyword “缝线” (description restored, test unchanged).
+- Evidence was recaptured after those fixes: 32 themes × desktop/detail/mobile/
+  121-node, 32 before/after comparisons, 32 standalone SVG/PNG pairs rendered without
+  text overflow, selector at 1440px and 390px. The before stage was built from the
+  base commit's own sources.
+- Scoped ESLint passes on the changed modules and components; `git diff --check` passes.
+  A final lint-only change removed one unused destructured parameter in
+  `decoration-presets.js` after the after-stage capture, so that file's recorded hash
+  differs from the working tree; rendering is unchanged.
+- Development note: the Vue dev server sends `font/woff2; charset=UTF-8`, which makes
+  FontFace reject the data URL and show the fallback-font status. Production serves
+  `font/woff2`; all evidence uses the production build.
+
+Limits: Chromium only; no physical devices, Safari or Firefox. PDF exports were
+written by the capture run but not independently rasterized for this release. The
+README promo GIF still shows v1.2 artwork.
+
 ## v1.2.1 candidate verification
 
 Verified locally on 2026-10-30, Windows / Chromium at `http://127.0.0.1:8787`.

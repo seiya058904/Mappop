@@ -1,5 +1,44 @@
 # Mappop visual audit
 
+## v1.3.0: "Vivid" rebuild of all 32 themes
+
+Baseline: clean `main` at `1a58f471`. The before stage was captured from a build of
+that commit's sources; the after stage from the candidate working tree. Both use the
+same 43-node fixture, `mindMap` layout, 1600×1100 desktop and 390×844 mobile views.
+The [candidate manifest](assets/v1.3/after/metrics.json) records SHA-256 hashes of
+the five visual source modules.
+
+**Finding.** v1.2 deliberately favored restraint. At overview scale about half the
+themes had a root nearly the same color as the canvas, unfilled or low-saturation
+headings, thin grey relationship lines and textures too faint to read, so many
+thumbnails looked alike.
+
+**Direction.** Each theme keeps its stable ID, type family and core silhouette, but:
+
+- the root is always a solid, high-contrast focal block with one signature mark;
+- second tiers take per-branch fills from `secondPalette` (all sharing one ink that
+  meets 4.5:1), or per-branch outlines via `branchStroke`;
+- relationship lines are 0.4–1px heavier and many follow `branchPalette`;
+- palettes were re-tuned to spread the 32 themes across hue; Glass Aurora became a
+  night theme;
+- textures are visible at reading scale. The worst-composited-pixel line test still applies.
+
+Evidence: [32 before/after comparisons](assets/v1.3/after/) (`*-comparison.jpg`),
+[labelled](assets/v1.3/after/contact-sheet.jpg) and
+[unlabelled](assets/v1.3/after/contact-sheet-unlabelled.jpg) sheets,
+[80% details](assets/v1.3/after/contact-sheet-detail.jpg),
+[121-node](assets/v1.3/after/contact-sheet-121.jpg) and
+[mobile reading](assets/v1.3/after/contact-sheet-mobile-reading.jpg) views,
+independent [SVG](assets/v1.3/svg-exports.jpg) and [PNG](assets/v1.3/png-exports.jpg)
+exports, and the [selector](assets/v1.3/theme-selector.png) /
+[390px selector](assets/v1.3/theme-selector-mobile.png).
+
+Review notes from iteration: Stitched Linen's root cross-stitches read as close
+buttons and were removed; Swiss Type leaf dashes looked like rendering glitches and
+were removed; Zen Japan's tiled ring and Ink Wash's filled mist band produced visible
+stripes and were replaced; the Watercolor sprig moved off heading text; Glass Aurora
+headings were tinted per branch after looking grey.
+
 ## v1.2.0: 32 complete themes
 
 Baseline: clean `main` at `1a6fc63662aba0cb9c5ef97e783680e99117aa22`,

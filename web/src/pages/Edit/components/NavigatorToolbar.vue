@@ -240,24 +240,30 @@ export default {
   position: fixed;
   right: 20px;
   bottom: 20px;
-  background: hsla(0, 0%, 100%, 0.8);
-  border-radius: 5px;
-  opacity: 0.8;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(24, 22, 40, 0.07);
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(24, 22, 40, 0.04), 0 8px 24px rgba(24, 22, 40, 0.07);
+  backdrop-filter: blur(10px);
+  color: #4a4552;
   height: 44px;
   font-size: 12px;
   display: flex;
   align-items: center;
 
   &.isDark {
-    background: #262a2e;
+    background: rgba(31, 34, 41, 0.94);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+    color: hsla(0, 0%, 100%, 0.78);
 
     .item {
       a {
-        color: hsla(0, 0%, 100%, 0.6);
+        color: hsla(0, 0%, 100%, 0.78);
       }
 
       .btn {
-        color: hsla(0, 0%, 100%, 0.6);
+        color: hsla(0, 0%, 100%, 0.78);
       }
     }
   }

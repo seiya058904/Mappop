@@ -101,15 +101,20 @@ export default {
   bottom: 0;
   width: 300px;
   background-color: #fff;
-  border-left: 1px solid #e8e8e8;
+  border-left: 1px solid rgba(24, 22, 40, 0.08);
+  border-top: 1px solid rgba(24, 22, 40, 0.08);
+  border-top-left-radius: 16px;
+  box-shadow: -12px 0 32px rgba(24, 22, 40, 0.08);
   display: flex;
   flex-direction: column;
   visibility: hidden;
   transition: right 0.3s, visibility 0s 0.3s;
 
   &.isDark {
-    background-color: #262a2e;
-    border-left-color: hsla(0, 0%, 100%, 0.1);
+    background-color: #1f2229;
+    border-left-color: hsla(0, 0%, 100%, 0.08);
+    border-top-color: hsla(0, 0%, 100%, 0.08);
+    box-shadow: -12px 0 32px rgba(0, 0, 0, 0.32);
 
     .sidebarHeader {
       border-bottom-color: hsla(0, 0%, 100%, 0.1);
@@ -131,8 +136,12 @@ export default {
     position: absolute;
     right: 20px;
     top: 12px;
-    font-size: 20px;
+    font-size: 18px;
+    padding: 3px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 140ms ease-out;
+    &:hover { background-color: rgba(127, 120, 140, 0.14); }
     &:focus-visible {
       outline: 2px solid currentColor;
       outline-offset: 3px;
@@ -142,7 +151,9 @@ export default {
   .sidebarHeader {
     width: 100%;
     height: 44px;
-    border-bottom: 1px solid #e8e8e8;
+    border-bottom: 1px solid rgba(24, 22, 40, 0.08);
+    font-size: 15px;
+    font-weight: 600;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -155,5 +166,8 @@ export default {
     height: 100%;
     overflow: auto;
   }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sidebarContainer .closeBtn { transition: none; }
 }
 </style>

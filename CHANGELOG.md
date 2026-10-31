@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.3.0 — 2026-10-31
+
+- Rebuilt all 32 art themes for stronger presence: every root is now a solid focal block, second tiers take per-branch color fills, and relationship lines are thicker and often follow their branch color. All 32 saved-theme IDs and font families are retained.
+- Added render-time `secondPalette` (per-branch heading fills with one shared ink) and `branchStroke` (per-branch heading outlines). Neither writes node data; explicit user fills, borders and shapes still suppress them.
+- Re-tuned palettes so the 32 themes are further apart in hue; Glass Aurora becomes a night aurora theme (nine After dark themes in total). Stained Glass gains full jewel headings, Swiss Type a red title block, Metro Transit filled route stations, Retro Desktop a teal desktop with title-bar windows.
+- Made background materials visible at reading scale while staying calm at overview scale; textures remain local SVG and export-safe.
+- Extended the art contract: every per-branch fill must meet 4.5:1 against its heading ink.
+- Polished the editor chrome: floating rounded toolbar, sidebar and status panels with soft depth, borderless icon buttons with an accent hover, an active indicator in the right rail, pill filters, a search field with icon, lifted theme cards with visible color swatches, and matching dark mode. Fixed a duplicate-key warning when a theme's swatch colors repeat.
+- Regenerated all 32 selector previews from the real editor.
+
 ## v1.2.1 — 2026-10-30
 
 - Fixed the theme picker in landscape and short windows: at heights up to 640px, tabs, filters, cards and status share one scroll area while the title and close control remain visible.

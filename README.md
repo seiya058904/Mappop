@@ -57,7 +57,7 @@ A reading note, a project plan, a story that is still finding its shape. Give ea
 Mappop is a reimagined home for the open-source [Simple mind map](https://github.com/wanglin2/mind-map) editor. It keeps the practical editing tools you expect and gives your ideas thirty-two distinctive visual worlds to live in.
 
 <p align="center">
-  <a href="docs/assets/v1.2/after/anime-pop.png"><img src="docs/assets/v1.2/after/anime-pop.png" alt="Anime Pop in the real editor: a four-level map with 43 Chinese and English nodes" width="100%" /></a><br />
+  <a href="docs/assets/v1.3/after/anime-pop.png"><img src="docs/assets/v1.3/after/anime-pop.png" alt="Anime Pop in the real editor: a four-level map with 43 Chinese and English nodes" width="100%" /></a><br />
   <sub>Anime Pop — an actual desktop capture. Click to explore the full-size map.</sub>
 </p>
 
@@ -87,7 +87,7 @@ Switch directly from Themes to Node, Style, Structure, Outline or Settings using
 
 ### Distinct shapes, the same ideas
 
-[![Four real editor previews: Ink Wash, Swiss Type, Circuit Board and Clay Studio](docs/assets/v1.2/featured.jpg)](docs/THEMES.md)
+[![Four real editor previews: Ink Wash, Swiss Type, Circuit Board and Clay Studio](docs/assets/v1.3/featured.jpg)](docs/THEMES.md)
 
 Brush silhouettes, editorial baselines, copper component pins and matte clay relief.
 These are real seven-node editor previews, with identical content. Each style
@@ -95,21 +95,21 @@ has its own root, branch, leaf and line rules; decorations become lighter deeper
 in the map.
 
 **[Explore all 32 styles](docs/THEMES.md)** ·
-[32-theme 43-node gallery](docs/assets/v1.2/after/contact-sheet.jpg) ·
-[Unlabelled comparison](docs/assets/v1.2/after/contact-sheet-unlabelled.jpg) ·
+[32-theme 43-node gallery](docs/assets/v1.3/after/contact-sheet.jpg) ·
+[Unlabelled comparison](docs/assets/v1.3/after/contact-sheet-unlabelled.jpg) ·
 [Original 16 before/after](docs/ART-AUDIT.md)
 
 <details>
 <summary><strong>Find a style that fits</strong></summary>
 
-[![Search and independent family/appearance filters](docs/assets/v1.2/theme-selector.png)](docs/assets/v1.2/theme-selector.png)
+[![Search and independent family/appearance filters](docs/assets/v1.3/theme-selector.png)](docs/assets/v1.3/theme-selector.png)
 
 Search Chinese or English names and style keywords. Combine **Playful**, **Paper
 & ink**, **Graphic**, **Technical** or **Materials** with **Light / After dark**.
 After dark includes Pixel Arcade. Chinese UI leads with Chinese names; every
 card is reachable by scrolling and keyboard. Closing the panel restores focus.
 
-[390px theme picker](docs/assets/v1.2/theme-selector-mobile.png) ·
+[390px theme picker](docs/assets/v1.3/theme-selector-mobile.png) ·
 [Font sources and coverage](web/public/mappop/fonts/ART-FONTS.md)
 
 </details>
@@ -117,9 +117,9 @@ card is reachable by scrolling and keyboard. Closing the panel restores focus.
 <details>
 <summary><strong>Mobile and large maps</strong></summary>
 
-[390px overview](docs/assets/v1.2/after/contact-sheet-mobile.jpg) ·
-[121-node density](docs/assets/v1.2/after/contact-sheet-121.jpg) ·
-[121-node reading detail](docs/assets/v1.2/after/contact-sheet-121-detail.jpg)
+[390px overview](docs/assets/v1.3/after/contact-sheet-mobile.jpg) ·
+[121-node density](docs/assets/v1.3/after/contact-sheet-121.jpg) ·
+[121-node reading detail](docs/assets/v1.3/after/contact-sheet-121-detail.jpg)
 
 Existing maps keep their layout. Use zoom, pan and branch collapse to read large
 documents; fit-to-canvas is a navigation overview. Chromium tests include 390px,
@@ -184,7 +184,7 @@ Image exports wait for the current theme fonts and layout, including immediately
 after importing SMM. If a local font fails, the editor explains its fallback;
 keep editing or save SMM, then reload before exporting images.
 
-**See the actual output:** [SVG gallery](docs/assets/v1.2/svg-exports.jpg) · [PNG gallery](docs/assets/v1.2/png-exports.jpg) · [Download six representative SVG/PNG/PDF sets](https://github.com/seiya058904/Mappop/releases/download/v1.2.0/Mappop-v1.2.0-art-samples.zip).
+**See the actual output:** [SVG gallery](docs/assets/v1.3/svg-exports.jpg) · [PNG gallery](docs/assets/v1.3/png-exports.jpg) · [Download six representative SVG/PNG/PDF sets](https://github.com/seiya058904/Mappop/releases/download/v1.2.0/Mappop-v1.2.0-art-samples.zip).
 
 These are exports from the same 43-node test document. The [QA report](docs/QA.md) records typography, decoration and independent SVG rendering checks.
 

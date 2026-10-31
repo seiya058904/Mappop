@@ -1,0 +1,461 @@
+{
+  "sourceCommit": "1a58f471904ba40e1e982ab016791ec3e5b7b60f",
+  "sourceState": "working-tree-candidate",
+  "sources": {
+    "theme-tokens.js": "fa40495bfc3fd216e681c3a78633c8d25b10b13a5694001572b8efd105917383",
+    "themes.js": "e38fababd853d848b1d0641d37465189672ab36067e6946b44bc43ed9bb660aa",
+    "textures.js": "d7b8b0797fc8848be375c1ff0d6ef6629db73895fcd9e8f4c73b0ca61be6389f",
+    "decorations.js": "9515ee9bdad3b6c27f6c92c901603782b822f482cb7e26867ea6d6bd37286b3d",
+    "decoration-presets.js": "84d25680b29060bc44b07c7ff1adf175e1a65930369d06b98b08f50104792b10"
+  },
+  "sourcesLfSha256": {
+    "theme-tokens.js": "5af310aa3145367ea87b72c662885f18bc2badd5561920a0851f0471464b175b",
+    "themes.js": "f9104cb4bd9523a0dfd7eda592c2f3e2ad497cd9e2fbc089f8104ed6aeb62c8d",
+    "textures.js": "ecebce407af1b9e5dcb6461e172e36a014820789ff5a6af94774186307e64c09",
+    "decorations.js": "65648f90c1f540199c0d8b191edcfcf06d6e35e6ff89bbaf24ee9a6f3479984f",
+    "decoration-presets.js": "84d25680b29060bc44b07c7ff1adf175e1a65930369d06b98b08f50104792b10"
+  },
+  "slugs": [
+    "pixel-arcade",
+    "anime-pop",
+    "toon-motion",
+    "zen-japan",
+    "ink-wash",
+    "sketchbook",
+    "marker-notes",
+    "cyber-neon",
+    "watercolor-garden",
+    "paper-cut",
+    "ukiyo-e-print",
+    "blueprint-lab",
+    "bauhaus-geometry",
+    "glass-aurora",
+    "vintage-editorial",
+    "celestial-atlas",
+    "swiss-type",
+    "metro-transit",
+    "chalk-classroom",
+    "terminal-tree",
+    "circuit-board",
+    "art-deco",
+    "risograph",
+    "memphis-play",
+    "neo-brutalist",
+    "retro-desktop",
+    "stitched-linen",
+    "clay-studio",
+    "stained-glass",
+    "topographic",
+    "film-storyboard",
+    "travel-tickets"
+  ],
+  "captured": "2026-10-31T07:57:22.061Z",
+  "initialMs": 813,
+  "resources": [
+    {
+      "name": "/css/chunk-vendors.dc502cfa.css",
+      "bytes": 37215
+    },
+    {
+      "name": "/css/app.fc883365.css",
+      "bytes": 1383
+    },
+    {
+      "name": "/js/app.b90cf242.js",
+      "bytes": 38320
+    },
+    {
+      "name": "/js/chunk-vendors.1a2f9ee6.js",
+      "bytes": 310479
+    },
+    {
+      "name": "/css/chunk-6bf1103d.56609a0f.css",
+      "bytes": 136061
+    },
+    {
+      "name": "/js/chunk-6bf1103d.af1c988b.js",
+      "bytes": 1154605
+    },
+    {
+      "name": "/fonts/element-icons.535877f5.woff",
+      "bytes": 28200
+    },
+    {
+      "name": "/fonts/iconfont.77d93312.woff2",
+      "bytes": 17328
+    },
+    {
+      "name": "/mappop/fonts/MappopHand.woff2",
+      "bytes": 1574068
+    },
+    {
+      "name": "/mappop/fonts/MappopSans.woff2",
+      "bytes": 991548
+    },
+    {
+      "name": "/img/logicalStructure.4532ecb3.jpg",
+      "bytes": 5623
+    },
+    {
+      "name": "/img/mindMap.387d3c5d.jpg",
+      "bytes": 6327
+    },
+    {
+      "name": "/img/organizationStructure.fed2500e.jpg",
+      "bytes": 7014
+    },
+    {
+      "name": "/img/logicalStructureLeft.cfd5dfc0.jpg",
+      "bytes": 5615
+    },
+    {
+      "name": "/img/timeline.108e42bf.jpg",
+      "bytes": 8442
+    },
+    {
+      "name": "/img/timeline2.95327d8e.jpg",
+      "bytes": 8119
+    },
+    {
+      "name": "/img/catalogOrganization.4c7a113a.jpg",
+      "bytes": 6978
+    },
+    {
+      "name": "/img/verticalTimeline.088296f2.jpg",
+      "bytes": 8505
+    },
+    {
+      "name": "/img/fishbone.94c4319d.jpg",
+      "bytes": 6647
+    }
+  ],
+  "themes": {
+    "pixel-arcade": {
+      "firstVisitSwitchMs": 355,
+      "svgBytes": 1689340,
+      "pngBytes": 300935,
+      "render121Ms": [
+        56,
+        88.19999998807907,
+        71.60000002384186
+      ]
+    },
+    "anime-pop": {
+      "firstVisitSwitchMs": 233,
+      "svgBytes": 3496395,
+      "pngBytes": 1006344,
+      "render121Ms": [
+        64.10000002384186,
+        77.2999999821186,
+        89.5
+      ]
+    },
+    "toon-motion": {
+      "firstVisitSwitchMs": 342,
+      "svgBytes": 2526144,
+      "pngBytes": 1130817,
+      "pdfBytes": 581032,
+      "render121Ms": [
+        51,
+        58.89999997615814,
+        70.30000001192093
+      ]
+    },
+    "zen-japan": {
+      "firstVisitSwitchMs": 327,
+      "svgBytes": 3137253,
+      "pngBytes": 655529,
+      "render121Ms": [
+        52.599999994039536,
+        59.599999994039536,
+        70.7000000178814
+      ]
+    },
+    "ink-wash": {
+      "firstVisitSwitchMs": 374,
+      "svgBytes": 5722250,
+      "pngBytes": 1134826,
+      "render121Ms": [
+        53.900000005960464,
+        61.30000001192093,
+        70.5
+      ]
+    },
+    "sketchbook": {
+      "firstVisitSwitchMs": 220,
+      "svgBytes": 3492177,
+      "pngBytes": 1190600,
+      "render121Ms": [
+        47.80000001192093,
+        61.599999994039536,
+        70.59999999403954
+      ]
+    },
+    "marker-notes": {
+      "firstVisitSwitchMs": 202,
+      "svgBytes": 2524776,
+      "pngBytes": 1052384,
+      "render121Ms": [
+        54.19999998807907,
+        61.900000005960464,
+        71.5
+      ]
+    },
+    "cyber-neon": {
+      "firstVisitSwitchMs": 264,
+      "svgBytes": 1412170,
+      "pngBytes": 651122,
+      "render121Ms": [
+        56.5,
+        68.19999998807907,
+        69.90000000596046
+      ]
+    },
+    "watercolor-garden": {
+      "firstVisitSwitchMs": 235,
+      "svgBytes": 3499246,
+      "pngBytes": 1477371,
+      "render121Ms": [
+        53.29999998211861,
+        70.5,
+        82.90000000596046
+      ]
+    },
+    "paper-cut": {
+      "firstVisitSwitchMs": 203,
+      "svgBytes": 1385183,
+      "pngBytes": 703607,
+      "render121Ms": [
+        56,
+        60.900000005960464,
+        75.09999999403954
+      ]
+    },
+    "ukiyo-e-print": {
+      "firstVisitSwitchMs": 199,
+      "svgBytes": 3139702,
+      "pngBytes": 866173,
+      "render121Ms": [
+        56.19999998807907,
+        68.09999999403954,
+        76.80000001192093
+      ]
+    },
+    "blueprint-lab": {
+      "firstVisitSwitchMs": 221,
+      "svgBytes": 1417483,
+      "pngBytes": 607062,
+      "render121Ms": [
+        58.19999998807907,
+        63.30000001192093,
+        76.19999998807907
+      ]
+    },
+    "bauhaus-geometry": {
+      "firstVisitSwitchMs": 234,
+      "svgBytes": 1392969,
+      "pngBytes": 670505,
+      "render121Ms": [
+        61,
+        69,
+        79.40000000596046
+      ]
+    },
+    "glass-aurora": {
+      "firstVisitSwitchMs": 233,
+      "svgBytes": 4052644,
+      "pngBytes": 2269123,
+      "pdfBytes": 1055516,
+      "render121Ms": [
+        64,
+        74.09999999403954,
+        156.30000001192093
+      ]
+    },
+    "vintage-editorial": {
+      "firstVisitSwitchMs": 234,
+      "svgBytes": 3134087,
+      "pngBytes": 614779,
+      "pdfBytes": 329905,
+      "render121Ms": [
+        63,
+        68.69999998807907,
+        79
+      ]
+    },
+    "celestial-atlas": {
+      "firstVisitSwitchMs": 220,
+      "svgBytes": 3144433,
+      "pngBytes": 1122023,
+      "render121Ms": [
+        62.20000001788139,
+        74.19999998807907,
+        80.19999998807907
+      ]
+    },
+    "swiss-type": {
+      "firstVisitSwitchMs": 216,
+      "svgBytes": 1387865,
+      "pngBytes": 561683,
+      "render121Ms": [
+        62.5,
+        71.80000001192093,
+        81.09999999403954
+      ]
+    },
+    "metro-transit": {
+      "firstVisitSwitchMs": 200,
+      "svgBytes": 1391633,
+      "pngBytes": 649174,
+      "render121Ms": [
+        63.70000001788139,
+        79.59999999403954,
+        83.30000001192093
+      ]
+    },
+    "chalk-classroom": {
+      "firstVisitSwitchMs": 263,
+      "svgBytes": 3502571,
+      "pngBytes": 1157468,
+      "render121Ms": [
+        74.40000000596046,
+        79.5,
+        81.90000000596046
+      ]
+    },
+    "terminal-tree": {
+      "firstVisitSwitchMs": 204,
+      "svgBytes": 1389795,
+      "pngBytes": 605508,
+      "pdfBytes": 309898,
+      "render121Ms": [
+        68.80000001192093,
+        85.59999999403954,
+        85.2000000178814
+      ]
+    },
+    "circuit-board": {
+      "firstVisitSwitchMs": 218,
+      "svgBytes": 1424371,
+      "pngBytes": 592903,
+      "render121Ms": [
+        76.59999999403954,
+        73.5,
+        85.69999998807907
+      ]
+    },
+    "art-deco": {
+      "firstVisitSwitchMs": 220,
+      "svgBytes": 3140647,
+      "pngBytes": 765715,
+      "render121Ms": [
+        68,
+        75.30000001192093,
+        80.7999999821186
+      ]
+    },
+    "risograph": {
+      "firstVisitSwitchMs": 233,
+      "svgBytes": 1392598,
+      "pngBytes": 786240,
+      "render121Ms": [
+        68.10000002384186,
+        76.39999997615814,
+        84.39999997615814
+      ]
+    },
+    "memphis-play": {
+      "firstVisitSwitchMs": 204,
+      "svgBytes": 2537855,
+      "pngBytes": 894669,
+      "render121Ms": [
+        69.10000002384186,
+        79,
+        86.69999998807907
+      ]
+    },
+    "neo-brutalist": {
+      "firstVisitSwitchMs": 204,
+      "svgBytes": 1386043,
+      "pngBytes": 676425,
+      "render121Ms": [
+        71,
+        82.2999999821186,
+        83.5
+      ]
+    },
+    "retro-desktop": {
+      "firstVisitSwitchMs": 190,
+      "svgBytes": 1391363,
+      "pngBytes": 1184820,
+      "render121Ms": [
+        72.7000000178814,
+        77.59999999403954,
+        94.40000000596046
+      ]
+    },
+    "stitched-linen": {
+      "firstVisitSwitchMs": 202,
+      "svgBytes": 3489425,
+      "pngBytes": 1330015,
+      "render121Ms": [
+        76.80000001192093,
+        80.59999999403954,
+        89.7000000178814
+      ]
+    },
+    "clay-studio": {
+      "firstVisitSwitchMs": 217,
+      "svgBytes": 1390113,
+      "pngBytes": 912109,
+      "pdfBytes": 484039,
+      "render121Ms": [
+        81.90000000596046,
+        83.89999997615814,
+        95.30000001192093
+      ]
+    },
+    "stained-glass": {
+      "firstVisitSwitchMs": 203,
+      "svgBytes": 3141758,
+      "pngBytes": 948704,
+      "pdfBytes": 491459,
+      "render121Ms": [
+        76.2000000178814,
+        86,
+        95.40000000596046
+      ]
+    },
+    "topographic": {
+      "firstVisitSwitchMs": 202,
+      "svgBytes": 1422371,
+      "pngBytes": 874950,
+      "render121Ms": [
+        77.2999999821186,
+        90.90000000596046,
+        95.59999999403954
+      ]
+    },
+    "film-storyboard": {
+      "firstVisitSwitchMs": 205,
+      "svgBytes": 1394181,
+      "pngBytes": 940322,
+      "render121Ms": [
+        75.5,
+        87.19999998807907,
+        93.59999999403954
+      ]
+    },
+    "travel-tickets": {
+      "firstVisitSwitchMs": 220,
+      "svgBytes": 3130692,
+      "pngBytes": 865917,
+      "render121Ms": [
+        84.09999999403954,
+        93.2000000178814,
+        99.39999997615814
+      ]
+    }
+  },
+  "errors": []
+}
