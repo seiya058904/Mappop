@@ -15,7 +15,18 @@
       // 接管应用
       window.takeOverApp = false
     </script>
-  </head>
+  <!-- Cloudflare Web Analytics: public website only -->
+<script type="module">
+// Aggregate page visits on the public website only; local and offline copies stay offline.
+if (location.hostname === "mappop.seiya-api.workers.dev" && !document.querySelector("script[data-cf-beacon]")) {
+  const beacon = document.createElement("script");
+  beacon.type = "module";
+  beacon.src = "https://static.cloudflareinsights.com/beacon.min.js";
+  beacon.dataset.cfBeacon = JSON.stringify({ token: "67a461e60f734daca212bf71b6597e53", spa: false });
+  document.head.appendChild(beacon);
+}
+</script>
+</head>
   <body>
     <noscript>
       <strong
