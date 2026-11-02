@@ -335,3 +335,7 @@ Chinese typography draws on Fusion Pixel, LXGW WenKai, ZCOOL KuaiLe, Ma Shan Zhe
   <strong>Make room for the next idea.</strong><br />
   <a href="https://mappop.seiya-api.workers.dev">Open Mappop →</a> · <a href="https://github.com/seiya058904/Mappop/issues">Feedback &amp; issues</a> · <a href="#top">Back to top ↑</a>
 </p>
+
+## Website analytics
+
+The public website uses Cloudflare Web Analytics for aggregate page visits and performance. The beacon loads only on `mappop.seiya-api.workers.dev`; local previews and offline copies do not load it. No game saves, journal entries, map contents, or form values are passed to the analytics integration. Statistics start after deployment and do not recover earlier traffic. See [Cloudflare's privacy policy](https://www.cloudflare.com/privacypolicy/).
