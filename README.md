@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://mappop.seiya-api.workers.dev" title="Open the Mappop editor">
-    <img src="docs/assets/banner.svg" alt="Mappop — Make room for ideas. One canvas, thirty-two ways to see the world." width="100%" />
+    <img src="docs/assets/banner.svg" alt="Mappop — Make room for ideas. One canvas, forty ways to see the world." width="100%" />
   </a>
 </p>
 
@@ -41,7 +41,7 @@ A free, open-source mind map editor with expressive themes, intuitive editing, a
 
 <p>
   <a href="docs/assets/promo/mappop-loop.mp4"><img src="docs/assets/promo/mappop-loop.gif" alt="A 10-second loop of the Mappop editor: the same mind map changes from Anime Pop to Ink Wash, Circuit Board, Clay Studio, Pixel Arcade and back, each switch rippling out from the root node" width="100%" /></a><br />
-  <sub>One map, five of the thirty-two themes (v1.2 artwork). Real editor captures; the ripple and label are added for the loop. <a href="docs/assets/promo/mappop-loop.mp4">MP4</a></sub>
+  <sub>One map, five Mappop themes (v1.2 artwork). Real editor captures; the ripple and label are added for the loop. <a href="docs/assets/promo/mappop-loop.mp4">MP4</a></sub>
 </p>
 
 </div>
@@ -54,17 +54,17 @@ A free, open-source mind map editor with expressive themes, intuitive editing, a
 
 A reading note, a project plan, a story that is still finding its shape. Give each thought room to branch—and let the whole map feel like yours.
 
-Mappop is a reimagined home for the open-source [Simple mind map](https://github.com/wanglin2/mind-map) editor. It keeps the practical editing tools you expect and gives your ideas thirty-two distinctive visual worlds to live in.
+Mappop is a reimagined home for the open-source [Simple mind map](https://github.com/wanglin2/mind-map) editor. It keeps the practical editing tools you expect and gives your ideas forty distinctive visual worlds to live in.
 
 <p align="center">
-  <a href="docs/assets/v1.3/after/anime-pop.png"><img src="docs/assets/v1.3/after/anime-pop.png" alt="Anime Pop in the real editor: a four-level map with 43 Chinese and English nodes" width="100%" /></a><br />
+  <a href="docs/assets/v1.4/after/anime-pop.png"><img src="docs/assets/v1.4/after/anime-pop.png" alt="Anime Pop in the real editor: a four-level map with 43 Chinese and English nodes" width="100%" /></a><br />
   <sub>Anime Pop — an actual desktop capture. Click to explore the full-size map.</sub>
 </p>
 
 <table>
   <tr>
     <td width="50%" valign="top"><strong>🧠 Think without friction</strong><br />Edit with double-click, branch with <code>Tab</code>, add siblings with <code>Enter</code>, and rearrange ideas by dragging. Rich text, links, notes, images, outlines, and undo/redo are inherited from the editor.</td>
-    <td width="50%" valign="top"><strong>🎨 Make it feel like yours</strong><br />Switch between thirty-two original Mappop art styles and the upstream theme collection. The editor keeps the map content and layout while you change its appearance.</td>
+    <td width="50%" valign="top"><strong>🎨 Make it feel like yours</strong><br />Switch between forty original Mappop art styles and the upstream theme collection. The editor keeps the map content and layout while you change its appearance.</td>
   </tr>
   <tr>
     <td valign="top"><strong>📦 Take your ideas anywhere</strong><br />Bring your own file, or use the ready-to-send prompt in <strong>Import</strong> to prepare an outline with an external AI. Export editable <code>.smm</code> / JSON, or create PNG, SVG, PDF, XMind, Markdown, and TXT copies.</td>
@@ -87,29 +87,29 @@ Switch directly from Themes to Node, Style, Structure, Outline or Settings using
 
 ### Distinct shapes, the same ideas
 
-[![Four real editor previews: Ink Wash, Swiss Type, Circuit Board and Clay Studio](docs/assets/v1.3/featured.jpg)](docs/THEMES.md)
+[![Four real editor previews: Porcelain Blue, Midnight Studio, Y2K Chrome and Herbarium](docs/assets/v1.4/featured.jpg)](docs/THEMES.md)
 
 Brush silhouettes, editorial baselines, copper component pins and matte clay relief.
 These are real seven-node editor previews, with identical content. Each style
 has its own root, branch, leaf and line rules; decorations become lighter deeper
 in the map.
 
-**[Explore all 32 styles](docs/THEMES.md)** ·
-[32-theme 43-node gallery](docs/assets/v1.3/after/contact-sheet.jpg) ·
-[Unlabelled comparison](docs/assets/v1.3/after/contact-sheet-unlabelled.jpg) ·
+**[Explore all 40 styles](docs/THEMES.md)** ·
+[40-theme 43-node gallery](docs/assets/v1.4/after/contact-sheet.jpg) ·
+[Unlabelled comparison](docs/assets/v1.4/after/contact-sheet-unlabelled.jpg) ·
 [Original 16 before/after](docs/ART-AUDIT.md)
 
 <details>
 <summary><strong>Find a style that fits</strong></summary>
 
-[![Search and independent family/appearance filters](docs/assets/v1.3/theme-selector.png)](docs/assets/v1.3/theme-selector.png)
+[![Search and independent family/appearance filters](docs/assets/v1.4/theme-selector.png)](docs/assets/v1.4/theme-selector.png)
 
 Search Chinese or English names and style keywords. Combine **Playful**, **Paper
 & ink**, **Graphic**, **Technical** or **Materials** with **Light / After dark**.
 After dark includes Pixel Arcade. Chinese UI leads with Chinese names; every
 card is reachable by scrolling and keyboard. Closing the panel restores focus.
 
-[390px theme picker](docs/assets/v1.3/theme-selector-mobile.png) ·
+[390px theme picker](docs/assets/v1.4/theme-selector-mobile.png) ·
 [Font sources and coverage](web/public/mappop/fonts/ART-FONTS.md)
 
 </details>
@@ -117,9 +117,9 @@ card is reachable by scrolling and keyboard. Closing the panel restores focus.
 <details>
 <summary><strong>Mobile and large maps</strong></summary>
 
-[390px overview](docs/assets/v1.3/after/contact-sheet-mobile.jpg) ·
-[121-node density](docs/assets/v1.3/after/contact-sheet-121.jpg) ·
-[121-node reading detail](docs/assets/v1.3/after/contact-sheet-121-detail.jpg)
+[390px overview](docs/assets/v1.4/after/contact-sheet-mobile.jpg) ·
+[121-node density](docs/assets/v1.4/after/contact-sheet-121.jpg) ·
+[121-node reading detail](docs/assets/v1.4/after/contact-sheet-121-detail.jpg)
 
 Existing maps keep their layout. Use zoom, pan and branch collapse to read large
 documents; fit-to-canvas is a navigation overview. Chromium tests include 390px,
@@ -134,7 +134,7 @@ Physical phones, Firefox and Safari/WebKit were not tested in this release.
 
 1. **[Open Mappop](https://mappop.seiya-api.workers.dev).** The example map is already editable; there is no sign-up step.
 2. **Follow a thought.** Double-click any node to type, press `Tab` to grow a child branch, or use `Enter` to add a sibling. Drag nodes to reorganize.
-3. **Choose a visual world.** Open **Themes** for the thirty-two Mappop styles, or **Structure** to try another layout.
+3. **Choose a visual world.** Open **Themes** for the forty Mappop styles, or **Structure** to try another layout.
 4. **Keep a copy.** Export an editable `.smm` file or another supported format before you close the browser or clear its data.
 
 | While a node is selected | Action |
@@ -184,7 +184,7 @@ Image exports wait for the current theme fonts and layout, including immediately
 after importing SMM. If a local font fails, the editor explains its fallback;
 keep editing or save SMM, then reload before exporting images.
 
-**See the actual output:** [SVG gallery](docs/assets/v1.3/svg-exports.jpg) · [PNG gallery](docs/assets/v1.3/png-exports.jpg) · [Download six representative SVG/PNG/PDF sets](https://github.com/seiya058904/Mappop/releases/download/v1.2.0/Mappop-v1.2.0-art-samples.zip).
+**See the actual output:** [SVG gallery](docs/assets/v1.4/svg-exports.jpg) · [PNG gallery](docs/assets/v1.4/png-exports.jpg) · [Download six representative SVG/PNG/PDF sets](https://github.com/seiya058904/Mappop/releases/download/v1.2.0/Mappop-v1.2.0-art-samples.zip).
 
 These are exports from the same 43-node test document. The [QA report](docs/QA.md) records typography, decoration and independent SVG rendering checks.
 

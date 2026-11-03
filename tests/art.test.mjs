@@ -22,10 +22,10 @@ const luminance = hex => {
   const channels = hex.slice(1).match(/../g).map(x => parseInt(x, 16) / 255).map(x => x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4)
   return channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722
 }
-test('at least 32 unique themes retain all 16 stable IDs and readable hierarchy', () => {
-  assert(themes.length >= 32)
+test('at least 40 unique themes retain all 32 earlier stable IDs and readable hierarchy', () => {
+  assert(themes.length >= 40)
   assert.equal(new Set(themes.map(t => t.slug)).size, themes.length)
-  const original = ['pixel-arcade', 'anime-pop', 'toon-motion', 'zen-japan', 'ink-wash', 'sketchbook', 'marker-notes', 'cyber-neon', 'watercolor-garden', 'paper-cut', 'ukiyo-e-print', 'blueprint-lab', 'bauhaus-geometry', 'glass-aurora', 'vintage-editorial', 'celestial-atlas']
+  const original = ['pixel-arcade', 'anime-pop', 'toon-motion', 'zen-japan', 'ink-wash', 'sketchbook', 'marker-notes', 'cyber-neon', 'watercolor-garden', 'paper-cut', 'ukiyo-e-print', 'blueprint-lab', 'bauhaus-geometry', 'glass-aurora', 'vintage-editorial', 'celestial-atlas', 'swiss-type', 'metro-transit', 'chalk-classroom', 'terminal-tree', 'circuit-board', 'art-deco', 'risograph', 'memphis-play', 'neo-brutalist', 'retro-desktop', 'stitched-linen', 'clay-studio', 'stained-glass', 'topographic', 'film-storyboard', 'travel-tickets']
   original.forEach(slug => assert(themes.some(t => t.slug === slug)))
   for (const theme of themes) {
     assert(theme.name && theme.zh && theme.descriptionZh && theme.category && typeof theme.dark === 'boolean')
@@ -65,7 +65,7 @@ test('every theme preview is a local WebP from the reproducible editor capture',
 
 test('each preset has deterministic vector material and a real decoration implementation', () => {
   const textures = vm.runInNewContext(fs.readFileSync('web/src/mappop/textures.js', 'utf8').replace('export const textures =', 'globalThis.textures ='))
-  const decorations = fs.readFileSync('web/src/mappop/decorations.js', 'utf8') + fs.readFileSync('web/src/mappop/decoration-presets.js', 'utf8')
+  const decorations = ['decorations.js', 'decoration-presets.js', 'decoration-signature.js'].map(file => fs.readFileSync(`web/src/mappop/${file}`, 'utf8')).join('')
   for (const theme of themes) {
     assert(textures[theme.slug]?.startsWith('<svg'), theme.slug)
     assert(!textures[theme.slug].includes('http', 50), theme.slug)

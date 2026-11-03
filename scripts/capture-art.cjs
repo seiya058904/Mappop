@@ -44,7 +44,7 @@ async function fit(page) {
   const sourceState = execFileSync('git', ['status', '--porcelain', '--', 'web/src/mappop'], { encoding: 'utf8' }).trim() ? 'working-tree-candidate' : 'committed'
   const sources = {}
   const sourcesLfSha256 = {}
-  for (const name of ['theme-tokens.js', 'themes.js', 'textures.js', 'decorations.js', 'decoration-presets.js']) {
+  for (const name of ['theme-tokens.js', 'themes.js', 'textures.js', 'decorations.js', 'decoration-presets.js', 'decoration-signature.js']) {
     const hashes = sourceHashes(await fs.readFile(`web/src/mappop/${name}`))
     sources[name] = hashes.rawSha256
     sourcesLfSha256[name] = hashes.lfSha256

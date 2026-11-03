@@ -59,7 +59,7 @@ if 'after' in manifests:
     # Keep a few readable originals; the full capture set stays in ignored output.
     for name in ['anime-pop.png', 'swiss-type-detail.png', 'circuit-board-121-detail.png', 'clay-studio-detail.png', 'stained-glass-detail.png']:
         shutil.copy2(raw/'after'/name, docs/'after'/name)
-    featured = ['ink-wash', 'swiss-type', 'circuit-board', 'clay-studio']
+    featured = ['porcelain-blue', 'midnight-studio', 'y2k-chrome', 'botanical-herbarium']
     sheet = Image.new('RGB', (1600, 980), '#f6f4ef')
     for index, slug in enumerate(featured):
         im = Image.open(raw/'previews'/f'{slug}.png').convert('RGB')

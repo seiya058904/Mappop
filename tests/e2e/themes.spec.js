@@ -38,7 +38,7 @@ async function documentContent(page) {
 }
 
 test('all registered art themes switch through UI, preserve the document, export SVG/PNG and persist', async ({ page }, testInfo) => {
-  test.setTimeout(180000)
+  test.setTimeout(240000)
   const errors = []
   page.on('pageerror', error => errors.push(error.message))
   await page.goto('/')

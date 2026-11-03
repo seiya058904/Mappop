@@ -12,7 +12,7 @@ export const definitions = [
     secondPalette: ['#ff6fae', '#3fe0d8', '#ffd23f', '#a98bff'],
     branchPalette: ['#ff6fae', '#3fe0d8', '#ffd23f', '#a98bff'],
     border: '#8a7dff', accent: '#3fe0d8', line: '#8a7dff',
-    radius: 0, borderWidth: 0, lineWidth: 3, lineStyle: 'straight',
+    radius: 0, borderWidth: 0, lineWidth: 3, lineStyle: 'straight', lineTaper: [4, 3, 2], lineCap: 'square',
     rootSize: 38, secondSize: 24, nodeSize: 22, spacing: [52, 16], padding: [18, 10],
     shadow: ['#07041a', 5, 5, 0], shadowOpacity: 1,
     levels: { root: { paddingX: 34, paddingY: 22 }, second: { color: '#1a1438' }, node: { borderWidth: 2, borderColor: '#4a3f8f' } }
@@ -25,7 +25,7 @@ export const definitions = [
     secondPalette: ['#ffd3e2', '#cdf1e3', '#fff0a8', '#ded6ff'],
     branchPalette: ['#d6336c', '#21907a', '#a87200', '#7155cf'],
     border: '#4a2140', accent: '#d6336c', line: '#c2457a',
-    radius: 22, borderWidth: 1.6, lineWidth: 2.2, lineStyle: 'curve',
+    radius: 22, borderWidth: 1.6, lineWidth: 2.2, lineStyle: 'curve', lineTaper: [3.4, 2.2, 1.4], lineCap: 'round',
     rootSize: 32, secondSize: 23, nodeSize: 19, spacing: [56, 16], padding: [18, 9],
     shadow: ['#4a2140', 4, 4, 0], shadowOpacity: 0.9,
     levels: { root: { borderWidth: 2.4 }, second: { borderRadius: 4 }, node: { borderColor: '#efb6cb', borderWidth: 1.2 } }
@@ -37,7 +37,7 @@ export const definitions = [
     rootFill: '#ff5a3c', rootInk: '#221e2a', secondFill: '#7ec8ff', nodeFill: '#ffffff',
     secondPalette: ['#7ec8ff', '#a6e46a', '#ffbf3c', '#ff9ccb'],
     border: '#221e2a', accent: '#1f6fd0', line: '#221e2a',
-    radius: 18, borderWidth: 3, lineWidth: 3.2, lineStyle: 'direct',
+    radius: 18, borderWidth: 3, lineWidth: 3.2, lineStyle: 'direct', lineTaper: [4.4, 3.2, 2.2], lineCap: 'round',
     rootSize: 34, secondSize: 24, nodeSize: 20, spacing: [56, 20], padding: [22, 11],
     shadow: ['#221e2a', 4, 5, 0], shadowOpacity: 1, levels: { node: { borderWidth: 2.2 } }
   },
@@ -47,7 +47,7 @@ export const definitions = [
     font: 'serif', dark: false, background: '#f6f0e3', ink: '#2a2d28',
     rootFill: '#1e221f', rootInk: '#f8f2e4', secondFill: 'transparent', nodeFill: 'transparent',
     border: '#b9b29b', accent: '#c0381f', line: '#4b5545',
-    radius: 0, borderWidth: 0, lineWidth: 1.6, lineStyle: 'straight',
+    radius: 0, borderWidth: 0, lineWidth: 1.6, lineStyle: 'straight', lineTaper: [2.4, 1.4, 1], lineCap: 'butt',
     rootSize: 32, secondSize: 23, nodeSize: 18, spacing: [76, 24], padding: [16, 9],
     shadow: ['#6b715e', 0, 0, 0],
     levels: { root: { paddingX: 40, paddingY: 24, fontWeight: 600 }, second: { fontWeight: 700, color: '#9a2c18', paddingX: 22 } }
@@ -58,7 +58,7 @@ export const definitions = [
     font: 'brush', dark: false, background: '#f2f0e8', ink: '#1d2324',
     rootFill: '#141819', rootInk: '#fbf8ee', secondFill: '#cad4cf', nodeFill: 'transparent',
     border: '#3e4a48', accent: '#c23a2a', line: '#3e4a48',
-    radius: 0, borderWidth: 0, lineWidth: 2.6, lineStyle: 'curve',
+    radius: 0, borderWidth: 0, lineWidth: 2.6, lineStyle: 'curve', lineTaper: [5.2, 2.6, 1.2], lineCap: 'round',
     rootSize: 38, secondSize: 27, nodeSize: 22, spacing: [66, 18], padding: [18, 9],
     shadow: ['#6e7a74', 0, 2, 2], levels: { root: { paddingX: 40, paddingY: 24 } }
   },
@@ -70,7 +70,7 @@ export const definitions = [
     secondPalette: ['#d6e8ff', '#ffdcd1', '#d9f0cc', '#efdcff'],
     branchPalette: ['#3d6fb0', '#c2513d', '#4e8a3a', '#8256b0'],
     border: '#263650', accent: '#d0412f', line: '#4f6889',
-    radius: 0, borderWidth: 1.4, lineWidth: 1.8, lineStyle: 'curve',
+    radius: 0, borderWidth: 1.4, lineWidth: 1.8, lineStyle: 'curve', lineTaper: [2.6, 1.8, 1.2], lineCap: 'round',
     rootSize: 34, secondSize: 24, nodeSize: 21, spacing: [52, 18], padding: [16, 9],
     shadow: ['#9c9481', 2, 3, 0], shadowOpacity: 0.55, levels: { root: { paddingX: 36, paddingY: 22 }, node: { borderWidth: 0 } }
   },
@@ -82,7 +82,7 @@ export const definitions = [
     secondPalette: ['#ffb1c6', '#9fe4ff', '#ffd36b', '#c3f08a'],
     branchPalette: ['#c63b66', '#1a7fa6', '#9a6400', '#3f7f22'],
     border: '#8f8566', accent: '#c63b66', line: '#4a5543',
-    radius: 0, borderWidth: 0, lineWidth: 3.6, lineStyle: 'direct',
+    radius: 0, borderWidth: 0, lineWidth: 3.6, lineStyle: 'direct', lineTaper: [5, 3.6, 2.4], lineCap: 'round',
     rootSize: 32, secondSize: 22, nodeSize: 19, spacing: [48, 18], padding: [18, 10],
     shadow: ['#6f6448', 3, 5, 1.5], shadowOpacity: 0.55, levels: { root: { paddingX: 34, paddingY: 24 }, node: { paddingY: 8 } }
   },
@@ -93,7 +93,7 @@ export const definitions = [
     rootFill: '#1d0f3d', rootInk: '#ffffff', secondFill: '#16123a', nodeFill: '#100d29',
     branchPalette: ['#ff3ea5', '#00e1ff', '#b56dff', '#ffd23f'],
     border: '#ff3ea5', accent: '#00e1ff', line: '#7c5cff',
-    radius: 0, borderWidth: 1.6, lineWidth: 1.8, lineStyle: 'straight', branchStroke: true,
+    radius: 0, borderWidth: 1.6, lineWidth: 1.8, lineStyle: 'straight', lineTaper: [2.4, 1.6, 1.1], lineDash: [null, null, '6 3'], lineCap: 'butt', branchStroke: true,
     rootSize: 34, secondSize: 24, nodeSize: 18, spacing: [64, 16], padding: [22, 11],
     shadow: ['#ff3ea5', 0, 0, 4], shadowOpacity: 0.85,
     levels: { root: { paddingX: 36, paddingY: 22, borderWidth: 2.4 }, node: { borderWidth: 0.9, borderColor: '#3b2f74' } }
@@ -106,7 +106,7 @@ export const definitions = [
     secondPalette: ['#bfe2c4', '#f9c8c9', '#fbe39c', '#c8daf4'],
     branchPalette: ['#3f8050', '#bd4a62', '#a07610', '#3f6eaa'],
     border: '#86ab8e', accent: '#c4566b', line: '#55805f',
-    radius: 12, borderWidth: 0, lineWidth: 2.2, lineStyle: 'curve',
+    radius: 12, borderWidth: 0, lineWidth: 2.2, lineStyle: 'curve', lineTaper: [3.6, 2.2, 1.4], lineCap: 'round',
     rootSize: 34, secondSize: 23, nodeSize: 20, spacing: [60, 20], padding: [23, 12],
     shadow: ['#9fb29c', 1, 3, 2], levels: { root: { paddingX: 38, paddingY: 24 } }
   },
@@ -117,7 +117,7 @@ export const definitions = [
     rootFill: '#1d5c66', rootInk: '#fff8e9', secondFill: '#f39a7e', nodeFill: '#fffaf0',
     secondPalette: ['#f39a7e', '#f3c95a', '#8fcbd8', '#b7d987'],
     border: '#936a55', accent: '#d0573d', line: '#73503d',
-    radius: 0, borderWidth: 0, lineWidth: 2.6, lineStyle: 'direct',
+    radius: 0, borderWidth: 0, lineWidth: 2.6, lineStyle: 'direct', lineTaper: [4, 2.8, 2], lineCap: 'round',
     rootSize: 30, secondSize: 21, nodeSize: 17, spacing: [62, 22], padding: [24, 13],
     shadow: ['#5e4733', 4, 6, 1.4], shadowOpacity: 0.55, levels: { root: { paddingX: 38, paddingY: 24 }, second: { fontWeight: 700 } }
   },
@@ -128,7 +128,7 @@ export const definitions = [
     rootFill: '#13304a', rootInk: '#fff3d1', secondFill: '#b63a26', nodeFill: '#fbf2d6',
     secondPalette: ['#b63a26', '#2b5b78', '#3a6649', '#8a3b5c'],
     border: '#2c4a5e', accent: '#b63a26', line: '#2c4a5e',
-    radius: 0, borderWidth: 1.4, lineWidth: 2.4, lineStyle: 'straight',
+    radius: 0, borderWidth: 1.4, lineWidth: 2.4, lineStyle: 'straight', lineTaper: [3.2, 2.2, 1.4], lineCap: 'butt',
     rootSize: 33, secondSize: 22, nodeSize: 18, spacing: [60, 19], padding: [22, 11],
     shadow: ['#6e5432', 3, 4, 0], shadowOpacity: 0.6,
     levels: { root: { paddingX: 38, paddingY: 25 }, second: { color: '#fff7e1', borderColor: '#17293a', fontWeight: 600 }, node: { borderWidth: 1 } }
@@ -139,7 +139,7 @@ export const definitions = [
     font: 'tech', dark: true, background: '#1553a3', ink: '#f2f8ff',
     rootFill: '#0d3a78', rootInk: '#ffffff', secondFill: '#1a5fb6', nodeFill: '#1553a3',
     border: '#ffffff', accent: '#ffd166', line: '#d3e6ff',
-    radius: 0, borderWidth: 1.4, lineWidth: 1.6, lineStyle: 'straight',
+    radius: 0, borderWidth: 1.4, lineWidth: 1.6, lineStyle: 'straight', lineTaper: [2.2, 1.4, 1], lineDash: [null, null, '5 3'], lineCap: 'butt',
     rootSize: 32, secondSize: 22, nodeSize: 17, spacing: [68, 20], padding: [21, 11],
     shadow: ['#0a2c5c', 0, 0, 0],
     levels: { root: { paddingX: 36, paddingY: 24, borderWidth: 2.4 }, second: { fontWeight: 600 }, node: { borderDasharray: '4,3', borderWidth: 0.9, borderColor: '#b9d6ff' } }
@@ -151,7 +151,7 @@ export const definitions = [
     rootFill: '#17191b', rootInk: '#fff8e9', secondFill: '#f2c230', nodeFill: 'transparent',
     secondPalette: ['#f2c230', '#f07a62', '#6fa8e6'],
     border: '#17191b', accent: '#d9362a', line: '#17191b',
-    radius: 0, borderWidth: 0, lineWidth: 3, lineStyle: 'direct',
+    radius: 0, borderWidth: 0, lineWidth: 3, lineStyle: 'direct', lineTaper: [5, 3, 2], lineCap: 'butt',
     rootSize: 32, secondSize: 21, nodeSize: 18, spacing: [60, 18], padding: [24, 11],
     shadow: ['#17191b', 0, 0, 0], levels: { root: { fontWeight: 700, paddingX: 42, paddingY: 28 }, second: { fontWeight: 700 }, node: { paddingX: 15 } }
   },
@@ -162,7 +162,7 @@ export const definitions = [
     rootFill: '#2f3670', rootInk: '#ffffff', secondFill: '#262d5e', nodeFill: '#1b2147',
     branchPalette: ['#6ff0cf', '#b69cff', '#ff9ec7', '#86c6ff'],
     border: '#a7b6ff', accent: '#6ff0cf', line: '#8f9fe6',
-    radius: 14, borderWidth: 1, lineWidth: 1.8, lineStyle: 'curve', branchStroke: true,
+    radius: 14, borderWidth: 1, lineWidth: 1.8, lineStyle: 'curve', lineTaper: [2.6, 1.8, 1.2], lineCap: 'round', branchStroke: true,
     rootSize: 32, secondSize: 21, nodeSize: 17, spacing: [60, 20], padding: [22, 12],
     shadow: ['#6f7cff', 0, 4, 6], shadowOpacity: 0.55,
     levels: { root: { paddingX: 38, paddingY: 25, borderWidth: 1.4 }, node: { borderColor: '#3d4785', borderRadius: 9 } }
@@ -174,7 +174,7 @@ export const definitions = [
     rootFill: '#6b1d24', rootInk: '#fbefd5', secondFill: '#e3d4b2', nodeFill: 'transparent',
     secondPalette: ['#e3d4b2', '#cfdcc3', '#efcdb3'],
     border: '#5e4a35', accent: '#7a2228', line: '#5e4a35',
-    radius: 0, borderWidth: 0, lineWidth: 1.6, lineStyle: 'straight',
+    radius: 0, borderWidth: 0, lineWidth: 1.6, lineStyle: 'straight', lineTaper: [2, 1.4, 1], lineCap: 'butt', underline: true,
     rootSize: 34, secondSize: 22, nodeSize: 18, spacing: [72, 17], padding: [18, 10],
     shadow: ['#8e7a5e', 0, 0, 0], levels: { root: { paddingX: 30, paddingY: 26, fontWeight: 700 }, second: { fontWeight: 700 }, node: { paddingY: 8 } }
   },
@@ -184,7 +184,7 @@ export const definitions = [
     font: 'serif', dark: true, background: '#0e152e', ink: '#eee7d2',
     rootFill: '#e3bd6b', rootInk: '#121735', secondFill: '#1e2a4d', nodeFill: 'transparent',
     border: '#e3bd6b', accent: '#f5d488', line: '#a6b5d8',
-    radius: 28, borderWidth: 1.2, lineWidth: 1.5, lineStyle: 'curve',
+    radius: 28, borderWidth: 1.2, lineWidth: 1.5, lineStyle: 'curve', lineTaper: [2.2, 1.5, 1.5], lineDash: [null, '0.1 4.5'], lineCap: 'round',
     rootSize: 32, secondSize: 22, nodeSize: 18, spacing: [72, 22], padding: [24, 11],
     shadow: ['#e3bd6b', 0, 0, 5], shadowOpacity: 0.45,
     levels: { root: { shape: 'ellipse', paddingX: 40, paddingY: 26, borderWidth: 0 }, node: { borderWidth: 0, paddingX: 14 } }
@@ -195,7 +195,7 @@ export const definitions = [
     font: 'sans', dark: false, background: '#f7f6f1', ink: '#111416',
     rootFill: '#e3271b', rootInk: '#ffffff', secondFill: '#111416', nodeFill: 'transparent',
     border: '#111416', accent: '#e3271b', line: '#111416',
-    radius: 0, borderWidth: 0, lineWidth: 1.6, lineStyle: 'straight',
+    radius: 0, borderWidth: 0, lineWidth: 1.6, lineStyle: 'straight', lineTaper: [3, 1.6, 1], lineCap: 'butt',
     rootSize: 40, secondSize: 22, nodeSize: 17, spacing: [80, 20], padding: [18, 10],
     shadow: ['#000000', 0, 0, 0],
     levels: { root: { paddingX: 26, paddingY: 24, fontWeight: 700 }, second: { fontWeight: 700, color: '#ffffff', paddingX: 22 } }
@@ -207,7 +207,7 @@ export const definitions = [
     rootFill: '#ffffff', rootInk: '#1a2a35', secondFill: '#0a6e99', nodeFill: 'transparent',
     secondPalette: ['#0a6e99', '#c62f27', '#2c7a30', '#7a4caf', '#a05200', '#00766a'],
     border: '#1a2a35', accent: '#c62f27', line: '#1a2a35', branchPalette: ['#0a6e99', '#c62f27', '#2c7a30', '#7a4caf', '#a05200', '#00766a'],
-    radius: 30, borderWidth: 3, lineWidth: 4.5, lineStyle: 'straight', lineRadius: 14,
+    radius: 30, borderWidth: 3, lineWidth: 4.5, lineStyle: 'straight', lineRadius: 14, lineTaper: [6, 4.5, 3], lineCap: 'round',
     rootSize: 30, secondSize: 21, nodeSize: 17, spacing: [76, 23], padding: [22, 10],
     shadow: ['#000000', 0, 0, 0],
     levels: { root: { paddingX: 40, paddingY: 24, borderWidth: 5, fontWeight: 700 }, second: { color: '#ffffff', fontWeight: 700 }, node: { borderWidth: 0, paddingX: 19 } }
@@ -219,7 +219,7 @@ export const definitions = [
     rootFill: '#24493e', rootInk: '#ffe680', secondFill: 'transparent', nodeFill: 'transparent',
     branchPalette: ['#ffd96b', '#ff9fb7', '#8fd3ff', '#b8ef8a'],
     border: '#f0f0dc', accent: '#ffd96b', line: '#c4d8c8',
-    radius: 0, borderWidth: 0, lineWidth: 2.2, lineStyle: 'curve',
+    radius: 0, borderWidth: 0, lineWidth: 2.2, lineStyle: 'curve', lineTaper: [3, 2.2, 1.6], lineCap: 'round',
     rootSize: 36, secondSize: 26, nodeSize: 21, spacing: [66, 20], padding: [20, 12],
     shadow: ['#000000', 0, 0, 0], levels: { root: { paddingX: 36, paddingY: 26 }, second: { paddingX: 24 } }
   },
@@ -229,7 +229,7 @@ export const definitions = [
     font: 'sans', dark: true, background: '#0d1310', ink: '#d6f2d9',
     rootFill: '#3ddc84', rootInk: '#0b1a10', secondFill: '#16231c', nodeFill: 'transparent',
     border: '#3ddc84', accent: '#ffcf6b', line: '#4f9468',
-    radius: 0, borderWidth: 0, lineWidth: 1.6, lineStyle: 'straight', lineRadius: 0,
+    radius: 0, borderWidth: 0, lineWidth: 1.6, lineStyle: 'straight', lineRadius: 0, lineTaper: [2, 1.4, 1.4], lineCap: 'square',
     rootSize: 29, secondSize: 20, nodeSize: 17, spacing: [64, 16], padding: [17, 9],
     shadow: ['#3ddc84', 0, 0, 5], shadowOpacity: 0.4,
     levels: { root: { paddingX: 38, paddingY: 18, fontWeight: 700 }, second: { paddingX: 25, color: '#ffcf6b', fontWeight: 600 } }
@@ -240,7 +240,7 @@ export const definitions = [
     font: 'tech', dark: true, background: '#0e3a2b', ink: '#eaf4de',
     rootFill: '#121614', rootInk: '#f6d58a', secondFill: '#d39a4a', nodeFill: 'transparent',
     border: '#e0b060', accent: '#ffd27a', line: '#d6b25e',
-    radius: 3, borderWidth: 1.6, lineWidth: 2.6, lineStyle: 'straight', lineRadius: 6,
+    radius: 3, borderWidth: 1.6, lineWidth: 2.6, lineStyle: 'straight', lineRadius: 6, lineTaper: [3.4, 2.6, 1.8], lineCap: 'round',
     rootSize: 33, secondSize: 23, nodeSize: 18, spacing: [76, 22], padding: [24, 12],
     shadow: ['#000000', 2, 3, 2], shadowOpacity: 0.6,
     levels: { root: { paddingX: 42, paddingY: 28 }, second: { color: '#1b130a', borderColor: '#8a5a22', fontWeight: 600 }, node: { borderWidth: 0, paddingX: 20 } }
@@ -252,7 +252,7 @@ export const definitions = [
     rootFill: '#d8b46a', rootInk: '#18222c', secondFill: '#1f5a4c', nodeFill: 'transparent',
     secondPalette: ['#1f5a4c', '#20406b', '#5c2a3e', '#4f3a1c'],
     border: '#d8b46a', accent: '#f0cf86', line: '#c9a865',
-    radius: 0, borderWidth: 1.4, lineWidth: 1.8, lineStyle: 'straight', lineRadius: 0,
+    radius: 0, borderWidth: 1.4, lineWidth: 1.8, lineStyle: 'straight', lineRadius: 0, lineTaper: [2.6, 1.8, 1.2], lineCap: 'butt',
     rootSize: 33, secondSize: 22, nodeSize: 18, spacing: [78, 23], padding: [26, 12],
     shadow: ['#000000', 0, 0, 0], levels: { root: { paddingX: 46, paddingY: 30, borderWidth: 0, fontWeight: 600 }, node: { borderWidth: 0, paddingX: 17 } }
   },
@@ -263,7 +263,7 @@ export const definitions = [
     rootFill: '#ff4f8b', rootInk: '#1a1f4a', secondFill: '#a3d4ff', nodeFill: 'transparent',
     secondPalette: ['#a3d4ff', '#ffbcd2', '#ffe066'],
     border: '#2b54c8', accent: '#ff4f8b', line: '#2b54c8',
-    radius: 0, borderWidth: 0, lineWidth: 2.4, lineStyle: 'direct',
+    radius: 0, borderWidth: 0, lineWidth: 2.4, lineStyle: 'direct', lineTaper: [3.4, 2.4, 1.6], lineCap: 'round',
     rootSize: 35, secondSize: 23, nodeSize: 18, spacing: [64, 21], padding: [22, 11],
     shadow: ['#000000', 0, 0, 0], levels: { root: { paddingX: 36, paddingY: 24, fontWeight: 700 }, second: { fontWeight: 700 } }
   },
@@ -275,7 +275,7 @@ export const definitions = [
     secondPalette: ['#35c2b5', '#ffd23f', '#b49bff', '#ff9ec4'],
     branchPalette: ['#13867d', '#cf4535', '#6b4fd6', '#c93c88'],
     border: '#1f2140', accent: '#6b4fd6', line: '#1f2140',
-    radius: 0, borderWidth: 2, lineWidth: 2.6, lineStyle: 'curve',
+    radius: 0, borderWidth: 2, lineWidth: 2.6, lineStyle: 'curve', lineTaper: [3.4, 2.6, 1.8], lineCap: 'round',
     rootSize: 33, secondSize: 23, nodeSize: 19, spacing: [66, 22], padding: [23, 12],
     shadow: ['#1f2140', 4, 4, 0], shadowOpacity: 1,
     levels: { root: { paddingX: 42, paddingY: 28, borderWidth: 2.6 }, node: { borderWidth: 0, borderRadius: 4, paddingY: 8 } }
@@ -287,7 +287,7 @@ export const definitions = [
     rootFill: '#c6f432', rootInk: '#111111', secondFill: '#ff8fc8', nodeFill: '#ffffff',
     secondPalette: ['#ff8fc8', '#7ab8ff', '#ffa94d', '#b9a2ff'],
     border: '#111111', accent: '#ff4fa3', line: '#111111',
-    radius: 0, borderWidth: 3, lineWidth: 3, lineStyle: 'direct',
+    radius: 0, borderWidth: 3, lineWidth: 3, lineStyle: 'direct', lineTaper: [4, 3, 2], lineCap: 'square',
     rootSize: 36, secondSize: 22, nodeSize: 17, spacing: [72, 23], padding: [21, 11],
     shadow: ['#111111', 6, 6, 0], shadowOpacity: 1,
     levels: { root: { paddingX: 34, paddingY: 25, fontWeight: 700, borderWidth: 4 }, second: { fontWeight: 700 }, node: { borderWidth: 2 } }
@@ -298,7 +298,7 @@ export const definitions = [
     font: 'sans', dark: false, background: '#1f7a76', ink: '#111111',
     rootFill: '#d4d0c8', rootInk: '#111111', secondFill: '#d4d0c8', nodeFill: '#ffffff',
     border: '#404040', accent: '#0a246a', line: '#f2f2ea',
-    radius: 0, borderWidth: 1, lineWidth: 2, lineStyle: 'straight', lineRadius: 0,
+    radius: 0, borderWidth: 1, lineWidth: 2, lineStyle: 'straight', lineRadius: 0, lineTaper: [2, 1.4, 1], lineDash: [null, null, '1 2'], lineCap: 'butt',
     rootSize: 29, secondSize: 20, nodeSize: 17, spacing: [66, 19], padding: [20, 12],
     shadow: ['#000000', 3, 3, 0], shadowOpacity: 0.55,
     levels: { root: { paddingX: 34, paddingY: 30, fontWeight: 700 }, second: { paddingY: 14, fontWeight: 600 }, node: { borderWidth: 1, borderColor: '#808080', paddingX: 21, paddingY: 8 } }
@@ -310,7 +310,7 @@ export const definitions = [
     rootFill: '#2f5d50', rootInk: '#fdf6e6', secondFill: '#f2b5a0', nodeFill: 'transparent',
     secondPalette: ['#f2b5a0', '#b7d4c0', '#f3d98b', '#c9c3ea'],
     border: '#6b4a3a', accent: '#b5523a', line: '#74563f',
-    radius: 14, borderWidth: 0, lineWidth: 2, lineStyle: 'curve',
+    radius: 14, borderWidth: 0, lineWidth: 2, lineStyle: 'curve', lineTaper: [2.6, 2, 1.6], lineDash: ['8 5', '6 4', '4 3'], lineCap: 'round',
     rootSize: 33, secondSize: 24, nodeSize: 20, spacing: [64, 21], padding: [25, 13],
     shadow: ['#6b5440', 1, 3, 1.5], shadowOpacity: 0.45, levels: { root: { paddingX: 40, paddingY: 27 }, node: { borderWidth: 0, paddingX: 18, paddingY: 10 } }
   },
@@ -321,7 +321,7 @@ export const definitions = [
     rootFill: '#df7b50', rootInk: '#2f1a10', secondFill: '#a8d5b5', nodeFill: '#fbf5ec',
     secondPalette: ['#a8d5b5', '#f7d488', '#f4aba3', '#accaee'],
     border: '#b48e74', accent: '#c35f36', line: '#7f6248',
-    radius: 26, borderWidth: 0, lineWidth: 3.2, lineStyle: 'curve',
+    radius: 26, borderWidth: 0, lineWidth: 3.2, lineStyle: 'curve', lineTaper: [4.6, 3.2, 2.2], lineCap: 'round',
     rootSize: 33, secondSize: 22, nodeSize: 18, spacing: [68, 23], padding: [26, 14],
     shadow: ['#7a5a44', 2, 6, 3], shadowOpacity: 0.5, levels: { root: { paddingX: 42, paddingY: 27, fontWeight: 600 }, second: { fontWeight: 600 }, node: { borderRadius: 12, paddingY: 9 } }
   },
@@ -332,7 +332,7 @@ export const definitions = [
     rootFill: '#8e1f2f', rootInk: '#fff4d6', secondFill: '#1f5f8b', nodeFill: '#fbf5e4',
     secondPalette: ['#1f5f8b', '#2a6b3a', '#6e357f', '#9a4a1f'],
     border: '#16191b', accent: '#e0a43c', line: '#1d2326',
-    radius: 0, borderWidth: 3, lineWidth: 2.8, lineStyle: 'straight',
+    radius: 0, borderWidth: 3, lineWidth: 2.8, lineStyle: 'straight', lineTaper: [3.4, 2.6, 1.8], lineCap: 'butt',
     rootSize: 33, secondSize: 22, nodeSize: 18, spacing: [74, 23], padding: [27, 14],
     shadow: ['#000000', 0, 0, 0],
     levels: { root: { paddingX: 48, paddingY: 31, borderWidth: 3.5, fontWeight: 600 }, second: { color: '#fff8e6', fontWeight: 600 }, node: { borderWidth: 1.6, paddingX: 16, paddingY: 8 } }
@@ -345,7 +345,7 @@ export const definitions = [
     secondPalette: ['#eab079', '#9fd0da', '#d0e29a', '#e8c2d6'],
     branchPalette: ['#a3501f', '#1f7189', '#4f7322', '#9a4672'],
     border: '#4f6340', accent: '#c0602a', line: '#556845',
-    radius: 0, borderWidth: 1.2, lineWidth: 2.2, lineStyle: 'direct',
+    radius: 0, borderWidth: 1.2, lineWidth: 2.2, lineStyle: 'direct', lineTaper: [2.8, 2, 1.4], lineDash: [null, '9 4', '4 3'], lineCap: 'butt',
     rootSize: 31, secondSize: 21, nodeSize: 17, spacing: [70, 21], padding: [24, 12],
     shadow: ['#3b4a2e', 2, 3, 0], shadowOpacity: 0.5,
     levels: { root: { paddingX: 40, paddingY: 26, borderWidth: 0, fontWeight: 600 }, second: { fontWeight: 600 }, node: { borderWidth: 0, paddingX: 18 } }
@@ -357,7 +357,7 @@ export const definitions = [
     rootFill: '#141618', rootInk: '#fdf9ee', secondFill: '#f3b04f', nodeFill: 'transparent',
     secondPalette: ['#f3b04f', '#f2e3c2', '#a9cfe6'],
     border: '#222426', accent: '#d9822b', line: '#3a3d40',
-    radius: 2, borderWidth: 2, lineWidth: 1.8, lineStyle: 'straight', lineRadius: 0,
+    radius: 2, borderWidth: 2, lineWidth: 1.8, lineStyle: 'straight', lineRadius: 0, lineTaper: [2.4, 1.6, 1.1], lineCap: 'butt',
     rootSize: 32, secondSize: 21, nodeSize: 17, spacing: [74, 22], padding: [28, 14],
     shadow: ['#000000', 3, 4, 2], shadowOpacity: 0.35,
     levels: { root: { paddingX: 46, paddingY: 30, borderWidth: 0, fontWeight: 600 }, second: { fontWeight: 600 }, node: { borderWidth: 0, paddingX: 16, paddingY: 8 } }
@@ -369,9 +369,113 @@ export const definitions = [
     rootFill: '#d94c32', rootInk: '#fff8ec', secondFill: '#7cc7c0', nodeFill: '#fffaf0',
     secondPalette: ['#7cc7c0', '#f6cf62', '#f4abb9', '#a8c1ee'],
     border: '#8a6e4c', accent: '#d94c32', line: '#735a3c',
-    radius: 0, borderWidth: 0, lineWidth: 1.9, lineStyle: 'curve',
+    radius: 0, borderWidth: 0, lineWidth: 1.9, lineStyle: 'curve', lineTaper: [2.4, 1.8, 1.4], lineDash: [null, '7 5', '3 4'], lineCap: 'round',
     rootSize: 32, secondSize: 22, nodeSize: 18, spacing: [67, 21], padding: [27, 13],
     shadow: ['#5e4528', 2, 4, 1.5], shadowOpacity: 0.4,
     levels: { root: { paddingX: 46, paddingY: 27, fontWeight: 600 }, second: { fontWeight: 600 }, node: { borderWidth: 1, borderColor: '#c9b08a', paddingX: 23, paddingY: 9 } }
+    },
+  // v1.4 "Signature": optional tokens — lineTaper/lineDash (per depth, last entry
+  // repeats), lineCap, underline (upstream nodeUseLineStyle) and gradients
+  // ({ name: [stops, direction] }, referenced as url(#<runtime>-<name>)).
+  {
+    slug: 'porcelain-blue', name: 'Porcelain Blue', zh: '青花瓷韵', category: 'paper',
+    description: 'Cobalt glaze · cloud tablets', descriptionZh: '白釉钴蓝 · 如意开光', keywords: '中国风 青花 瓷器 传统 china ceramic',
+    font: 'serif', dark: false, background: '#f3f5f1', ink: '#16305e',
+    rootFill: '#1d3f8c', rootInk: '#f7f9ff', secondFill: '#e4ebf7', nodeFill: 'transparent',
+    border: '#1d3f8c', accent: '#2f5bb5', line: '#24489a',
+    radius: 0, borderWidth: 1.6, lineWidth: 2.4, lineStyle: 'curve', lineTaper: [4.6, 2.6, 1.3], lineCap: 'round',
+    rootSize: 34, secondSize: 22, nodeSize: 18, spacing: [70, 20], padding: [24, 11],
+    shadow: ['#1d3f8c', 0, 3, 5], shadowOpacity: 0.2,
+    levels: { root: { paddingX: 52, paddingY: 26, borderWidth: 0, fontWeight: 600 }, second: { paddingX: 26, paddingY: 12, fontWeight: 600 }, node: { borderWidth: 0, paddingX: 22 } }
+  },
+  {
+    slug: 'dunhuang-mural', name: 'Dunhuang Mural', zh: '敦煌壁画', category: 'material',
+    description: 'Mineral pigments · flame niches', descriptionZh: '矿物重彩 · 火焰佛龛', keywords: '中国风 壁画 丝路 传统 silk road fresco',
+    font: 'serif', dark: false, background: '#dcc092', ink: '#3a2213',
+    rootFill: '#9c3423', rootInk: '#f8ead0', secondFill: '#2f5687', nodeFill: 'transparent',
+    secondPalette: ['#2f5687', '#2c6a55', '#8f3a27', '#6e4b22'],
+    border: '#5c3418', accent: '#a8402a', line: '#7a3a1f',
+    radius: 0, borderWidth: 0, lineWidth: 2.4, lineStyle: 'curve', lineTaper: [4.8, 2.8, 1.5], lineCap: 'round',
+    rootSize: 34, secondSize: 22, nodeSize: 18, spacing: [70, 21], padding: [26, 12],
+    shadow: ['#5c3418', 2, 4, 3], shadowOpacity: 0.4,
+    levels: { root: { paddingX: 48, paddingY: 28, fontWeight: 700 }, second: { color: '#f8ead0', paddingX: 28, paddingY: 13, fontWeight: 600 }, node: { paddingX: 20 } }
+  },
+  {
+    slug: 'botanical-herbarium', name: 'Herbarium', zh: '植物标本', category: 'paper',
+    description: 'Pressed sprigs · kraft tags', descriptionZh: '压花标本 · 牛皮纸签 · 枝茎', keywords: '自然 植物 科学 笔记 nature science',
+    font: 'serif', dark: false, background: '#eeeadb', ink: '#2b3a28',
+    rootFill: '#3e5a39', rootInk: '#f6f1df', secondFill: '#e6d2a6', nodeFill: 'transparent',
+    border: '#8a6a3f', accent: '#5f7f43', line: '#4a6838', branchPalette: ['#4a6838', '#6a6a2a', '#3f6a5a', '#7a5a34'],
+    radius: 0, borderWidth: 0, lineWidth: 2.2, lineStyle: 'curve', lineTaper: [5.2, 2.6, 1.2], lineCap: 'round',
+    rootSize: 33, secondSize: 22, nodeSize: 18, spacing: [72, 20], padding: [26, 11],
+    shadow: ['#4b4630', 1, 3, 2.5], shadowOpacity: 0.35,
+    levels: { root: { paddingX: 44, paddingY: 30, fontWeight: 600 }, second: { paddingX: 26, paddingY: 11, fontWeight: 600 }, node: { paddingX: 22 } }
+  },
+  {
+    slug: 'tarot-arcana', name: 'Tarot Arcana', zh: '塔罗秘仪', category: 'graphic',
+    description: 'Arched cards · sun crown', descriptionZh: '拱顶卡牌 · 日冕 · 星座', keywords: '神秘 占星 故事 魔法 mystic astrology',
+    font: 'serif', dark: true, background: '#1c1230', ink: '#f2e7cd',
+    rootFill: '#f1e2bf', rootInk: '#2a1638', secondFill: '#3b2a6e', nodeFill: 'transparent',
+    secondPalette: ['#3b2a6e', '#5c2148', '#1f4a5c', '#4d3a18'],
+    branchPalette: ['#d9b56a', '#e48fb4', '#7fc6d6', '#c8d47a'],
+    border: '#d9b56a', accent: '#d9b56a', line: '#c9a35c',
+    radius: 0, borderWidth: 1.4, lineWidth: 1.6, lineStyle: 'curve', lineTaper: [2.6, 1.6, 1], lineCap: 'round',
+    rootSize: 33, secondSize: 22, nodeSize: 18, spacing: [74, 22], padding: [24, 12],
+    shadow: ['#d9b56a', 0, 0, 8], shadowOpacity: 0.35,
+    levels: { root: { paddingX: 50, paddingY: 30, borderWidth: 2.2, borderColor: '#d9b56a', fontWeight: 600 }, second: { paddingX: 26, paddingY: 14 }, node: { borderWidth: 0, paddingX: 20 } }
+  },
+  {
+    slug: 'isometric-blocks', name: 'Isometric Blocks', zh: '等距积木', category: 'play',
+    description: 'Toy bricks · studs · depth', descriptionZh: '玩具积木 · 凸点 · 立体侧面', keywords: '儿童 玩具 立体 乐高 3d toy',
+    font: 'comic', dark: false, background: '#e9eef6', ink: '#1d2236',
+    rootFill: '#ff7845', rootInk: '#1d2236', secondFill: '#5ec5f0', nodeFill: '#ffffff',
+    secondPalette: ['#5ec5f0', '#ffd44d', '#86dc9f', '#c6a8ff', '#ff9fc2'],
+    border: '#1d2236', accent: '#ff7845', line: '#2a3150',
+    radius: 0, borderWidth: 0, lineWidth: 3, lineStyle: 'straight', lineRadius: 0, lineTaper: [5, 3.4, 2.2], lineCap: 'square',
+    rootSize: 34, secondSize: 23, nodeSize: 18, spacing: [70, 24], padding: [22, 11],
+    shadow: ['#000000', 0, 0, 0],
+    levels: { root: { paddingX: 42, paddingY: 26 }, second: { paddingX: 26, paddingY: 13 }, node: { paddingX: 16, paddingY: 8 } }
+  },
+  {
+    slug: 'midnight-studio', name: 'Midnight Studio', zh: '午夜工作室', category: 'technical',
+    description: 'Dark cards · status dots', descriptionZh: '专业暗色卡片 · 状态点', keywords: '商务 产品 汇报 专业 dark business product',
+    font: 'sans', dark: true, background: '#0b0d13', ink: '#e7eaf3',
+    rootFill: '#5a52e8', rootInk: '#ffffff', secondFill: '#151a26', nodeFill: 'transparent',
+    branchPalette: ['#8b93ff', '#3ecf8e', '#f5a524', '#f472b6', '#38bdf8', '#c084fc'],
+    border: '#2a3142', accent: '#8b93ff', line: '#4a5370',
+    radius: 10, borderWidth: 1, lineWidth: 1.6, lineStyle: 'curve', lineTaper: [2.4, 1.6, 1.1], lineCap: 'round',
+    gradients: { 'studio-root': [[['0%', '#6366f1'], ['100%', '#9b5cf6']], { x1: '0%', y1: '0%', x2: '100%', y2: '100%' }] },
+    rootSize: 30, secondSize: 20, nodeSize: 16, spacing: [64, 18], padding: [22, 11],
+    shadow: ['#6d5cff', 0, 8, 12], shadowOpacity: 0.45,
+    levels: { root: { paddingX: 34, paddingY: 20, borderWidth: 0, borderRadius: 12, fontWeight: 600 }, second: { paddingX: 30, paddingY: 12, fontWeight: 600 }, node: { borderWidth: 0, color: '#b4bbcc', paddingX: 18 } }
+  },
+  {
+    slug: 'y2k-chrome', name: 'Y2K Chrome', zh: '千禧铬光', category: 'material',
+    description: 'Liquid chrome · iris rims', descriptionZh: '液态铬 · 虹彩边 · 星芒', keywords: '千禧 潮流 未来 金属 futuristic metal',
+    font: 'tech', dark: false, background: '#dde1ea', ink: '#1a1c28',
+    rootFill: '#c9ced9', rootInk: '#14161f', secondFill: '#ffd6ef', nodeFill: 'transparent',
+    secondPalette: ['#ffd6ef', '#c8f1ff', '#e0fbc6', '#e2d6ff'],
+    branchPalette: ['#ad2f80', '#14698c', '#3f6a10', '#5f38b5'],
+    border: '#8a90a8', accent: '#7a4fd6', line: '#5d6290',
+    radius: 22, borderWidth: 2, lineWidth: 2, lineStyle: 'curve', lineTaper: [3.6, 2.2, 1.3], lineCap: 'round', branchStroke: true,
+    gradients: {
+      chrome: [[['0%', '#ffffff'], ['42%', '#d7dbe4'], ['52%', '#9ea5b6'], ['78%', '#e9ecf2'], ['100%', '#ffffff']]],
+      iris: [[['0%', '#ff7ac8'], ['35%', '#7ad7ff'], ['68%', '#b6f27a'], ['100%', '#b28aff']], { x1: '0%', y1: '0%', x2: '100%', y2: '0%' }]
+    },
+    rootSize: 34, secondSize: 22, nodeSize: 18, spacing: [68, 20], padding: [24, 11],
+    shadow: ['#4a4f6a', 0, 6, 8], shadowOpacity: 0.3,
+    levels: { root: { paddingX: 48, paddingY: 24, borderWidth: 3 }, second: { paddingX: 28, paddingY: 12, fontWeight: 600 }, node: { borderWidth: 0, paddingX: 20 } }
+  },
+  {
+    slug: 'morandi-gallery', name: 'Morandi', zh: '莫兰迪画廊', category: 'graphic',
+    description: 'Framed canvas · wall labels', descriptionZh: '装裱画作 · 灰调 · 展签', keywords: '高级灰 艺术 展览 极简 muted minimal art',
+    font: 'sans', dark: false, background: '#e8e3da', ink: '#3b3834',
+    rootFill: '#6c7a72', rootInk: '#f7f4ee', secondFill: '#c9b8a6', nodeFill: 'transparent',
+    secondPalette: ['#c9b8a6', '#b3bfb6', '#d3c3ae', '#bbb2c3'],
+    border: '#7a7168', accent: '#9a6f5c', line: '#776d64', underline: true,
+    radius: 0, borderWidth: 0, lineWidth: 1.2, lineStyle: 'curve', lineTaper: [1.8, 1.3, 1], lineCap: 'butt',
+    rootSize: 32, secondSize: 20, nodeSize: 16, spacing: [92, 20], padding: [20, 9],
+    shadow: ['#000000', 0, 0, 0],
+    levels: { root: { paddingX: 46, paddingY: 30, fontWeight: 600 }, second: { paddingX: 24, paddingY: 12 }, node: { paddingX: 10, paddingY: 7 } }
   }
 ]

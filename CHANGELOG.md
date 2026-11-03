@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.4.0 — 2026-11-04
+
+- Added eight "Signature" themes, each exploring a different axis instead of a recolor: Porcelain Blue (cloud-tablet root, concave 开光 cartouches), Dunhuang Mural (flame-finial niche, coffered mineral panels, 飞天 ribbons), Herbarium (pressed-sprig specimen sheet, kraft tags that face their stem), Tarot Arcana (arch-top cards with a sun crown), Isometric Blocks (toy bricks with studs and extruded faces), Midnight Studio (product-grade dark cards with status dots), Y2K Chrome (liquid-chrome capsule with an iridescent rim) and Morandi (framed canvas on a mat board, underlined wall labels). All 32 earlier IDs are retained.
+- Added a render-time line language: optional `lineTaper` (trunk-to-twig widths per depth), `lineDash`, `lineCap`, `underline` (upstream `nodeUseLineStyle`) and declarative `gradients`. Manual line width, color and dash at any scope still win, and nothing is written to node data.
+- Refined all 32 existing themes with tapered hierarchy lines and signature line patterns: running-stitch thread (Stitched Linen), dotted constellations (Celestial Atlas), dotted classic file-tree branches (Retro Desktop), trail markings (Topographic), dashed routes (Travel Tickets), construction lines (Blueprint Lab) and data streams (Cyber Neon). Vintage Editorial leaves become underlined index entries, and Zen Japan's corner mark becomes a real name seal instead of a "+"-like glyph.
+- Leaf, tag and stem marks now mirror on the left side of a mindMap so they always face their parent.
+- Fixed textures that use SVG paint references being silently dropped: upstream writes an unquoted CSS `url()`, so parentheses are now escaped. Glass Aurora's aurora ground now actually renders, and large glows stay inside their tiles to avoid seams.
+- Raised the release assertion to at least 40 themes retaining all 32 earlier IDs; regenerated all 40 selector previews from the real editor.
+
 ## v1.3.0 — 2026-10-31
 
 - Rebuilt all 32 art themes for stronger presence: every root is now a solid focal block, second tiers take per-branch color fills, and relationship lines are thicker and often follow their branch color. All 32 saved-theme IDs and font families are retained.

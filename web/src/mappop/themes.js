@@ -33,11 +33,14 @@ export const artThemes = definitions.map(theme => {
     img: asset(`previews/${theme.slug}.webp`),
     config: {
       backgroundColor: theme.background,
-      backgroundImage: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(textures[theme.slug])}`,
+      // Upstream writes an unquoted CSS url(); parentheses from SVG paint
+      // references (fill="url(#…)") must be escaped or the ground is dropped.
+      backgroundImage: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(textures[theme.slug]).replace(/\(/g, '%28').replace(/\)/g, '%29')}`,
       backgroundRepeat: 'repeat', backgroundPosition: '0 0', backgroundSize: 'auto',
       fontFamily, lineColor: theme.line, lineWidth: theme.lineWidth,
       lineStyle: theme.lineStyle, lineRadius: theme.lineRadius !== undefined ? theme.lineRadius : theme.slug === 'pixel-arcade' || theme.slug === 'blueprint-lab' ? 0 : 5,
       rootLineKeepSameInCurve: true, rootLineStartPositionKeepSameInCurve: true,
+      nodeUseLineStyle: !!theme.underline,
       generalizationLineColor: theme.line, associativeLineColor: theme.accent,
       associativeLineTextColor: theme.ink, associativeLineTextFontFamily: fontFamily,
       root: node(theme.rootFill, theme.rootInk, theme.rootSize, 'root'),
@@ -119,6 +122,9 @@ const svgElement = (tag, attrs = {}) => {
   return element
 }
 
+// Depth 1 = root → second tier; the final entry repeats for deeper levels.
+const depthValue = (list, depth) => list[Math.min(Math.max(depth, 1), list.length) - 1]
+
 let runtimeId = 0
 export function attachArtThemeRuntime(mindMap, { initialFontReady = false } = {}) {
   const id = `mappop-art-${++runtimeId}`
@@ -194,20 +200,29 @@ export function attachArtThemeRuntime(mindMap, { initialFontReady = false } = {}
       style.textContent = embeddedFont
       svg.insertBefore(style, svg.firstChild)
     }
+    const custom = mindMap.getCustomThemeConfig()
+    // Manual values at any scope (global, level, node or ancestor) always win.
+    const manual = (child, level, key) => custom[key] !== undefined || (custom[level] && custom[level][key] !== undefined) || !!child.getSelfInhertStyle(key)
     const visit = node => {
       if (!node) return
       addDecoration(node, theme, id)
-      if (theme.branchPalette) {
-        const custom = mindMap.getCustomThemeConfig()
-        ;(node.children || []).forEach((child, index) => {
-          // Respect inherited manual line colors and the upstream rainbow tool.
-          const level = child.layerIndex === 1 ? 'second' : 'node'
-          if (!custom.lineColor && !(custom[level] && custom[level].lineColor) && !child.getSelfInhertStyle('lineColor') && !node.getRainbowLineColor(child) && node._lines[index]) {
-            node._lines[index].stroke({ color: branchColor(child, theme) })
-          }
-        })
-      }
-      (node.children || []).forEach(visit)
+      ;(node.children || []).forEach((child, index) => {
+        const line = node._lines[index]
+        if (!line) return
+        const level = child.layerIndex === 1 ? 'second' : 'node'
+        // Respect inherited manual line colors and the upstream rainbow tool.
+        if (theme.branchPalette && !manual(child, level, 'lineColor') && !node.getRainbowLineColor(child)) {
+          line.stroke({ color: branchColor(child, theme) })
+        }
+        // Trunk-to-twig hierarchy: attributes only, no extra DOM per line.
+        if (theme.lineTaper && !manual(child, level, 'lineWidth')) line.attr('stroke-width', depthValue(theme.lineTaper, child.layerIndex))
+        if (theme.lineDash && !manual(child, level, 'lineDasharray')) {
+          const dash = depthValue(theme.lineDash, child.layerIndex)
+          line.attr('stroke-dasharray', dash || 'none')
+        }
+        if (theme.lineCap) line.attr('stroke-linecap', theme.lineCap)
+      })
+      ;(node.children || []).forEach(visit)
     }
     visit(mindMap.renderer.root)
     queueRemeasure()

@@ -1,0 +1,549 @@
+{
+  "sourceCommit": "d75fdb99fe1e04c5eb7a45a83358b5d872ed0722",
+  "sourceState": "working-tree-candidate",
+  "sources": {
+    "theme-tokens.js": "5ad8e042cc526eb382b4a1b601cce00cfff3d7c52a60909c0599f06faabaff0d",
+    "themes.js": "4a032986e1fca85b0e69c6dfcf553829feeda0e97eb9eef8da50945692d77c71",
+    "textures.js": "c1bdc208cd077689e00eb9143b2283974931686cd088086c61f8405f41a71d36",
+    "decorations.js": "6e9e31a59866956cbfeef9f1dc54a3695781ef386bba18b24fce2b1d0716a1e9",
+    "decoration-presets.js": "84d25680b29060bc44b07c7ff1adf175e1a65930369d06b98b08f50104792b10"
+  },
+  "sourcesLfSha256": {
+    "theme-tokens.js": "5ad8e042cc526eb382b4a1b601cce00cfff3d7c52a60909c0599f06faabaff0d",
+    "themes.js": "4a032986e1fca85b0e69c6dfcf553829feeda0e97eb9eef8da50945692d77c71",
+    "textures.js": "c1bdc208cd077689e00eb9143b2283974931686cd088086c61f8405f41a71d36",
+    "decorations.js": "6e9e31a59866956cbfeef9f1dc54a3695781ef386bba18b24fce2b1d0716a1e9",
+    "decoration-presets.js": "84d25680b29060bc44b07c7ff1adf175e1a65930369d06b98b08f50104792b10"
+  },
+  "slugs": [
+    "pixel-arcade",
+    "anime-pop",
+    "toon-motion",
+    "zen-japan",
+    "ink-wash",
+    "sketchbook",
+    "marker-notes",
+    "cyber-neon",
+    "watercolor-garden",
+    "paper-cut",
+    "ukiyo-e-print",
+    "blueprint-lab",
+    "bauhaus-geometry",
+    "glass-aurora",
+    "vintage-editorial",
+    "celestial-atlas",
+    "swiss-type",
+    "metro-transit",
+    "chalk-classroom",
+    "terminal-tree",
+    "circuit-board",
+    "art-deco",
+    "risograph",
+    "memphis-play",
+    "neo-brutalist",
+    "retro-desktop",
+    "stitched-linen",
+    "clay-studio",
+    "stained-glass",
+    "topographic",
+    "film-storyboard",
+    "travel-tickets",
+    "porcelain-blue",
+    "dunhuang-mural",
+    "botanical-herbarium",
+    "tarot-arcana",
+    "isometric-blocks",
+    "midnight-studio",
+    "y2k-chrome",
+    "morandi-gallery"
+  ],
+  "captured": "2026-11-03T16:47:32.216Z",
+  "initialMs": 804,
+  "resources": [
+    {
+      "name": "/css/chunk-vendors.dc502cfa.css",
+      "bytes": 37215
+    },
+    {
+      "name": "/css/app.fc883365.css",
+      "bytes": 1383
+    },
+    {
+      "name": "/js/app.8dfad943.js",
+      "bytes": 38320
+    },
+    {
+      "name": "/js/chunk-vendors.1a2f9ee6.js",
+      "bytes": 310479
+    },
+    {
+      "name": "/css/chunk-6bf1103d.56609a0f.css",
+      "bytes": 136061
+    },
+    {
+      "name": "/js/chunk-6bf1103d.baf680e1.js",
+      "bytes": 1161214
+    },
+    {
+      "name": "/fonts/element-icons.535877f5.woff",
+      "bytes": 28200
+    },
+    {
+      "name": "/fonts/iconfont.77d93312.woff2",
+      "bytes": 17328
+    },
+    {
+      "name": "/mappop/fonts/MappopHand.woff2",
+      "bytes": 1574068
+    },
+    {
+      "name": "/mappop/fonts/MappopSans.woff2",
+      "bytes": 991548
+    },
+    {
+      "name": "/img/logicalStructure.4532ecb3.jpg",
+      "bytes": 5623
+    },
+    {
+      "name": "/img/logicalStructureLeft.cfd5dfc0.jpg",
+      "bytes": 5615
+    },
+    {
+      "name": "/img/mindMap.387d3c5d.jpg",
+      "bytes": 6327
+    },
+    {
+      "name": "/img/organizationStructure.fed2500e.jpg",
+      "bytes": 7014
+    },
+    {
+      "name": "/img/catalogOrganization.4c7a113a.jpg",
+      "bytes": 6978
+    },
+    {
+      "name": "/img/timeline.108e42bf.jpg",
+      "bytes": 8442
+    },
+    {
+      "name": "/img/timeline2.95327d8e.jpg",
+      "bytes": 8119
+    },
+    {
+      "name": "/img/verticalTimeline.088296f2.jpg",
+      "bytes": 8505
+    },
+    {
+      "name": "/img/fishbone.94c4319d.jpg",
+      "bytes": 6647
+    }
+  ],
+  "themes": {
+    "pixel-arcade": {
+      "firstVisitSwitchMs": 340,
+      "svgBytes": 1690348,
+      "pngBytes": 301009,
+      "render121Ms": [
+        56.899999998509884,
+        88.60000000149012,
+        66.39999999850988
+      ]
+    },
+    "anime-pop": {
+      "firstVisitSwitchMs": 235,
+      "svgBytes": 3497361,
+      "pngBytes": 1006593,
+      "render121Ms": [
+        52.5,
+        61.29999999888241,
+        70.30000000074506
+      ]
+    },
+    "toon-motion": {
+      "firstVisitSwitchMs": 279,
+      "svgBytes": 2527110,
+      "pngBytes": 1132997,
+      "pdfBytes": 585565,
+      "render121Ms": [
+        51.90000000037253,
+        60.29999999888241,
+        69.90000000037253
+      ]
+    },
+    "zen-japan": {
+      "firstVisitSwitchMs": 312,
+      "svgBytes": 3138260,
+      "pngBytes": 657757,
+      "render121Ms": [
+        55.5,
+        61.09999999962747,
+        70.59999999962747
+      ]
+    },
+    "ink-wash": {
+      "firstVisitSwitchMs": 387,
+      "svgBytes": 5723216,
+      "pngBytes": 1134978,
+      "render121Ms": [
+        53.59999999962747,
+        62.09999999962747,
+        72.10000000149012
+      ]
+    },
+    "sketchbook": {
+      "firstVisitSwitchMs": 216,
+      "svgBytes": 3493143,
+      "pngBytes": 1190585,
+      "render121Ms": [
+        52.5,
+        64.40000000037253,
+        72.80000000074506
+      ]
+    },
+    "marker-notes": {
+      "firstVisitSwitchMs": 216,
+      "svgBytes": 2525730,
+      "pngBytes": 1052179,
+      "render121Ms": [
+        61.5,
+        62.90000000037253,
+        74.89999999850988
+      ]
+    },
+    "cyber-neon": {
+      "firstVisitSwitchMs": 266,
+      "svgBytes": 1413070,
+      "pngBytes": 656016,
+      "render121Ms": [
+        58.29999999888241,
+        66.20000000111759,
+        71.69999999925494
+      ]
+    },
+    "watercolor-garden": {
+      "firstVisitSwitchMs": 233,
+      "svgBytes": 3500212,
+      "pngBytes": 1476156,
+      "render121Ms": [
+        55.59999999962747,
+        68.80000000074506,
+        78.19999999925494
+      ]
+    },
+    "paper-cut": {
+      "firstVisitSwitchMs": 201,
+      "svgBytes": 1386089,
+      "pngBytes": 706221,
+      "render121Ms": [
+        61.5,
+        61.90000000037253,
+        76
+      ]
+    },
+    "ukiyo-e-print": {
+      "firstVisitSwitchMs": 216,
+      "svgBytes": 3140626,
+      "pngBytes": 866102,
+      "render121Ms": [
+        57.5,
+        78.20000000111759,
+        76.19999999925494
+      ]
+    },
+    "blueprint-lab": {
+      "firstVisitSwitchMs": 220,
+      "svgBytes": 1418335,
+      "pngBytes": 615381,
+      "render121Ms": [
+        58.100000001490116,
+        63.29999999888241,
+        81.70000000111759
+      ]
+    },
+    "bauhaus-geometry": {
+      "firstVisitSwitchMs": 234,
+      "svgBytes": 1393893,
+      "pngBytes": 669881,
+      "render121Ms": [
+        60.69999999925494,
+        69.59999999962747,
+        80
+      ]
+    },
+    "glass-aurora": {
+      "firstVisitSwitchMs": 234,
+      "svgBytes": 4899221,
+      "pngBytes": 2269664,
+      "pdfBytes": 1056542,
+      "render121Ms": [
+        62.19999999925494,
+        141.2000000011176,
+        79.79999999888241
+      ]
+    },
+    "vintage-editorial": {
+      "firstVisitSwitchMs": 234,
+      "svgBytes": 3132705,
+      "pngBytes": 612490,
+      "pdfBytes": 326521,
+      "render121Ms": [
+        59.5,
+        73.70000000111759,
+        78.59999999962747
+      ]
+    },
+    "celestial-atlas": {
+      "firstVisitSwitchMs": 233,
+      "svgBytes": 3145507,
+      "pngBytes": 1068458,
+      "render121Ms": [
+        70.69999999925494,
+        68,
+        82.40000000037253
+      ]
+    },
+    "swiss-type": {
+      "firstVisitSwitchMs": 234,
+      "svgBytes": 1388729,
+      "pngBytes": 560442,
+      "render121Ms": [
+        67.70000000111759,
+        71.69999999925494,
+        85.19999999925494
+      ]
+    },
+    "metro-transit": {
+      "firstVisitSwitchMs": 188,
+      "svgBytes": 1392538,
+      "pngBytes": 648646,
+      "render121Ms": [
+        65.60000000149012,
+        74.5,
+        85.09999999962747
+      ]
+    },
+    "chalk-classroom": {
+      "firstVisitSwitchMs": 247,
+      "svgBytes": 3503510,
+      "pngBytes": 1160142,
+      "render121Ms": [
+        80,
+        93.89999999850988,
+        83.10000000149012
+      ]
+    },
+    "terminal-tree": {
+      "firstVisitSwitchMs": 187,
+      "svgBytes": 1390791,
+      "pngBytes": 607434,
+      "pdfBytes": 312914,
+      "render121Ms": [
+        68.09999999962747,
+        75.5,
+        85.5
+      ]
+    },
+    "circuit-board": {
+      "firstVisitSwitchMs": 202,
+      "svgBytes": 1425337,
+      "pngBytes": 593901,
+      "render121Ms": [
+        70.69999999925494,
+        135.40000000037253,
+        131.2999999988824
+      ]
+    },
+    "art-deco": {
+      "firstVisitSwitchMs": 217,
+      "svgBytes": 3141571,
+      "pngBytes": 765349,
+      "render121Ms": [
+        66.5,
+        70.69999999925494,
+        84.09999999962747
+      ]
+    },
+    "risograph": {
+      "firstVisitSwitchMs": 235,
+      "svgBytes": 1393565,
+      "pngBytes": 803483,
+      "render121Ms": [
+        70.69999999925494,
+        81.19999999925494,
+        96.10000000149012
+      ]
+    },
+    "memphis-play": {
+      "firstVisitSwitchMs": 219,
+      "svgBytes": 2538807,
+      "pngBytes": 894991,
+      "render121Ms": [
+        77.19999999925494,
+        73.90000000037253,
+        89.19999999925494
+      ]
+    },
+    "neo-brutalist": {
+      "firstVisitSwitchMs": 203,
+      "svgBytes": 1387050,
+      "pngBytes": 689356,
+      "render121Ms": [
+        77.5,
+        88.19999999925494,
+        88.30000000074506
+      ]
+    },
+    "retro-desktop": {
+      "firstVisitSwitchMs": 202,
+      "svgBytes": 1392287,
+      "pngBytes": 1214306,
+      "render121Ms": [
+        71.70000000111759,
+        79.59999999962747,
+        85.40000000037253
+      ]
+    },
+    "stitched-linen": {
+      "firstVisitSwitchMs": 217,
+      "svgBytes": 3490409,
+      "pngBytes": 1319020,
+      "render121Ms": [
+        72.90000000037253,
+        82.39999999850988,
+        91.80000000074506
+      ]
+    },
+    "clay-studio": {
+      "firstVisitSwitchMs": 217,
+      "svgBytes": 1391079,
+      "pngBytes": 912021,
+      "pdfBytes": 483943,
+      "render121Ms": [
+        76.5,
+        82.80000000074506,
+        91.40000000037253
+      ]
+    },
+    "stained-glass": {
+      "firstVisitSwitchMs": 203,
+      "svgBytes": 3142682,
+      "pngBytes": 949260,
+      "pdfBytes": 491688,
+      "render121Ms": [
+        78.30000000074506,
+        90.09999999962747,
+        92.90000000037253
+      ]
+    },
+    "topographic": {
+      "firstVisitSwitchMs": 200,
+      "svgBytes": 1423235,
+      "pngBytes": 848825,
+      "render121Ms": [
+        79.09999999962747,
+        83,
+        93.40000000037253
+      ]
+    },
+    "film-storyboard": {
+      "firstVisitSwitchMs": 202,
+      "svgBytes": 1395105,
+      "pngBytes": 934410,
+      "render121Ms": [
+        77.70000000111759,
+        89.90000000037253,
+        96
+      ]
+    },
+    "travel-tickets": {
+      "firstVisitSwitchMs": 203,
+      "svgBytes": 3131622,
+      "pngBytes": 840072,
+      "render121Ms": [
+        80.5,
+        88.09999999962747,
+        98.40000000037253
+      ]
+    },
+    "porcelain-blue": {
+      "firstVisitSwitchMs": 217,
+      "svgBytes": 3151569,
+      "pngBytes": 973540,
+      "render121Ms": [
+        77.5,
+        80.80000000074506,
+        94.69999999925494
+      ]
+    },
+    "dunhuang-mural": {
+      "firstVisitSwitchMs": 201,
+      "svgBytes": 3167582,
+      "pngBytes": 929315,
+      "render121Ms": [
+        106.10000000149012,
+        114.59999999962747,
+        126.79999999888241
+      ]
+    },
+    "botanical-herbarium": {
+      "firstVisitSwitchMs": 200,
+      "svgBytes": 3144485,
+      "pngBytes": 899034,
+      "render121Ms": [
+        80.80000000074506,
+        87.90000000037253,
+        92.5
+      ]
+    },
+    "tarot-arcana": {
+      "firstVisitSwitchMs": 220,
+      "svgBytes": 3150010,
+      "pngBytes": 982981,
+      "render121Ms": [
+        81.70000000111759,
+        92.39999999850988,
+        97.5
+      ]
+    },
+    "isometric-blocks": {
+      "firstVisitSwitchMs": 251,
+      "svgBytes": 2556207,
+      "pngBytes": 917010,
+      "render121Ms": [
+        81.39999999850988,
+        90.10000000149012,
+        98.79999999888241
+      ]
+    },
+    "midnight-studio": {
+      "firstVisitSwitchMs": 251,
+      "svgBytes": 3275263,
+      "pngBytes": 910822,
+      "render121Ms": [
+        86.80000000074506,
+        97,
+        104.29999999888241
+      ]
+    },
+    "y2k-chrome": {
+      "firstVisitSwitchMs": 264,
+      "svgBytes": 1432489,
+      "pngBytes": 2092316,
+      "render121Ms": [
+        83.30000000074506,
+        93.09999999962747,
+        101.40000000037253
+      ]
+    },
+    "morandi-gallery": {
+      "firstVisitSwitchMs": 201,
+      "svgBytes": 2182921,
+      "pngBytes": 637708,
+      "render121Ms": [
+        83.20000000111759,
+        98.69999999925494,
+        101.30000000074506
+      ]
+    }
+  },
+  "errors": []
+}

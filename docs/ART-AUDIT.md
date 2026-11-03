@@ -1,5 +1,52 @@
 # Mappop visual audit
 
+## v1.4.0: "Signature" — eight new themes and a line language for all
+
+Baseline: clean `main` at `d75fdb99`, reviewed in Chromium at fit, 80% and 150%
+on the same 43-node fixture. The after stage uses the standard
+`capture-art.cjs --exports --version v1.4` run (desktop, 80% detail, 390px,
+121-node stress, SVG/PNG/PDF exports) plus `review-exports.cjs`.
+
+**Finding.** v1.3 differed mostly by color and root ornament. Every theme shared
+one structure: a boxed root, boxed headings and plain-text leaves (about 75% of
+nodes) on uniform-width lines. Most grounds were faint tiles. Two defects also
+surfaced: textures containing `fill="url(#…)"` were silently dropped, because
+upstream writes an unquoted CSS `url()` (Glass Aurora's aurora ground never
+rendered), and Zen Japan's seal read as a "+" expand control.
+
+**Direction.**
+
+- Lines carry hierarchy: per-depth taper for all 40 themes, plus a patterned
+  line where it is the theme's material (stitch, constellation, file tree, trail,
+  route, construction, data stream). Two themes use underlined leaves.
+- Eight new themes explore separate axes: silhouette (cloud tablet, flame niche,
+  arch card), material (chrome, mineral pigment, glaze), extrusion (toy bricks),
+  framing (gallery mat) and a professional dark product UI.
+- Marks that point at a parent now mirror on left-hand branches.
+- Large glows are confined to their tile so repeats are seamless.
+
+**Review notes from iteration.** The first Y2K capsules showed vertical ticks:
+upstream's rounded-rect path breaks when the radius exceeds half the height, so
+the theme now draws its own capsule. Herbarium tags first pointed away from
+their stem on the left side. Dunhuang's first plaster texture read as pebbles
+and was replaced with 飞天 ribbons. Tarot stars and Y2K colored sparkles broke
+the 3:1 composited line-contrast test and were dimmed or whitened. Two-line
+English names (Botanical Herbarium, Morandi Gallery) overflowed the 390×641
+picker and were shortened.
+
+**Performance.** Median 121-node re-render is 80 ms (v1.3: 75 ms); the slowest
+sample is 141 ms (noisy single sample); the median first-visit theme switch is
+219 ms (v1.3: 220 ms). Line styling only changes attributes; no per-line DOM was added.
+
+Evidence: [labelled](assets/v1.4/after/contact-sheet.jpg) and
+[unlabelled](assets/v1.4/after/contact-sheet-unlabelled.jpg) sheets,
+[80% details](assets/v1.4/after/contact-sheet-detail.jpg),
+[121-node](assets/v1.4/after/contact-sheet-121.jpg) and
+[mobile reading](assets/v1.4/after/contact-sheet-mobile-reading.jpg) views,
+independent [SVG](assets/v1.4/svg-exports.jpg) and [PNG](assets/v1.4/png-exports.jpg)
+exports, the [selector](assets/v1.4/theme-selector.png) and
+[metrics](assets/v1.4/after/metrics.json).
+
 ## v1.3.0: "Vivid" rebuild of all 32 themes
 
 Baseline: clean `main` at `1a58f471`. The before stage was captured from a build of

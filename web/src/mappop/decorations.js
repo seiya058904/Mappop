@@ -1,6 +1,7 @@
 // Small, deterministic SVG geometry. No canvas-only effects, DOM text replacement,
 // random paths, hit targets or data mutations. Exports clone the same SVG.
 import { decorators, branchColor, branchIndex, secondFillFor } from './decoration-presets'
+import { signatureDecorators } from './decoration-signature'
 const NS = 'http://www.w3.org/2000/svg'
 export const svgElement = (tag, attrs = {}) => {
   const el = document.createElementNS(NS, tag)
@@ -25,6 +26,11 @@ const linear = (defs, id, stops, attrs = { x1: '0%', y1: '0%', x2: '0%', y2: '10
 }
 
 export function addArtDefs(defs, theme, id) {
+  // Declarative gradients for newer materials: { name: [stops, direction?] }.
+  if (theme.gradients) Object.keys(theme.gradients).forEach(name => {
+    const [stops, attrs] = theme.gradients[name]
+    linear(defs, `${id}-${name}`, stops, attrs)
+  })
   if (theme.slug === 'clay-studio') {
     linear(defs, `${id}-clay-root`, [['0%', shade(theme.rootFill, 0.22)], ['100%', shade(theme.rootFill, -0.12)]])
     theme.secondPalette.forEach((color, index) => linear(defs, `${id}-clay-${index}`, [['0%', shade(color, 0.3)], ['100%', shade(color, -0.1)]]))
@@ -79,8 +85,14 @@ export function addDecoration(node, theme, id) {
     shape.setAttribute('filter', `url(#${id})`)
     shape.setAttribute('data-mappop-filter', 'true')
   }
-  const tools = { w, h, root, major, level, node, shape, path, rect, circle, outline, backing, theme, id, color, index, decoration }
-  if (decorators[theme.slug]) decorators[theme.slug](tools)
+  const depth = node.layerIndex
+  const leaf = !root && !(node.children && node.children.length)
+  // Marks drawn at x≈0 face the parent; mirror them on the left of a mindMap.
+  const left = node.dir === 'left'
+  const side = () => decoration.appendChild(svgElement('g', left ? { transform: `matrix(-1 0 0 1 ${w} 0)` } : {}))
+  const tools = { w, h, root, major, level, depth, leaf, left, side, node, shape, path, rect, circle, outline, backing, theme, id, color, index, decoration, svgElement, shade }
+  const decorate = decorators[theme.slug] || signatureDecorators[theme.slug]
+  if (decorate) decorate(tools)
   switch (theme.slug) {
     case 'pixel-arcade': {
       const s = root ? 9 : major ? 6 : 4
@@ -108,8 +120,9 @@ export function addDecoration(node, theme, id) {
     case 'zen-japan':
       if (root) {
         path(`M8 6H${w - 8} M8 ${h - 6}H${w - 8}`, { stroke: '#cfc6b0', 'stroke-width': 0.8, opacity: 0.8 })
-        rect({ x: w - 19, y: h - 19, width: 12, height: 12, fill: theme.accent, stroke: 'none' })
-        path(`M${w - 16} ${h - 13}h6 M${w - 13} ${h - 16}v6`, { stroke: '#f8f2e4', 'stroke-width': 1 })
+        // A vermilion name seal stamped over the corner, not a tiny "+" button.
+        rect({ x: w - 15, y: h - 13, width: 22, height: 22, rx: 1.5, fill: theme.accent, stroke: 'none', transform: `rotate(-4 ${w - 4} ${h - 2})` })
+        path(`M${w - 11.5} ${h - 9.5}h15v15h-15Z M${w - 8} ${h - 5}h8 M${w - 4} ${h - 7.5}v10.5 M${w - 8} ${h + 1}h8`, { stroke: '#f8f2e4', 'stroke-width': 1.2, 'stroke-linecap': 'butt', transform: `rotate(-4 ${w - 4} ${h - 2})` })
       } else if (major) {
         rect({ x: 0, y: 4, width: 4, height: h - 8, fill: theme.accent, stroke: 'none' })
         path(`M10 ${h - 1}H${w - 4}`, { stroke: theme.border, 'stroke-width': 1 })
@@ -212,7 +225,8 @@ export function addDecoration(node, theme, id) {
       } else if (major) {
         path(`M0 1.5H${w}M0 ${h - 1.5}H${w}`, { stroke: theme.border, 'stroke-width': 1.1 })
         rect({ x: 0, y: 5, width: 3, height: h - 10, fill: theme.accent, stroke: 'none' })
-      } else path(`M2 ${h / 2 - 3}v6`, { stroke: theme.accent, 'stroke-width': 1.6 })
+      }
+      // Leaves are underlined index entries (nodeUseLineStyle); no extra ticks.
       break
     case 'celestial-atlas':
       if (root) {
