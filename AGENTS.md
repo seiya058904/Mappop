@@ -6,6 +6,8 @@ Mappop combines the Vue editor in `web/` and `simple-mind-map/` with a Cloudflar
 
 Use the Node and locked dependencies specified by `package.json`. Run relevant `npm test`, `npm run build` and `npm run test:e2e` checks for substantive changes; browser/API checks use isolated fixtures and local D1. Follow the existing CI for verification and report untested paths. Documentation-only changes need proportionate checks.
 
+Do not tag versions or publish GitHub Releases for this project; releases end at the verified deployment.
+
 Remote D1 migrations, deployment, publishing, pushing, merging and dependency changes require explicit authorization. Never commit `.dev.vars`, credentials, local databases, build output or test profiles; inspect and stage only task-owned files.
 
 ## Browser tool selection
