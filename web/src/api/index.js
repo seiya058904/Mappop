@@ -125,11 +125,16 @@ export const getLang = () => {
   if (window.takeOverApp) {
     return window.takeOverAppMethods.getLanguage() || 'en'
   }
-  let lang = localStorage.getItem(SIMPLE_MIND_MAP_LANG)
-  if (lang) {
-    return lang
+  // Storage may be blocked or full; a missing preference must not stop the app mounting.
+  try {
+    const lang = localStorage.getItem(SIMPLE_MIND_MAP_LANG)
+    if (lang) {
+      return lang
+    }
+    storeLang('en')
+  } catch (error) {
+    console.log(error)
   }
-  storeLang('en')
   return 'en'
 }
 

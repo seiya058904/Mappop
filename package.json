@@ -11,7 +11,7 @@
     "setup": "npm ci --prefix web --no-audit --no-fund && npm ci --prefix simple-mind-map --no-audit --no-fund",
     "build": "node scripts/build.cjs",
     "dev": "wrangler dev --port 8787",
-    "test": "npm run test:api && npm run test:art",
+    "test": "npm run test:api && npm run test:art && npm run test:web",
     "test:api": "node --test tests/api*.test.mjs",
     "test:e2e": "playwright test",
     "db:local": "wrangler d1 migrations apply mappop-maps --local",
@@ -19,6 +19,7 @@
     "deploy": "npm run build && wrangler deploy",
     "types": "wrangler types",
     "test:art": "node --test tests/art.test.mjs",
+    "test:web": "node --test tests/web-*.test.mjs",
     "capture:art": "node scripts/capture-art.cjs --exports --version v1.2"
   },
   "dependencies": {

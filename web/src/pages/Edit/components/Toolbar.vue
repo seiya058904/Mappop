@@ -166,6 +166,10 @@ import { throttle, isMobile } from 'simple-mind-map/src/utils/index'
 
 // 工具栏
 let fileHandle = null
+// A debounced save stays bound to the file and format it was scheduled for,
+// so switching files can never redirect it to another handle.
+let pendingWrite = null
+let readSeq = 0
 const defaultBtnList = [
   'back',
   'forward',
@@ -295,13 +299,38 @@ export default {
 
     // 监听本地文件读写
     onWriteLocalFile(content) {
-      clearTimeout(this.timer)
-      if (fileHandle && this.isHandleLocalFile) {
-        this.waitingWriteToLocalFile = true
+      if (!fileHandle || !this.isHandleLocalFile) {
+        return
       }
+      clearTimeout(this.timer)
+      pendingWrite = {
+        handle: fileHandle,
+        isFullDataFile: this.isFullDataFile,
+        content
+      }
+      this.waitingWriteToLocalFile = true
       this.timer = setTimeout(() => {
-        this.writeLocalFile(content)
+        this.flushPendingWrite().catch(error => console.log(error))
       }, 1000)
+    },
+
+    // 立即把待保存内容写入其原始文件
+    async flushPendingWrite() {
+      clearTimeout(this.timer)
+      const job = pendingWrite
+      if (!job) {
+        return
+      }
+      pendingWrite = null
+      try {
+        await this.writeLocalFile(job.content, job.handle, job.isFullDataFile)
+      } catch (error) {
+        // Keep the edits queued (and the unsaved warning on) for a retry.
+        if (!pendingWrite) {
+          pendingWrite = job
+        }
+        throw error
+      }
     },
 
     onUnload(e) {
@@ -369,8 +398,7 @@ export default {
     // 编辑指定文件
     editLocalFile(data) {
       if (data.handle) {
-        fileHandle = data.handle
-        this.readFile()
+        this.readFile(data.handle)
       }
     },
 
@@ -402,12 +430,11 @@ export default {
         if (!_fileHandle) {
           return
         }
-        fileHandle = _fileHandle
-        if (fileHandle.kind === 'directory') {
+        if (_fileHandle.kind === 'directory') {
           this.$message.warning(this.$t('toolbar.selectFileTip'))
           return
         }
-        this.readFile()
+        this.readFile(_fileHandle)
       } catch (error) {
         console.log(error)
         if (error.toString().includes('aborted')) {
@@ -418,10 +445,27 @@ export default {
     },
 
     // 读取本地文件
-    async readFile() {
-      let file = await fileHandle.getFile()
+    // 当前文件句柄只在新文件读完、旧文件待保存写完后才切换
+    async readFile(handle = fileHandle) {
+      const seq = ++readSeq
+      let file = await handle.getFile()
       let fileReader = new FileReader()
       fileReader.onload = async () => {
+        // A newer open superseded this read.
+        if (seq !== readSeq) {
+          return
+        }
+        try {
+          await this.flushPendingWrite()
+        } catch (error) {
+          console.log(error)
+          this.$message.error(this.$t('toolbar.fileOpenFailed'))
+          return
+        }
+        if (seq !== readSeq) {
+          return
+        }
+        fileHandle = handle
         this.$store.commit('setIsHandleLocalFile', true)
         this.setData(fileReader.result)
         Notification.closeAll()
@@ -461,19 +505,24 @@ export default {
     },
 
     // 写入本地文件
-    async writeLocalFile(content) {
-      if (!fileHandle || !this.isHandleLocalFile) {
+    async writeLocalFile(
+      content,
+      handle = fileHandle,
+      isFullDataFile = this.isFullDataFile
+    ) {
+      if (handle) {
+        if (!isFullDataFile) {
+          content = content.root
+        }
+        let string = JSON.stringify(content)
+        const writable = await handle.createWritable()
+        await writable.write(string)
+        await writable.close()
+      }
+      // Only clear the unsaved warning when no newer save is queued.
+      if (!pendingWrite) {
         this.waitingWriteToLocalFile = false
-        return
       }
-      if (!this.isFullDataFile) {
-        content = content.root
-      }
-      let string = JSON.stringify(content)
-      const writable = await fileHandle.createWritable()
-      await writable.write(string)
-      await writable.close()
-      this.waitingWriteToLocalFile = false
     },
 
     // 创建本地文件
@@ -508,11 +557,8 @@ export default {
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.7)'
         })
-        fileHandle = _fileHandle
-        this.$store.commit('setIsHandleLocalFile', true)
-        this.isFullDataFile = true
-        await this.writeLocalFile(content)
-        await this.readFile()
+        await this.writeLocalFile(content, _fileHandle, true)
+        await this.readFile(_fileHandle)
         loading.close()
       } catch (error) {
         console.log(error)
