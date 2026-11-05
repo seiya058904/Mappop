@@ -100,6 +100,7 @@ import Contextmenu from './Contextmenu.vue'
 import RichTextToolbar from './RichTextToolbar.vue'
 import NodeNoteContentShow from './NodeNoteContentShow.vue'
 import { getData, getConfig, storeData } from '@/api'
+import { sanitizeMapData } from '@/utils/sanitizeRichText'
 import Navigator from './Navigator.vue'
 import NodeImgPreview from './NodeImgPreview.vue'
 import SidebarTrigger from './SidebarTrigger.vue'
@@ -308,7 +309,7 @@ export default {
 
     // 获取思维导图数据，实际应该调接口获取
     getData() {
-      this.mindMapData = getData()
+      this.mindMapData = sanitizeMapData(getData())
       this.mindMapConfig = getConfig() || {}
     },
 
@@ -507,6 +508,8 @@ export default {
 
     // 动态设置思维导图数据
     setData(data) {
+      // Imported files and URLs are untrusted: strip active HTML before render.
+      sanitizeMapData(data)
       this.handleShowLoading()
       const fitImportedMap = () => {
         this.mindMap.off('node_tree_render_end', fitImportedMap)

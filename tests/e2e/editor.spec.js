@@ -156,6 +156,26 @@ test('native Markdown file import remains available', async ({ page }) => {
   await expect(node(page, '第二分支')).toBeVisible()
 })
 
+test('imported SMM rich text is stripped of active HTML but keeps formatting', async ({ page }) => {
+  await openEditor(page)
+  const smm = {
+    root: {
+      data: { text: '<p><strong>Safe bold</strong><img src="x" onerror="window.__mappopXss=1"><a href="javascript:window.__mappopXss=2">link</a></p>', richText: true },
+      children: [{ data: { text: '<p><span style="color: rgb(255, 0, 0);">Red child</span><script>window.__mappopXss=3</script></p>', richText: true }, children: [] }]
+    }
+  }
+  await toolbar(page, 'Import').click()
+  await page.locator('.nodeImportDialog input[type=file]').setInputFiles({ name: 'rich.smm', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(smm)) })
+  await page.locator('.nodeImportDialog').getByRole('button', { name: 'Confirm', exact: true }).click()
+  await expect(node(page, 'Red child')).toBeVisible()
+  await expect(node(page, 'Safe bold')).toBeVisible()
+  await page.waitForTimeout(500)
+  expect(await page.evaluate(() => window.__mappopXss)).toBeUndefined()
+  const stored = JSON.stringify(await saved(page))
+  expect(stored).not.toMatch(/onerror|javascript:|<script/i)
+  expect(stored).toContain('Safe bold')
+})
+
 test('share links open when zen mode was saved', async ({ page }) => {
   const map = await createMap('# Zen link\n## Still editable')
   await page.addInitScript(() => localStorage.setItem('SIMPLE_MIND_MAP_LOCAL_CONFIG', JSON.stringify({ isZenMode: true })))
