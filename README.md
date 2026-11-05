@@ -22,7 +22,7 @@ A free, open-source mind map editor with expressive themes, intuitive editing, a
 
 <p>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-69ae98" alt="MIT license" /></a>
-<a href="https://github.com/seiya058904/Mappop/releases/tag/v1.2.1"><img src="https://img.shields.io/badge/release-v1.2.1-e6b572" alt="Release v1.2.1" /></a>
+<a href="https://github.com/seiya058904/Mappop/releases/latest"><img src="https://img.shields.io/github/v/release/seiya058904/Mappop?label=release&amp;color=e6b572" alt="Latest tagged release" /></a>
 <a href="https://github.com/seiya058904/Mappop/actions/workflows/deploy.yml"><img src="https://github.com/seiya058904/Mappop/actions/workflows/deploy.yml/badge.svg?branch=main" alt="Build and deploy status" /></a>
 </p>
 
@@ -76,7 +76,7 @@ Mappop is a reimagined home for the open-source [Simple mind map](https://github
 
 <a id="themes"></a>
 
-## Thirty-two visual worlds
+## Forty visual worlds
 
 **[Open Mappop online →](https://mappop.seiya-api.workers.dev/)**
 
@@ -184,7 +184,7 @@ Image exports wait for the current theme fonts and layout, including immediately
 after importing SMM. If a local font fails, the editor explains its fallback;
 keep editing or save SMM, then reload before exporting images.
 
-**See the actual output:** [SVG gallery](docs/assets/v1.4/svg-exports.jpg) · [PNG gallery](docs/assets/v1.4/png-exports.jpg) · [Download six representative SVG/PNG/PDF sets](https://github.com/seiya058904/Mappop/releases/download/v1.2.0/Mappop-v1.2.0-art-samples.zip).
+**See the actual output:** [SVG gallery](docs/assets/v1.4/svg-exports.jpg) · [PNG gallery](docs/assets/v1.4/png-exports.jpg) · [Download six SVG/PNG/PDF sample sets · v1.2 archive](https://github.com/seiya058904/Mappop/releases/download/v1.2.0/Mappop-v1.2.0-art-samples.zip).
 
 These are exports from the same 43-node test document. The [QA report](docs/QA.md) records typography, decoration and independent SVG rendering checks.
 
@@ -253,7 +253,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-The latest tagged **v1.2.1** release passed **12 API tests, 5 resource/provenance checks and 41 Chromium browser tests**. Coverage includes all 32 themes, exports, saved maps, 500-node editing, and seven additional short-window, landscape and keyboard-navigation regressions. The [verification report](docs/QA.md) records local runs and limits; the [v1.2.1 release](https://github.com/seiya058904/Mappop/releases/tag/v1.2.1) links the final CI and deployed revision. The `main` branch may contain newer work that has not been tagged for release.
+**Tagged release evidence:** [v1.3.0](https://github.com/seiya058904/Mappop/releases/tag/v1.3.0) records **12 API tests, 5 art/resource checks and 41 Chromium browser tests** for its 32-theme build. The [versioned verification report](docs/QA.md) gives the test conditions and limits; these historical results do not certify newer changes on `main`. For the current branch's automated build and deployment status, see [Actions](https://github.com/seiya058904/Mappop/actions/workflows/deploy.yml).
 
 For your own public deployment, configure a **Cloudflare Workers + D1** project, a database, rate-limit bindings, and a write token. Do not reuse the maintainer's account/database IDs. Start with [deployment instructions](docs/DEPLOYMENT.md).
 
