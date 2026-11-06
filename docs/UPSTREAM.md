@@ -15,6 +15,7 @@ Upstream documentation is available at [Simple mind map documentation](https://w
 - An external map API and a link-opening workflow for the editor.
 - Cloudflare deployment setup, automated checks, documentation, and contribution templates.
 - Removal of in-app LLM entry points, upstream analytics, and closed-client promotional UI.
+- Retirement of the unused upstream AI proxy and collaboration signaling commands. Their files remain as dependency-free exit notices; they never start a server.
 
 The current working tree also omits upstream's prebuilt distribution, closed-product promotional screenshots, and duplicate product READMEs. Their historical commits remain in the retained Git history; Mappop builds its own distribution from source.
 
