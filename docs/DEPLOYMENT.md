@@ -29,6 +29,12 @@ npm run dev
 
 Open [http://localhost:8787](http://localhost:8787). The editor can run without a write token; API creation returns `503` until a valid server secret is configured. See [API.md](API.md) for requests and map-link behavior.
 
+## Retired upstream helper commands
+
+`npm --prefix web run ai:serve` and `npm --prefix simple-mind-map run wsServe` are retired. Running either command, or either underlying script directly, prints an explanation and exits with status `1` without importing network dependencies or listening on a port. The files remain to make old commands fail clearly.
+
+Use the editor's Import workflow for outlines prepared with an external AI tool. Mappop does not enable the upstream collaboration plugin; browser drafts remain local and the Markdown API provides immutable sharing links. These retired helpers are not part of the Cloudflare Worker deployment.
+
 ## Checks
 
 ```sh
