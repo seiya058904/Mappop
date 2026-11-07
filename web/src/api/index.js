@@ -1,9 +1,7 @@
 import exampleData from '@/config/welcome'
 import { simpleDeepClone } from 'simple-mind-map/src/utils/index'
-import Vue from 'vue'
-import vuexStore from '@/store'
+import { documentSession } from './document'
 
-const SIMPLE_MIND_MAP_DATA = 'SIMPLE_MIND_MAP_DATA'
 const SIMPLE_MIND_MAP_CONFIG = 'SIMPLE_MIND_MAP_CONFIG'
 const SIMPLE_MIND_MAP_LANG = 'SIMPLE_MIND_MAP_LANG'
 const SIMPLE_MIND_MAP_LOCAL_CONFIG = 'SIMPLE_MIND_MAP_LOCAL_CONFIG'
@@ -20,7 +18,7 @@ const readConfig = key => {
   }
 }
 
-const getWelcomeData = () => {
+export const getWelcomeData = () => {
   const data = simpleDeepClone(exampleData)
   // A short vertical overview keeps the first map readable on a phone.
   // Children stay in the document and can be expanded with the node control.
@@ -40,54 +38,17 @@ export const getData = () => {
     mindMapData = window.takeOverAppMethods.getMindMapData()
     return mindMapData
   }
-  // 操作本地文件模式
-  if (vuexStore.state.isHandleLocalFile) {
-    return Vue.prototype.getCurrentData()
-  }
-  let store = localStorage.getItem(SIMPLE_MIND_MAP_DATA)
-  if (store === null) {
-    return getWelcomeData()
-  } else {
-    try {
-      return JSON.parse(store)
-    } catch (error) {
-      return getWelcomeData()
-    }
-  }
+  return documentSession.snapshot()
 }
 
 // 存储思维导图数据
 export const storeData = data => {
-  try {
-    let originData = null
-    if (window.takeOverApp) {
-      originData = mindMapData
-    } else {
-      originData = getData()
-    }
-    if (!originData) {
-      originData = {}
-    }
-    originData = {
-      ...originData,
-      ...data
-    }
-    if (window.takeOverApp) {
-      mindMapData = originData
-      window.takeOverAppMethods.saveMindMapData(originData)
-      return
-    }
-    Vue.prototype.$bus.$emit('write_local_file', originData)
-    if (vuexStore.state.isHandleLocalFile) {
-      return
-    }
-    localStorage.setItem(SIMPLE_MIND_MAP_DATA, JSON.stringify(originData))
-  } catch (error) {
-    console.log(error)
-    if (error && (error.name === 'QuotaExceededError' || error.name === 'NS_ERROR_DOM_QUOTA_REACHED')) {
-      Vue.prototype.$bus.$emit('localStorageExceeded')
-    }
+  if (window.takeOverApp) {
+    mindMapData = { ...mindMapData, ...data }
+    window.takeOverAppMethods.saveMindMapData(mindMapData)
+    return
   }
+  documentSession.update(data)
 }
 
 // 获取思维导图配置数据
@@ -117,7 +78,7 @@ export const storeLang = lang => {
     window.takeOverAppMethods.saveLanguage(lang)
     return
   }
-  localStorage.setItem(SIMPLE_MIND_MAP_LANG, lang)
+  try { localStorage.setItem(SIMPLE_MIND_MAP_LANG, lang) } catch (error) { /* Session remains usable without preferences. */ }
 }
 
 // 获取存储的语言
@@ -143,7 +104,7 @@ export const storeLocalConfig = config => {
   if (window.takeOverApp) {
     return window.takeOverAppMethods.saveLocalConfig(config)
   }
-  localStorage.setItem(SIMPLE_MIND_MAP_LOCAL_CONFIG, JSON.stringify(config))
+  try { localStorage.setItem(SIMPLE_MIND_MAP_LOCAL_CONFIG, JSON.stringify(config)) } catch (error) { /* Preferences are optional. */ }
 }
 
 // 获取本地配置
