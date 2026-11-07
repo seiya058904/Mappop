@@ -148,6 +148,10 @@ Physical phones, Firefox and Safari/WebKit were not tested in this release.
 
 Prefer zooming without a modifier key? In **Settings → Mouse wheel behavior**, choose **Zoom view**. You can also choose the zoom direction; the setting persists in your browser.
 
+The save indicator shows whether edits are saved in this browser or in an opened local file, including in Zen mode. **Ctrl/Cmd+S** also saves text while you are typing. If saving fails, use **Retry saving**, **Download current SMM**, or **Save as** to keep the latest open version.
+
+Only one tab at a time can save the shared browser draft. Other tabs keep edits in memory and offer a download. After closing the original tab, retry saving only succeeds if the stored draft has not changed; otherwise download the open copy before reloading. Browsers without Web Locks use the same download fallback.
+
 > [!IMPORTANT]
 > Browser storage is convenient for continuing a draft, **not a durable backup**. Export important maps. Mappop does not include user accounts, cloud collaboration, or automatic cross-device sync.
 
@@ -160,7 +164,9 @@ You do not need to write a prompt or understand Markdown. The **Import** dialog 
 1. **Copy the prompt.** Open **Import → Copy AI prompt**, then paste it unchanged into your preferred external AI chat.
 2. **Talk about your map.** If you have not supplied a topic, the prompt instructs the AI to ask what you want to map and why. Answer in your own words or share source material. The instructions ask it to clarify only missing details, then generate the outline when it has enough information.
 3. **Save the result.** Download `mindmap.md` if the AI can provide files. Otherwise, save the generated Markdown as a plain-text UTF-8 `.md` file, not a `.txt` or Word document.
-4. **Bring it into Mappop.** Return to **Import**, select the `.md` file and confirm. Then edit the nodes, choose a theme and export your map. Import replaces the current map, so export it first if you want to keep it.
+4. **Bring it into Mappop.** Return to **Import**, select the `.md` file and review the title, node count and any unsupported-content warnings before confirming. Multiple top-level items are kept under a shared root. Then edit the nodes, choose a theme and export your map.
+
+Before an import replaces the canvas, Mappop saves one recovery point on this device. **Import → Restore pre-import backup** swaps the current and previous maps, so either can be recovered. If that backup cannot be written, the import stops and the current map stays open. Recovery points use browser storage; download important maps for longer-term backup. A damaged saved draft is retained as **Download original data** rather than silently overwritten.
 
 **View prompt** lets you read or manually copy the instructions if clipboard access is unavailable. The guidance is available in English, Simplified Chinese, Traditional Chinese and Vietnamese. It covers a single root heading, nested headings and lists, and a format example; review the AI's result before importing.
 

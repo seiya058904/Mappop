@@ -100,6 +100,8 @@ import Contextmenu from './Contextmenu.vue'
 import RichTextToolbar from './RichTextToolbar.vue'
 import NodeNoteContentShow from './NodeNoteContentShow.vue'
 import { getData, getConfig, storeData } from '@/api'
+import { documentSession } from '@/api/document'
+import { normalizeDocument } from '@/utils/mapDocument.mjs'
 import { sanitizeMapData } from '@/utils/sanitizeRichText'
 import Navigator from './Navigator.vue'
 import NodeImgPreview from './NodeImgPreview.vue'
@@ -232,7 +234,7 @@ export default {
     this.$bus.$on('execCommand', this.execCommand)
     this.$bus.$on('paddingChange', this.onPaddingChange)
     this.$bus.$on('export', this.export)
-    this.$bus.$on('setData', this.setData)
+    this.$bus.$on('setData', this.onSetData)
     this.$bus.$on('startTextEdit', this.handleStartTextEdit)
     this.$bus.$on('endTextEdit', this.handleEndTextEdit)
     this.$bus.$on('createAssociativeLine', this.handleCreateLineFromActiveNode)
@@ -246,7 +248,10 @@ export default {
     this.$bus.$off('execCommand', this.execCommand)
     this.$bus.$off('paddingChange', this.onPaddingChange)
     this.$bus.$off('export', this.export)
-    this.$bus.$off('setData', this.setData)
+    this.$bus.$off('setData', this.onSetData)
+    this.$bus.$off('data_change', this.saveRoot)
+    this.$bus.$off('view_data_change', this.saveView)
+    clearTimeout(this.storeConfigTimer)
     this.$bus.$off('startTextEdit', this.handleStartTextEdit)
     this.$bus.$off('endTextEdit', this.handleEndTextEdit)
     this.$bus.$off('createAssociativeLine', this.handleCreateLineFromActiveNode)
@@ -258,6 +263,8 @@ export default {
     if (this.disposeArtThemeRuntime) this.disposeArtThemeRuntime()
     if (this.mindMap) this.mindMap.destroy()
     delete Vue.prototype.getCurrentData
+    delete Vue.prototype.replaceCurrentData
+    delete Vue.prototype.getMindMapInstance
   },
   methods: {
     onLocalStorageExceeded() {
@@ -315,22 +322,22 @@ export default {
 
     // 存储数据当数据有变时
     bindSaveEvent() {
-      this.$bus.$on('data_change', data => {
-        storeData({ root: data })
-      })
-      this.$bus.$on('view_data_change', data => {
-        clearTimeout(this.storeConfigTimer)
-        this.storeConfigTimer = setTimeout(() => {
-          storeData({
-            view: data
-          })
-        }, 300)
-      })
+      this.$bus.$on('data_change', this.saveRoot)
+      this.$bus.$on('view_data_change', this.saveView)
+    },
+
+    saveRoot(data) { storeData({ root: data }) },
+
+    saveView(data) {
+      clearTimeout(this.storeConfigTimer)
+      this.storeConfigTimer = setTimeout(() => storeData({ view: data }), 300)
     },
 
     // 手动保存
     manualSave() {
+      this.mindMap.renderer.textEdit.hideEditTextBox()
       storeData(this.mindMap.getData(true))
+      if (!window.takeOverApp) documentSession.flush().catch(() => {})
     },
 
     // 初始化
@@ -496,6 +503,8 @@ export default {
         const fullData = this.mindMap.getData(true)
         return { ...fullData }
       }
+      Vue.prototype.replaceCurrentData = data => this.setData(data)
+      Vue.prototype.getMindMapInstance = () => this.mindMap
       // 协同测试
       this.cooperateTest()
     },
@@ -507,32 +516,46 @@ export default {
     },
 
     // 动态设置思维导图数据
-    setData(data) {
+    onSetData(data) {
+      this.setData(data).catch(() => this.$message.error(this.$t('document.invalidDocument')))
+    },
+
+    async setData(data) {
+      data = normalizeDocument(data, this.mindMap.getData(true))
+      clearTimeout(this.storeConfigTimer)
       // Imported files and URLs are untrusted: strip active HTML before render.
       sanitizeMapData(data)
       this.handleShowLoading()
-      const fitImportedMap = () => {
-        this.mindMap.off('node_tree_render_end', fitImportedMap)
-        this.mindMap.view.fit()
-      }
-      this.mindMap.on('node_tree_render_end', fitImportedMap)
-      let rootNodeData = null
-      if (data.root) {
+      let fitImportedMap, timeout
+      const rendered = new Promise((resolve, reject) => {
+        fitImportedMap = () => {
+          clearTimeout(timeout)
+          this.mindMap.off('node_tree_render_end', fitImportedMap)
+          try { this.mindMap.view.fit(); resolve() } catch (error) { reject(error) }
+        }
+        timeout = setTimeout(() => {
+          this.mindMap.off('node_tree_render_end', fitImportedMap)
+          reject(new Error('renderTimeout'))
+        }, 15000)
+        this.mindMap.on('node_tree_render_end', fitImportedMap)
+      })
+      try {
         this.mindMap.setFullData(data)
-        rootNodeData = data.root
-      } else {
-        this.mindMap.setData(data)
-        rootNodeData = data
-      }
-      this.mindMap.view.reset()
-      this.manualSave()
-      // 如果导入的是富文本内容，那么自动开启富文本模式
-      if (rootNodeData.data.richText && !this.openNodeRichText) {
-        this.$bus.$emit('toggleOpenNodeRichText', true)
-        this.$notify.info({
-          title: this.$t('edit.tip'),
-          message: this.$t('edit.autoOpenNodeRichTextTip')
-        })
+        this.mindMap.view.reset()
+        storeData(this.mindMap.getData(true))
+        // 如果导入的是富文本内容，那么自动开启富文本模式
+        if (data.root.data.richText && !this.openNodeRichText) {
+          this.$bus.$emit('toggleOpenNodeRichText', true)
+          this.$notify.info({
+            title: this.$t('edit.tip'),
+            message: this.$t('edit.autoOpenNodeRichTextTip')
+          })
+        }
+        await rendered
+      } finally {
+        clearTimeout(timeout)
+        this.mindMap.off('node_tree_render_end', fitImportedMap)
+        this.handleHideLoading()
       }
     },
 

@@ -7,6 +7,7 @@
       <Toolbar v-if="!isZenMode"></Toolbar>
       <Import></Import>
       <Edit></Edit>
+      <SaveStatus></SaveStatus>
     </template>
   </div>
 </template>
@@ -15,14 +16,17 @@
 import Toolbar from './components/Toolbar.vue'
 import Edit from './components/Edit.vue'
 import Import from './components/Import.vue'
+import SaveStatus from './components/SaveStatus.vue'
 import { mapState, mapMutations } from 'vuex'
-import { getLocalConfig } from '@/api'
+import { getLocalConfig, getWelcomeData } from '@/api'
+import { initializeDocument } from '@/api/document'
 
 export default {
   components: {
     Toolbar,
     Import,
-    Edit
+    Edit,
+    SaveStatus
   },
   data() {
     return {
@@ -47,6 +51,7 @@ export default {
       lock: true,
       text: this.$t('other.loading')
     })
+    await initializeDocument(getWelcomeData())
     this.show = true
     loading.close()
     this.setBodyDark()

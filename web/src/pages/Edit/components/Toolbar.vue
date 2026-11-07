@@ -158,18 +158,12 @@ import NodeNote from './NodeNote.vue'
 import NodeTag from './NodeTag.vue'
 import Export from './Export.vue'
 import { mapState } from 'vuex'
-import { Notification } from 'element-ui'
 import exampleData from '@/config/welcome'
-import { getData } from '../../../api'
+import { openDocumentFile, saveDocumentAs, createDocumentFile } from '@/api/document'
 import ToolbarNodeBtnList from './ToolbarNodeBtnList.vue'
 import { throttle, isMobile } from 'simple-mind-map/src/utils/index'
 
 // 工具栏
-let fileHandle = null
-// A debounced save stays bound to the file and format it was scheduled for,
-// so switching files can never redirect it to another handle.
-let pendingWrite = null
-let readSeq = 0
 const defaultBtnList = [
   'back',
   'forward',
@@ -215,8 +209,7 @@ export default {
       },
       fileTreeVisible: false,
       rootDirName: '',
-      fileTreeExpand: true,
-      waitingWriteToLocalFile: false
+      fileTreeExpand: true
     }
   },
   computed: {
@@ -237,11 +230,6 @@ export default {
     }
   },
   watch: {
-    isHandleLocalFile(val) {
-      if (!val) {
-        Notification.closeAll()
-      }
-    },
     btnLit: {
       deep: true,
       handler() {
@@ -249,22 +237,16 @@ export default {
       }
     }
   },
-  created() {
-    this.$bus.$on('write_local_file', this.onWriteLocalFile)
-  },
   mounted() {
     this.computeToolbarShow()
     this.computeToolbarShowThrottle = throttle(this.computeToolbarShow, 300)
     window.addEventListener('resize', this.computeToolbarShowThrottle)
     this.$bus.$on('lang_change', this.computeToolbarShowThrottle)
-    window.addEventListener('beforeunload', this.onUnload)
     this.$bus.$on('node_note_dblclick', this.onNodeNoteDblclick)
   },
   beforeDestroy() {
-    this.$bus.$off('write_local_file', this.onWriteLocalFile)
     window.removeEventListener('resize', this.computeToolbarShowThrottle)
     this.$bus.$off('lang_change', this.computeToolbarShowThrottle)
-    window.removeEventListener('beforeunload', this.onUnload)
     this.$bus.$off('node_note_dblclick', this.onNodeNoteDblclick)
   },
   methods: {
@@ -295,50 +277,6 @@ export default {
         this.showMoreBtn = this.verticalList.length > 0
       }
       loopCheck()
-    },
-
-    // 监听本地文件读写
-    onWriteLocalFile(content) {
-      if (!fileHandle || !this.isHandleLocalFile) {
-        return
-      }
-      clearTimeout(this.timer)
-      pendingWrite = {
-        handle: fileHandle,
-        isFullDataFile: this.isFullDataFile,
-        content
-      }
-      this.waitingWriteToLocalFile = true
-      this.timer = setTimeout(() => {
-        this.flushPendingWrite().catch(error => console.log(error))
-      }, 1000)
-    },
-
-    // 立即把待保存内容写入其原始文件
-    async flushPendingWrite() {
-      clearTimeout(this.timer)
-      const job = pendingWrite
-      if (!job) {
-        return
-      }
-      pendingWrite = null
-      try {
-        await this.writeLocalFile(job.content, job.handle, job.isFullDataFile)
-      } catch (error) {
-        // Keep the edits queued (and the unsaved warning on) for a retry.
-        if (!pendingWrite) {
-          pendingWrite = job
-        }
-        throw error
-      }
-    },
-
-    onUnload(e) {
-      if (this.waitingWriteToLocalFile) {
-        const msg = 'You have unsaved changes.'
-        e.returnValue = msg
-        return msg
-      }
     },
 
     // 加载本地文件树
@@ -434,94 +372,19 @@ export default {
           this.$message.warning(this.$t('toolbar.selectFileTip'))
           return
         }
-        this.readFile(_fileHandle)
+        await this.readFile(_fileHandle)
       } catch (error) {
         console.log(error)
-        if (error.toString().includes('aborted')) {
+        if (error.name === 'AbortError' || error.toString().includes('aborted')) {
           return
         }
-        this.$message.warning(this.$t('toolbar.notSupportTip'))
+        this.$message.warning(this.$t(typeof window.showOpenFilePicker === 'function' ? 'toolbar.fileOpenFailed' : 'toolbar.notSupportTip'))
       }
     },
 
-    // 读取本地文件
-    // 当前文件句柄只在新文件读完、旧文件待保存写完后才切换
-    async readFile(handle = fileHandle) {
-      const seq = ++readSeq
-      let file = await handle.getFile()
-      let fileReader = new FileReader()
-      fileReader.onload = async () => {
-        // A newer open superseded this read.
-        if (seq !== readSeq) {
-          return
-        }
-        try {
-          await this.flushPendingWrite()
-        } catch (error) {
-          console.log(error)
-          this.$message.error(this.$t('toolbar.fileOpenFailed'))
-          return
-        }
-        if (seq !== readSeq) {
-          return
-        }
-        fileHandle = handle
-        this.$store.commit('setIsHandleLocalFile', true)
-        this.setData(fileReader.result)
-        Notification.closeAll()
-        Notification({
-          title: this.$t('toolbar.tip'),
-          message: `${this.$t('toolbar.editingLocalFileTipFront')}${
-            file.name
-          }${this.$t('toolbar.editingLocalFileTipEnd')}`,
-          duration: 0,
-          showClose: true
-        })
-      }
-      fileReader.readAsText(file)
-    },
-
-    // 渲染读取的数据
-    setData(str) {
-      try {
-        let data = JSON.parse(str)
-        if (typeof data !== 'object') {
-          throw new Error(this.$t('toolbar.fileContentError'))
-        }
-        if (data.root) {
-          this.isFullDataFile = true
-        } else {
-          this.isFullDataFile = false
-          data = {
-            ...exampleData,
-            root: data
-          }
-        }
-        this.$bus.$emit('setData', data)
-      } catch (error) {
-        console.log(error)
+    async readFile(handle) {
+      try { await openDocumentFile(handle) } catch (error) {
         this.$message.error(this.$t('toolbar.fileOpenFailed'))
-      }
-    },
-
-    // 写入本地文件
-    async writeLocalFile(
-      content,
-      handle = fileHandle,
-      isFullDataFile = this.isFullDataFile
-    ) {
-      if (handle) {
-        if (!isFullDataFile) {
-          content = content.root
-        }
-        let string = JSON.stringify(content)
-        const writable = await handle.createWritable()
-        await writable.write(string)
-        await writable.close()
-      }
-      // Only clear the unsaved warning when no newer save is queued.
-      if (!pendingWrite) {
-        this.waitingWriteToLocalFile = false
       }
     },
 
@@ -532,8 +395,7 @@ export default {
 
     // 另存为
     async saveLocalFile() {
-      let data = getData()
-      await this.createLocalFile(data)
+      await this.createLocalFile()
     },
 
     // 创建本地文件
@@ -551,21 +413,17 @@ export default {
         if (!_fileHandle) {
           return
         }
-        const loading = this.$loading({
-          lock: true,
-          text: this.$t('toolbar.creatingTip'),
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
-        })
-        await this.writeLocalFile(content, _fileHandle, true)
-        await this.readFile(_fileHandle)
-        loading.close()
+        if (content) await createDocumentFile(_fileHandle, content)
+        else await saveDocumentAs(_fileHandle)
       } catch (error) {
         console.log(error)
-        if (error.toString().includes('aborted')) {
+        if (error.name === 'AbortError' || error.toString().includes('aborted')) {
           return
         }
-        this.$message.warning(this.$t('toolbar.notSupportTip'))
+        const key = ['QuotaExceededError', 'SecurityError'].includes(error.name)
+          ? 'document.backupFailed'
+          : typeof window.showSaveFilePicker === 'function' ? 'document.fileWrite' : 'toolbar.notSupportTip'
+        this.$message.warning(this.$t(key))
       }
     },
 
